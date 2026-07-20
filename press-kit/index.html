@@ -341,7 +341,9 @@
         .link-left { display: flex; align-items: center; gap: 0.75rem; }
         .link-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .link-name { font-weight: 600; font-size: 1.05rem; color: #ddd; }
-        .link-sub { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.02em; }
+        .link-sub { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.02em; overflow-wrap: anywhere; }
+        .link-left { min-width: 0; }
+        .link-left > div { min-width: 0; }
 
         .d-web { background: #b967ff; }
         .d-bandcamp { background: #1da0c3; }
@@ -491,7 +493,7 @@
                 <div class="link-dot d-spotify"></div>
                 <div>
                     <div class="link-name">Spotify</div>
-                    <div class="link-sub">open.spotify.com/artist/611pv3ZS2T5iLg7k9tDrgS</div>
+                    <div class="link-sub">artist profile</div>
                 </div>
             </div>
         </a>
@@ -500,7 +502,7 @@
                 <div class="link-dot d-apple"></div>
                 <div>
                     <div class="link-name">Apple Music</div>
-                    <div class="link-sub">music.apple.com/artist/1369849403</div>
+                    <div class="link-sub">artist profile</div>
                 </div>
             </div>
         </a>
