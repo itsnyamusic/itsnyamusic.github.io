@@ -1,0 +1,45 @@
+{
+  "_comment": "Single source of truth for press coverage. Edit this file, then run: python build-press.py",
+  "_fields": {
+    "outlet": "required - publication name",
+    "url": "required - direct link to the article",
+    "headline": "required - the article's actual headline, verbatim",
+    "description": "required - 1-2 sentences describing the piece",
+    "date": "required - YYYY-MM-DD if the exact day is known, YYYY-MM if only the month is",
+    "author": "optional - byline, omit or null if unknown",
+    "lang": "optional - BCP47 code, defaults to en",
+    "accent": "optional - hex dot colour, defaults to #b967ff"
+  },
+  "articles": [
+    {
+      "outlet": "Foxfire Magazine",
+      "url": "https://www.foxfiremagazine.com/2026/07/nya-channels-sleepless-creativity-in.html",
+      "headline": "Nya channels sleepless creativity in latest “Sweet Monster Energy”",
+      "description": "A single review calling the track a fearless, restless piece of experimental hyperpop — German and English traded mid-verse, every sonic twist deliberate enough that the chaos reads as measured rather than messy.",
+      "date": "2026-07",
+      "author": null,
+      "lang": "en",
+      "accent": "#ff7a29"
+    },
+    {
+      "outlet": "Freim TV",
+      "url": "https://freim.tv/nya-rhymi-y-big-romo-muestran-tres-formas-de-entender-la-musica-urbana-actual/",
+      "headline": "Nya, RHYMI y Big Romo muestran tres formas de entender la música urbana actual",
+      "description": "Spanish-language feature placing Nya alongside RHYMI and Big Romo as three separate answers to what urban music sounds like now — hers the glitchy, bilingual, late-night one.",
+      "date": "2026-06-30",
+      "author": "Ara CorIza",
+      "lang": "es",
+      "accent": "#ff2d7b"
+    },
+    {
+      "outlet": "Freim TV",
+      "url": "https://freim.tv/mikey-nya-y-yung-baker-emociones-digitales-entre-alt-pop-y-honestidad-juvenil/",
+      "headline": "MIKEY, Nya y yung baker: emociones digitales entre alt pop y honestidad juvenil",
+      "description": "Spanish-language feature on alt-pop and emotional honesty, covering the glitch production and the German/English switching behind “Denk Wieder an Dich” and “Messer.”",
+      "date": "2026-06-22",
+      "author": "Ara CorIza",
+      "lang": "es",
+      "accent": "#ff2d7b"
+    }
+  ]
+}
