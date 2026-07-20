@@ -37,7 +37,7 @@ def load_articles():
         if not re.fullmatch(r"\d{4}-\d{2}(-\d{2})?", a["date"]):
             raise SystemExit(
                 f"press.json: article {i} has date '{a['date']}' "
-                "— must be YYYY-MM-DD or YYYY-MM"
+                ", must be YYYY-MM-DD or YYYY-MM"
             )
 
     # newest first, so adding an older piece later still sorts correctly
@@ -163,7 +163,7 @@ def main():
 
     print(f"\n{len(articles)} article(s), newest first:")
     for a in articles:
-        print(f"  {display_date(a['date']):>16}  {a['outlet']} — {a['headline'][:58]}")
+        print(f"  {display_date(a['date']):>16}  {a['outlet']}: {a['headline'][:58]}")
 
     if check_only and stale:
         print("\nPages are out of date. Run: python build-press.py")
