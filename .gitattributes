@@ -1,0 +1,22 @@
+# Text files: normalise line endings in the repo, check out native.
+* text=auto
+
+# Binary assets: never touch. Line-ending conversion silently corrupts these
+# (a stripped CR broke the PNG signature on the /links/ favicons).
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.svg   text
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.eot   binary
+*.mp3   binary
+*.wav   binary
+*.mp4   binary
+*.pdf   binary
+*.zip   binary
