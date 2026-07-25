@@ -8,38 +8,79 @@
     "date": "required - YYYY-MM-DD if the exact day is known, YYYY-MM if only the month is",
     "author": "optional - byline, omit or null if unknown",
     "lang": "optional - BCP47 code, defaults to en",
-    "accent": "optional - hex dot colour, defaults to #b967ff"
+    "accent": "optional - hex dot colour, defaults to #b967ff",
+    "type": "optional - schema.org type, NewsArticle (default) or SocialMediaPosting",
+    "headline_en": "optional - English translation shown on the page when headline is not English. headline itself stays verbatim",
+    "group": "optional - whole number, default 0. Lower groups sit higher on the page, newest-first within each group"
   },
   "articles": [
+    {
+      "outlet": "Kickdrum Magazin",
+      "url": "https://www.instagram.com/stories/highlights/17901945933306231/",
+      "headline": "Kickdrum's Must-Hears: Top 20 Tips",
+      "description": "The German music magazine Kickdrum picked “Denk Wieder an Dich” for its Top 20 Tips roundup on Instagram, listing Nya among that round's must-hears next to Motionless In White, Lil Baby, Syd and Steve Lacy.",
+      "date": "2026-07-25",
+      "author": null,
+      "lang": "de",
+      "accent": "#e34a21",
+      "type": "SocialMediaPosting"
+    },
+    {
+      "outlet": "7 Tage - 7 Songs",
+      "url": "https://www.facebook.com/7Tage7Songs/",
+      "headline": "7 Tage - 7 Songs shares “Denk Wieder an Dich”",
+      "description": "The German music and talk podcast 7 Tage - 7 Songs picked up “Denk Wieder an Dich” and shared it with its listeners.",
+      "date": "2026-07-24",
+      "author": null,
+      "lang": "de",
+      "accent": "#3b7dd8",
+      "type": "SocialMediaPosting"
+    },
     {
       "outlet": "Foxfire Magazine",
       "url": "https://www.foxfiremagazine.com/2026/07/nya-channels-sleepless-creativity-in.html",
       "headline": "Nya channels sleepless creativity in latest “Sweet Monster Energy”",
       "description": "A single review calling the track a fearless, restless piece of experimental hyperpop, with German and English traded mid-verse and every sonic twist deliberate enough that the chaos reads as measured rather than messy.",
-      "date": "2026-07",
-      "author": null,
+      "date": "2026-07-10",
+      "author": "Harper Jacobs",
       "lang": "en",
       "accent": "#ff7a29"
     },
     {
       "outlet": "Freim TV",
+      "url": "https://freim.tv/nya-raploard-y-ws-cerve-comienzos-y-nuevas-perspectivas/",
+      "headline": "Nya, Raploard y Ws Cerve: comienzos y nuevas perspectivas",
+      "headline_en": "Nya, Raploard and Ws Cerve: beginnings and new perspectives",
+      "description": "Spanish-language new-music roundup on “Duality2” and “99 Problems”, reading them as two sides of one artistic world: one song digging into internal contrasts and the search for balance, the other going straight at a harder, more defiant energy.",
+      "date": "2026-07-24",
+      "author": "Ara CorIza",
+      "lang": "es",
+      "accent": "#ff2d7b",
+      "group": 1
+    },
+    {
+      "outlet": "Freim TV",
       "url": "https://freim.tv/nya-rhymi-y-big-romo-muestran-tres-formas-de-entender-la-musica-urbana-actual/",
       "headline": "Nya, RHYMI y Big Romo muestran tres formas de entender la música urbana actual",
+      "headline_en": "Nya, RHYMI and Big Romo show three ways of understanding urban music today",
       "description": "Spanish-language feature placing Nya alongside RHYMI and Big Romo as three separate answers to what urban music sounds like now. Hers is the glitchy, bilingual, late-night one.",
       "date": "2026-06-30",
       "author": "Ara CorIza",
       "lang": "es",
-      "accent": "#ff2d7b"
+      "accent": "#ff2d7b",
+      "group": 1
     },
     {
       "outlet": "Freim TV",
       "url": "https://freim.tv/mikey-nya-y-yung-baker-emociones-digitales-entre-alt-pop-y-honestidad-juvenil/",
       "headline": "MIKEY, Nya y yung baker: emociones digitales entre alt pop y honestidad juvenil",
+      "headline_en": "MIKEY, Nya and yung baker: digital emotions between alt pop and youthful honesty",
       "description": "Spanish-language feature on alt-pop and emotional honesty, covering the glitch production and the German/English switching behind “Denk Wieder an Dich” and “Messer.”",
       "date": "2026-06-22",
       "author": "Ara CorIza",
       "lang": "es",
-      "accent": "#ff2d7b"
+      "accent": "#ff2d7b",
+      "group": 1
     }
   ]
 }

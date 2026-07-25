@@ -22,6 +22,10 @@ SOURCE = ROOT / "press.json"
 TARGETS = [ROOT / "press" / "index.html"]
 
 DEFAULT_ACCENT = "#b967ff"
+DEFAULT_TYPE = "NewsArticle"
+# schema.org types we are willing to assert. NewsArticle for published articles,
+# SocialMediaPosting for magazine coverage that only ever existed as a social post.
+ALLOWED_TYPES = ("NewsArticle", "SocialMediaPosting")
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
@@ -39,9 +43,20 @@ def load_articles():
                 f"press.json: article {i} has date '{a['date']}' "
                 ", must be YYYY-MM-DD or YYYY-MM"
             )
+        if a.get("type", DEFAULT_TYPE) not in ALLOWED_TYPES:
+            raise SystemExit(
+                f"press.json: article {i} has type '{a['type']}' "
+                f", must be one of {', '.join(ALLOWED_TYPES)}"
+            )
+        if not isinstance(a.get("group", 0), int):
+            raise SystemExit(
+                f"press.json: article {i} has group '{a['group']}', must be a whole number"
+            )
 
-    # newest first, so adding an older piece later still sorts correctly
-    return sorted(articles, key=lambda a: a["date"], reverse=True)
+    # newest first inside a group, then groups in ascending order. Python's sort
+    # is stable, so the date ordering survives the second pass.
+    by_date = sorted(articles, key=lambda a: a["date"], reverse=True)
+    return sorted(by_date, key=lambda a: a.get("group", 0))
 
 
 def display_date(iso):
@@ -69,7 +84,7 @@ def build_html(articles):
                 <div class="press-dot" style="background: {html.escape(accent, quote=True)};"></div>
                 <span>{html.escape(build_meta(a))}</span>
             </div>
-            <div class="press-head">{html.escape(a["headline"])}</div>
+            <div class="press-head">{html.escape(a.get("headline_en") or a["headline"])}</div>
             <div class="press-desc">{html.escape(a["description"])}</div>
         </a>'''
         )
@@ -80,10 +95,14 @@ def build_ldjson(articles):
     items = []
     for i, a in enumerate(articles, start=1):
         article = {
-            "@type": "NewsArticle",
+            "@type": a.get("type", DEFAULT_TYPE),
             "headline": a["headline"],
             "url": a["url"],
         }
+        # the visible page may show a translation, but `headline` stays the real
+        # published title. The translation goes in alternativeHeadline instead.
+        if a.get("headline_en"):
+            article["alternativeHeadline"] = a["headline_en"]
         # only assert a publication date when the exact day is known
         if len(a["date"].split("-")) == 3:
             article["datePublished"] = a["date"]
@@ -161,7 +180,7 @@ def main():
             path.write_text(updated, encoding="utf-8", newline="\n")
             print(f"  rebuilt      {path.relative_to(ROOT)}")
 
-    print(f"\n{len(articles)} article(s), newest first:")
+    print(f"\n{len(articles)} article(s), in page order:")
     for a in articles:
         print(f"  {display_date(a['date']):>16}  {a['outlet']}: {a['headline'][:58]}")
 

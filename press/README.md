@@ -27,7 +27,7 @@
 
 3. Commit **both** `press.json` and the rebuilt `press/index.html`.
 
-Order does not matter, entries are sorted newest-first automatically.
+Order in the file does not matter. Entries are sorted newest-first inside their `group`, and groups run in ascending order, so everything at `group: 0` sits above everything at `group: 1`. Use this to sink an outlet that has several entries and would otherwise crowd the top of the page.
 
 ## Fields
 
@@ -40,7 +40,14 @@ Order does not matter, entries are sorted newest-first automatically.
 | `date` | yes | `YYYY-MM-DD` if the exact day is known, `YYYY-MM` if only the month is. |
 | `author` | no | Byline. Omit or `null` if unknown. |
 | `lang` | no | BCP47 code, defaults to `en`. Use `es` for Spanish pieces, `de` for German. |
-| `accent` | no | Hex colour of the dot. Defaults to `#b967ff`. Freim TV uses `#ff2d7b`, Foxfire `#ff7a29`. |
+| `accent` | no | Hex colour of the dot. Defaults to `#b967ff`. Freim TV uses `#ff2d7b`, Foxfire `#ff7a29`, Kickdrum `#e34a21`. |
+| `type` | no | schema.org type. `NewsArticle` (default) for a published article, `SocialMediaPosting` for coverage that only ever existed as a social post. Anything else is rejected. |
+| `headline_en` | no | English translation of a non-English headline. Shown on the page in place of `headline`. |
+| `group` | no | Whole number, default `0`. Lower groups sit higher on the page. |
+
+**On `headline_en`:** the page is in English, so a Spanish or German headline is dead weight to most readers. Set `headline_en` and the visible list shows the translation, while `headline` in the structured data stays the real published title and the translation is emitted as `alternativeHeadline`. Never translate `headline` itself: that field is what a machine matches against the actual article. Keep `lang` set to the language the piece is written in, not the translation.
+
+**On `type`:** some outlets cover an artist only in an Instagram story or similar, with no article behind it. Those still belong on the page, but calling them a `NewsArticle` in the structured data is a false claim about a real publication, so set `type` to `SocialMediaPosting` instead. The visible list renders both identically. Say in the `description` where the mention actually lives, since the reader is about to click through to a social platform rather than an article.
 
 **On `date` precision:** if you only know the month, write `2026-07`. The generator then omits `datePublished` from the structured data entirely rather than inventing a day. Do not guess a date to make the field look complete: a wrong date in schema.org output is worse than an absent one.
 
