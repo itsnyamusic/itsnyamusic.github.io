@@ -71,7 +71,7 @@ def build_meta(a):
     bits = [a["outlet"], display_date(a["date"])]
     if a.get("author"):
         bits.append(a["author"])
-    return " · ".join(bits)
+    return " - ".join(bits)
 
 
 def build_html(articles):
