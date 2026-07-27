@@ -59,6 +59,18 @@
       "group": 1
     },
     {
+      "outlet": "La Caverna",
+      "url": "https://lacaverna.net/indie-electronica-y-rap-metal-lanzamientos-para-descubrir/",
+      "headline": "Indie, electrónica y rap metal: lanzamientos para descubrir",
+      "headline_en": "Indie, electronica and rap metal: releases to discover",
+      "description": "Spanish-language roundup of independent releases worth discovering, covering “99 Problems” with Mhhh7887 and vain. Reads the track as rap metal and electronica turned into a vehicle for the emotional wear of an overstimulated generation, placing the production near beastboy, 100 gecs and t-low.",
+      "date": "2026-07-27",
+      "author": "Miguel Castillo",
+      "lang": "es",
+      "accent": "#ed9415",
+      "group": 2
+    },
+    {
       "outlet": "Freim TV",
       "url": "https://freim.tv/nya-rhymi-y-big-romo-muestran-tres-formas-de-entender-la-musica-urbana-actual/",
       "headline": "Nya, RHYMI y Big Romo muestran tres formas de entender la música urbana actual",
@@ -68,7 +80,7 @@
       "author": "Ara CorIza",
       "lang": "es",
       "accent": "#ff2d7b",
-      "group": 1
+      "group": 3
     },
     {
       "outlet": "Freim TV",
@@ -80,7 +92,7 @@
       "author": "Ara CorIza",
       "lang": "es",
       "accent": "#ff2d7b",
-      "group": 1
+      "group": 3
     }
   ]
 }
