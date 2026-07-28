@@ -26,11 +26,21 @@ the artist as `https://itsnyamusic.com/#artist`, defined on the homepage. If you
 add a page, reference that id, do not define a second artist entity. Two rival
 entities is the thing this site is specifically built to avoid.
 
-**No external requests.** Fonts are self-hosted and declared once in
-`assets/fonts.css`. The privacy policy tells visitors the site makes no
-third-party connections, so do not add a CDN, a Google Font, an analytics
-snippet or a tracker. (Known exception: `promo/` embeds YouTube, which does
-contact Google on load. That contradicts `datenschutz/` and is unresolved.)
+**No external requests, on any page, ever.** Loading any page must not contact
+a third party. Fonts are self-hosted and declared once in `assets/fonts.css`.
+Do not add a CDN, a Google Font, an analytics snippet or a tracker, and do not
+add `preconnect`/`dns-prefetch` to a third party either, since those open a
+connection on their own.
+
+The one piece of third-party content, the video on `promo/`, is click-to-load:
+the page ships a placeholder button and only inserts the YouTube iframe once
+the visitor presses it. **Do not swap it back for a bare `<iframe>`.** That is
+what `datenschutz/` promises, and a plain embed would contact Google before
+anyone consented. If you add another video, copy the existing pattern.
+
+To check, search the built pages for anything the browser fetches by itself
+(`iframe`/`img`/`script`/`link rel=preconnect|stylesheet`/`url()`) pointing at
+a host that is not `itsnyamusic.com`. There should be none.
 
 **`press/` is generated.** Do not hand-edit the markup between the
 `PRESS-LD` and `PRESS-LIST` markers, it gets overwritten. Edit `press.json`,
