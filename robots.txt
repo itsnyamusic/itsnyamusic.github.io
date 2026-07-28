@@ -164,5 +164,3 @@ User-agent: Petalbot
 Allow: /
 
 Sitemap: https://itsnyamusic.com/sitemap.xml
-Sitemap: https://itsnyamusic.com/links/sitemap.xml
-Sitemap: https://itsnyamusic.com/promo/sitemap.xml

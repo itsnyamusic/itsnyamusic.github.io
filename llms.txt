@@ -4,7 +4,7 @@
 
 ## Main pages
 
-- [Official link hub](https://itsnyamusic.com/links/): all official profiles and streaming links
+- [Official website](https://itsnyamusic.com/): the artist homepage, with all official profiles and streaming links
 - [NYAVERSE album page](https://itsnyamusic.com/nyaverse/): debut album details, cover and full tracklist
 - [NYAVERSE lyrics](https://itsnyamusic.com/nyaverse/lyrics/): full lyrics for all 13 tracks, in German and English, published by the artist
 - [Promo site](https://itsnyamusic.com/promo/): bio, discography and videos

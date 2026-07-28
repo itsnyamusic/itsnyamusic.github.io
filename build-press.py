@@ -109,7 +109,7 @@ def build_ldjson(articles):
         if a.get("author"):
             article["author"] = {"@type": "Person", "name": a["author"]}
         article["publisher"] = {"@type": "Organization", "name": a["outlet"]}
-        article["about"] = {"@id": "https://itsnyamusic.com/links/#artist"}
+        article["about"] = {"@id": "https://itsnyamusic.com/#artist"}
         article["inLanguage"] = a.get("lang", "en")
         items.append({"@type": "ListItem", "position": i, "item": article})
 
@@ -123,7 +123,7 @@ def build_ldjson(articles):
                 "name": "NYAVERSE era press",
                 "description": "Press coverage of German hyperpop artist Nya during the NYAVERSE album era.",
                 "inLanguage": "en",
-                "about": {"@id": "https://itsnyamusic.com/links/#artist"},
+                "about": {"@id": "https://itsnyamusic.com/#artist"},
                 "breadcrumb": {"@id": "https://itsnyamusic.com/press/#breadcrumb"},
                 "mainEntity": {
                     "@type": "ItemList",
@@ -136,7 +136,7 @@ def build_ldjson(articles):
                 "@id": "https://itsnyamusic.com/press/#breadcrumb",
                 "itemListElement": [
                     {"@type": "ListItem", "position": 1, "name": "Nya",
-                     "item": "https://itsnyamusic.com/links/"},
+                     "item": "https://itsnyamusic.com/"},
                     {"@type": "ListItem", "position": 2, "name": "Press",
                      "item": "https://itsnyamusic.com/press/"},
                 ],
