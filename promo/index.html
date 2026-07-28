@@ -31,7 +31,6 @@
     <link rel="canonical" href="https://itsnyamusic.com/promo/">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="preconnect" href="https://www.youtube.com">
 
     <!-- Schema.org structured data for Google Knowledge Panel -->
     <script type="application/ld+json">
@@ -230,6 +229,74 @@
             border: 0;
         }
 
+        /* placeholder shown until the visitor asks for the video */
+        .video-consent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 24px;
+            border: 0;
+            cursor: pointer;
+            font: inherit;
+            text-align: center;
+            color: #e0e0e0;
+            background:
+                radial-gradient(ellipse at 50% 40%, rgba(255,110,196,0.10) 0%, transparent 65%),
+                #151515;
+            transition: background-color 0.2s;
+        }
+
+        .video-consent:hover,
+        .video-consent:focus-visible {
+            background-color: #1a1a1a;
+        }
+
+        .video-play {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 1px solid #ff6ec4;
+            position: relative;
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+
+        .video-play::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 54%;
+            transform: translate(-50%, -50%);
+            border-style: solid;
+            border-width: 9px 0 9px 15px;
+            border-color: transparent transparent transparent #ff6ec4;
+        }
+
+        .video-consent:hover .video-play,
+        .video-consent:focus-visible .video-play {
+            transform: scale(1.06);
+        }
+
+        .video-title {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .video-note {
+            font-size: 0.72rem;
+            line-height: 1.5;
+            color: #888;
+            max-width: 34ch;
+        }
+
         .bio {
             margin-bottom: 48px;
             line-height: 1.7;
@@ -353,14 +420,18 @@
 
         <div class="video-section">
             <h2>Latest</h2>
+            <!--
+                Click-to-load. Nothing is requested from YouTube until the visitor
+                activates the player, so the page itself contacts no third party.
+                Do not swap this back for a bare <iframe>, see /datenschutz/.
+            -->
             <div class="video-wrapper">
-                <iframe
-                    src="https://www.youtube.com/embed/Mo8B8PVnxjY"
-                    title="NYA - DENK WIEDER AN DICH (OFFICIAL VIDEO)"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                    loading="lazy">
-                </iframe>
+                <button type="button" class="video-consent" data-video="Mo8B8PVnxjY"
+                        aria-label="Load and play NYA - DENK WIEDER AN DICH (official video) from YouTube">
+                    <span class="video-play" aria-hidden="true"></span>
+                    <span class="video-title">NYA - DENK WIEDER AN DICH</span>
+                    <span class="video-note">Click to play. The video loads from YouTube, which sets cookies and receives your IP address.</span>
+                </button>
             </div>
         </div>
 
@@ -485,5 +556,20 @@
             germany
         </div>
     </div>
+
+<script>
+    // Swap the placeholder for the real player, but only once the visitor asks.
+    // youtube-nocookie is used so the embed stays on the privacy-enhanced domain.
+    document.querySelectorAll('.video-consent').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var frame = document.createElement('iframe');
+            frame.src = 'https://www.youtube-nocookie.com/embed/' + button.dataset.video + '?autoplay=1';
+            frame.title = button.querySelector('.video-title').textContent;
+            frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            frame.allowFullscreen = true;
+            button.replaceWith(frame);
+        });
+    });
+</script>
 </body>
 </html>
