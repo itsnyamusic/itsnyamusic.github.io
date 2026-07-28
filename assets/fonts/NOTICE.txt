@@ -1,0 +1,21 @@
+Fonts used on itsnyamusic.com
+=============================
+
+Both typefaces are free and open source, licensed under the
+SIL Open Font License, Version 1.1, which permits self-hosting
+and embedding on a website.
+
+Inter
+  Copyright (c) 2016 The Inter Project Authors
+  https://github.com/rsms/inter
+  SIL Open Font License 1.1
+
+Space Mono
+  Copyright (c) 2016 The Space Mono Project Authors
+  https://github.com/googlefonts/spacemono
+  SIL Open Font License 1.1
+
+Full licence text: https://openfontlicense.org/
+
+The fonts are served from this directory rather than from Google's
+servers, so visiting the site sends nothing to Google. See /datenschutz/.
