@@ -24,8 +24,10 @@ TARGETS = [ROOT / "press" / "index.html"]
 DEFAULT_ACCENT = "#b967ff"
 DEFAULT_TYPE = "NewsArticle"
 # schema.org types we are willing to assert. NewsArticle for published articles,
-# SocialMediaPosting for magazine coverage that only ever existed as a social post.
-ALLOWED_TYPES = ("NewsArticle", "SocialMediaPosting")
+# CreativeWork for coverage that only ever existed as a social post. Do not use
+# SocialMediaPosting here: DiscussionForumPosting is a subtype of it, so Google
+# reads it as forum content and demands an author and a timestamped datePublished.
+ALLOWED_TYPES = ("NewsArticle", "CreativeWork")
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 

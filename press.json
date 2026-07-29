@@ -9,7 +9,7 @@
     "author": "optional - byline, omit or null if unknown",
     "lang": "optional - BCP47 code, defaults to en",
     "accent": "optional - hex dot colour, defaults to #b967ff",
-    "type": "optional - schema.org type, NewsArticle (default) or SocialMediaPosting",
+    "type": "optional - schema.org type, NewsArticle (default) or CreativeWork",
     "headline_en": "optional - English translation shown on the page when headline is not English. headline itself stays verbatim",
     "group": "optional - whole number, default 0. Lower groups sit higher on the page, newest-first within each group"
   },
@@ -33,7 +33,7 @@
       "author": null,
       "lang": "de",
       "accent": "#e34a21",
-      "type": "SocialMediaPosting"
+      "type": "CreativeWork"
     },
     {
       "outlet": "7 Tage - 7 Songs",
@@ -44,7 +44,7 @@
       "author": null,
       "lang": "de",
       "accent": "#3b7dd8",
-      "type": "SocialMediaPosting"
+      "type": "CreativeWork"
     },
     {
       "outlet": "Foxfire Magazine",
