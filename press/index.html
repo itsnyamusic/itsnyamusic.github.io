@@ -53,11 +53,33 @@
                 },
                 "mainEntity": {
                     "@type": "ItemList",
-                    "numberOfItems": 8,
+                    "numberOfItems": 9,
                     "itemListElement": [
                         {
                             "@type": "ListItem",
                             "position": 1,
+                            "item": {
+                                "@type": "CreativeWork",
+                                "headline": "amara.bside picks “99 Problems” for the week's discoveries",
+                                "url": "https://www.instagram.com/p/DbaorztjaQp/?img_index=2",
+                                "datePublished": "2026-07-30",
+                                "author": {
+                                    "@type": "Person",
+                                    "name": "Ludovica"
+                                },
+                                "publisher": {
+                                    "@type": "Organization",
+                                    "name": "amara.bside"
+                                },
+                                "about": {
+                                    "@id": "https://itsnyamusic.com/#artist"
+                                },
+                                "inLanguage": "en"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
                             "item": {
                                 "@type": "NewsArticle",
                                 "headline": "Nya's “99 Problems” captures the beautiful chaos of sleepless nights",
@@ -75,7 +97,7 @@
                         },
                         {
                             "@type": "ListItem",
-                            "position": 2,
+                            "position": 3,
                             "item": {
                                 "@type": "CreativeWork",
                                 "headline": "Kickdrum's Must-Hears: Top 20 Tips",
@@ -93,11 +115,11 @@
                         },
                         {
                             "@type": "ListItem",
-                            "position": 3,
+                            "position": 4,
                             "item": {
                                 "@type": "CreativeWork",
                                 "headline": "7 Tage - 7 Songs shares “Denk Wieder an Dich”",
-                                "url": "https://www.facebook.com/7Tage7Songs/",
+                                "url": "https://www.facebook.com/7Tage7Songs/posts/pfbid0ke6jbRZWKEpkobUrbByu2MYURKk2oQHZdNn54Rv3BvggHMwUnMv3a2KGqhzCCXEhl",
                                 "datePublished": "2026-07-24",
                                 "publisher": {
                                     "@type": "Organization",
@@ -111,7 +133,7 @@
                         },
                         {
                             "@type": "ListItem",
-                            "position": 4,
+                            "position": 5,
                             "item": {
                                 "@type": "NewsArticle",
                                 "headline": "Nya channels sleepless creativity in latest “Sweet Monster Energy”",
@@ -133,7 +155,7 @@
                         },
                         {
                             "@type": "ListItem",
-                            "position": 5,
+                            "position": 6,
                             "item": {
                                 "@type": "NewsArticle",
                                 "headline": "Nya, Raploard y Ws Cerve: comienzos y nuevas perspectivas",
@@ -156,7 +178,7 @@
                         },
                         {
                             "@type": "ListItem",
-                            "position": 6,
+                            "position": 7,
                             "item": {
                                 "@type": "NewsArticle",
                                 "headline": "Indie, electrónica y rap metal: lanzamientos para descubrir",
@@ -179,7 +201,7 @@
                         },
                         {
                             "@type": "ListItem",
-                            "position": 7,
+                            "position": 8,
                             "item": {
                                 "@type": "NewsArticle",
                                 "headline": "Nya, RHYMI y Big Romo muestran tres formas de entender la música urbana actual",
@@ -202,7 +224,7 @@
                         },
                         {
                             "@type": "ListItem",
-                            "position": 8,
+                            "position": 9,
                             "item": {
                                 "@type": "NewsArticle",
                                 "headline": "MIKEY, Nya y yung baker: emociones digitales entre alt pop y honestidad juvenil",
@@ -348,7 +370,8 @@
             margin-bottom: 0.8rem;
         }
 
-        .press-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 2.5rem; }
+        .press-block { margin-bottom: 2.5rem; }
+        .press-list { display: flex; flex-direction: column; gap: 0; }
 
         .press {
             display: block;
@@ -390,6 +413,43 @@
             color: #888;
         }
 
+        /* Show the first 5 entries, reveal the rest with a label-driven checkbox.
+           Every entry stays in the HTML, so crawlers that do not run JavaScript
+           still read the whole list and it matches the structured data. */
+        .press-toggle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            clip-path: inset(50%);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .press-list .press:nth-of-type(n+6) { display: none; }
+        .press-list .press:nth-of-type(5) { border-bottom: 1px solid #191919; }
+
+        .press-toggle:checked ~ .press-list .press { display: block; }
+        .press-toggle:checked ~ .press-list .press:nth-of-type(5) { border-bottom: 0; }
+        .press-toggle:checked ~ .press-more { display: none; }
+
+        .press-more {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: #666;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 1.1rem;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .press-more:hover { color: #b967ff; }
+        .press-toggle:focus-visible ~ .press-more { outline: 1px solid #b967ff; outline-offset: 4px; }
+
+        /* Nothing to reveal when there are 5 entries or fewer. */
+        .press-list:not(:has(.press:nth-of-type(6))) ~ .press-more { display: none; }
+
         .contact {
             font-size: 0.9rem;
             line-height: 1.65;
@@ -425,8 +485,19 @@
     <div class="subtitle">nya, also known as its_nya_music - features &amp; reviews - 2026</div>
 
     <div class="section-label">Coverage</div>
+    <div class="press-block">
+    <input type="checkbox" id="press-all" class="press-toggle">
     <div class="press-list">
     <!-- PRESS-LIST:START -->
+        <a href="https://www.instagram.com/p/DbaorztjaQp/?img_index=2" class="press" target="_blank" rel="noopener">
+            <div class="press-meta">
+                <div class="press-dot" style="background: #4ade80;"></div>
+                <span>amara.bside - 30 July 2026 - Ludovica</span>
+            </div>
+            <div class="press-head">amara.bside picks “99 Problems” for the week&#x27;s discoveries</div>
+            <div class="press-desc">Weekly discoveries carousel from music curator and researcher Ludovica (amara.bside), covering indie, hyperpop and hip-hop found through Groover from France, Germany, the US and elsewhere. “99 Problems” is listed on the second slide.</div>
+        </a>
+
         <a href="https://www.hiphopeargasm.com/2026/07/nyas-99-problems-captures-beautiful.html" class="press" target="_blank" rel="noopener">
             <div class="press-meta">
                 <div class="press-dot" style="background: #2dd4bf;"></div>
@@ -445,13 +516,13 @@
             <div class="press-desc">The German music magazine Kickdrum picked “Denk Wieder an Dich” for its Top 20 Tips roundup on Instagram, listing Nya among that round&#x27;s must-hears next to Motionless In White, Lil Baby, Syd and Steve Lacy.</div>
         </a>
 
-        <a href="https://www.facebook.com/7Tage7Songs/" class="press" target="_blank" rel="noopener">
+        <a href="https://www.facebook.com/7Tage7Songs/posts/pfbid0ke6jbRZWKEpkobUrbByu2MYURKk2oQHZdNn54Rv3BvggHMwUnMv3a2KGqhzCCXEhl" class="press" target="_blank" rel="noopener">
             <div class="press-meta">
                 <div class="press-dot" style="background: #3b7dd8;"></div>
                 <span>7 Tage - 7 Songs - 24 July 2026</span>
             </div>
             <div class="press-head">7 Tage - 7 Songs shares “Denk Wieder an Dich”</div>
-            <div class="press-desc">The German music and talk podcast 7 Tage - 7 Songs picked up “Denk Wieder an Dich” and shared it with its listeners.</div>
+            <div class="press-desc">The German music and talk podcast 7 Tage - 7 Songs picked up “Denk Wieder an Dich” and shared it with its listeners on Facebook.</div>
         </a>
 
         <a href="https://www.foxfiremagazine.com/2026/07/nya-channels-sleepless-creativity-in.html" class="press" target="_blank" rel="noopener">
@@ -500,6 +571,8 @@
         </a>
     <!-- PRESS-LIST:END -->
     </div>
+    <label for="press-all" class="press-more">see more &darr;</label>
+    </div>
 
     <div class="section-label">Press enquiries</div>
     <div class="contact">
@@ -509,16 +582,12 @@
     </div>
 
     <div class="bottom">
-        <a href="https://itsnyamusic.com/">nya</a>
-        &nbsp;-&nbsp;
-        <a href="https://itsnyamusic.com/nyaverse/">nyaverse</a>
-        &nbsp;-&nbsp;
-        <a href="https://www.wikidata.org/wiki/Q135998061" target="_blank" rel="noopener">wikidata</a>
-        &nbsp;-&nbsp;
-        <a href="https://musicbrainz.org/artist/d4983c1c-e81d-4548-85d8-056d5e23855a" target="_blank" rel="noopener">musicbrainz</a>
-        &nbsp;-&nbsp;
-        <a href="https://itsnyamusic.com/datenschutz/">datenschutz</a>
-        &nbsp;-&nbsp;
+        <a href="https://itsnyamusic.com/">nya</a>&nbsp;-&nbsp;
+        <a href="https://itsnyamusic.com/nyaverse/">nyaverse</a>&nbsp;-&nbsp;
+        <a href="https://www.wikidata.org/wiki/Q135998061" target="_blank" rel="noopener">wikidata</a>&nbsp;-&nbsp;
+        <a href="https://musicbrainz.org/artist/d4983c1c-e81d-4548-85d8-056d5e23855a" target="_blank" rel="noopener">musicbrainz</a>&nbsp;-&nbsp;
+        <a href="https://itsnyamusic.com/datenschutz/">datenschutz</a>&nbsp;-&nbsp;
+        <a href="https://itsnyamusic.com/impressum/">impressum</a>&nbsp;-&nbsp;
         germany
     </div>
 

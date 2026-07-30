@@ -62,6 +62,14 @@ Only the two marked regions in `index.html`:
 
 Everything else (CSS, layout, header, footer, privacy notice) is hand-maintained and safe to edit directly. If you delete the markers, the script exits with an error rather than guessing.
 
+## The "see more" cutoff
+
+The page shows the first **5** entries and hides the rest behind a `see more` control. It is pure CSS: a visually hidden checkbox (`#press-all`) sits before `.press-list`, the label after it, and `.press:nth-of-type(n+6)` is what gets hidden. There is no JavaScript, so **every entry is still in the raw HTML** and still matches the structured data, which is the whole point. Do not replace it with a script that removes entries from the DOM.
+
+To change the cutoff, edit the two `nth-of-type` numbers in the `<style>` block together: `n+6` is "hide from the sixth on", and the `nth-of-type(5)` rules put the bottom border on the last visible row. The label hides itself automatically when there is no sixth entry.
+
+The `.press-toggle` / `.press-list` / `.press-more` trio must stay direct siblings inside `.press-block`, since the CSS relies on `~`.
+
 Both regions come from the same source, so the visible page and the structured data cannot drift apart. That matters here: this site's whole SEO/GEO strategy depends on machines reading the page correctly.
 
 ## Checking without changing anything

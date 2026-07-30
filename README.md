@@ -16,6 +16,7 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `press-kit/` | press kit, deliberately `noindex, nofollow` |
 | `promo/` | longer bio, discography and videos |
 | `datenschutz/` | privacy policy |
+| `impressum/` | legal notice (§ 5 DDG) |
 | `links/` | redirect to the homepage, kept because a lot of external records still point at it |
 | `assets/` | shared images, icons, fonts, `fonts.css` |
 
