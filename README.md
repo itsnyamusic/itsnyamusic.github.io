@@ -59,8 +59,18 @@ consolidate instead of being dropped. Same for the images kept at
 `links/assets/`, which older shared link previews still request.
 
 **Keep the sitemap honest.** `sitemap.xml` lists only canonical, indexable
-pages. `press-kit/` is excluded on purpose because it is `noindex`, and
-`links/` is excluded because it is a redirect.
+pages. `press-kit/`, `datenschutz/` and `impressum/` are excluded on purpose
+because they are `noindex`, and `links/` is excluded because it is a redirect.
+
+**The legal pages are `noindex, follow`, never blocked in `robots.txt`.**
+§ 5 DDG wants the Impressum "leicht erkennbar, unmittelbar erreichbar und
+ständig verfügbar", and GDPR Art. 12 wants the same of the privacy policy.
+Both are about reachability from the site itself, which the footer link on
+every page satisfies, so keeping them out of search results is fine. What is
+not fine is a `Disallow` in `robots.txt`: a blocked page can still be indexed
+as a bare URL, because the crawler never gets to read the `noindex` it is
+blocked from fetching. Keep `follow` so the footer links still carry weight,
+and keep both pages returning 200 to everyone.
 
 ## History
 
