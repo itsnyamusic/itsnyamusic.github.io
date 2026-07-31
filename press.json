@@ -92,6 +92,17 @@
       "group": 2
     },
     {
+      "outlet": "This Is The Scene",
+      "url": "https://www.thisisthescene.com/2026/07/nya-denk-wieder-dich.html",
+      "headline": "Nya - Denk Wieder an Dich",
+      "description": "Spanish-language blog review comparing Nya's sound and vocal delivery to Spanish artist Rojuu, calling “Denk Wieder an Dich” a preview of an artist the reviewer expects to reach worldwide recognition soon.",
+      "date": "2026-07-30",
+      "author": null,
+      "lang": "es",
+      "accent": "#818cf8",
+      "group": 4
+    },
+    {
       "outlet": "Freim TV",
       "url": "https://freim.tv/nya-rhymi-y-big-romo-muestran-tres-formas-de-entender-la-musica-urbana-actual/",
       "headline": "Nya, RHYMI y Big Romo muestran tres formas de entender la música urbana actual",
@@ -113,7 +124,7 @@
       "author": "Ara CorIza",
       "lang": "es",
       "accent": "#ff2d7b",
-      "group": 3
+      "group": 5
     }
   ]
 }
