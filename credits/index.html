@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impressum - Nya</title>
-    <meta name="description" content="Impressum für itsnyamusic.com gemäß § 5 DDG.">
+    <title>Features &amp; credits - Nya</title>
+    <meta name="description" content="Features, guest appearances and production credits by German hyperpop artist Nya on other artists' records, including mixing on youngkiwi's Kiba.">
     <meta name="author" content="Nya">
     <meta name="theme-color" content="#b967ff">
-    <meta name="robots" content="noindex, follow">
-    <meta name="googlebot" content="noindex, follow">
-    <meta name="bingbot" content="noindex, follow">
-    <link rel="canonical" href="https://itsnyamusic.com/impressum/">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="bingbot" content="index, follow">
+    <link rel="canonical" href="https://itsnyamusic.com/credits/">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Nya">
-    <meta property="og:title" content="Impressum - Nya">
-    <meta property="og:description" content="Impressum für itsnyamusic.com.">
-    <meta property="og:url" content="https://itsnyamusic.com/impressum/">
-    <meta property="og:image" content="https://itsnyamusic.com/assets/nyaverse-cover-1200.jpg">
-    <meta property="og:locale" content="de_DE">
+    <meta property="og:title" content="Features &amp; credits - Nya">
+    <meta property="og:description" content="Guest appearances and production work on other artists' records.">
+    <meta property="og:url" content="https://itsnyamusic.com/credits/">
+    <meta property="og:image" content="https://itsnyamusic.com/assets/nya.jpg">
+    <meta property="og:locale" content="en_US">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@its_nya_music">
     <meta name="twitter:creator" content="@its_nya_music">
-    <meta name="twitter:title" content="Impressum - Nya">
-    <meta name="twitter:description" content="Impressum für itsnyamusic.com.">
+    <meta name="twitter:title" content="Features &amp; credits - Nya">
+    <meta name="twitter:description" content="Guest appearances and production work on other artists' records.">
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/icon-48.png">
@@ -33,27 +33,31 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
+    <!-- Page-level markup only. Deliberately no ItemList of MusicRecording here:
+         a credit is a claim about someone else's record, and self-asserting that
+         from this domain is a weak signal. MusicBrainz and Discogs are where those
+         relationships belong. Revisit once the list is longer. -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@graph": [
             {
-                "@type": "WebPage",
-                "@id": "https://itsnyamusic.com/impressum/#webpage",
-                "url": "https://itsnyamusic.com/impressum/",
-                "name": "Impressum",
-                "description": "Impressum für itsnyamusic.com.",
-                "inLanguage": "de",
+                "@type": "CollectionPage",
+                "@id": "https://itsnyamusic.com/credits/#webpage",
+                "url": "https://itsnyamusic.com/credits/",
+                "name": "Features & credits",
+                "description": "Features, guest appearances and production credits by Nya on other artists' records.",
+                "inLanguage": "en",
                 "about": {
                     "@id": "https://itsnyamusic.com/#artist"
                 },
                 "breadcrumb": {
-                    "@id": "https://itsnyamusic.com/impressum/#breadcrumb"
+                    "@id": "https://itsnyamusic.com/credits/#breadcrumb"
                 }
             },
             {
                 "@type": "BreadcrumbList",
-                "@id": "https://itsnyamusic.com/impressum/#breadcrumb",
+                "@id": "https://itsnyamusic.com/credits/#breadcrumb",
                 "itemListElement": [
                     {
                         "@type": "ListItem",
@@ -64,15 +68,14 @@
                     {
                         "@type": "ListItem",
                         "position": 2,
-                        "name": "Impressum",
-                        "item": "https://itsnyamusic.com/impressum/"
+                        "name": "Features & credits",
+                        "item": "https://itsnyamusic.com/credits/"
                     }
                 ]
             }
         ]
     }
     </script>
-
     <link rel="stylesheet" href="/assets/fonts.css">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -161,6 +164,7 @@
             font-size: 0.75rem;
             color: #666;
             letter-spacing: 0.08em;
+            line-height: 1.7;
             margin-bottom: 2.2rem;
         }
 
@@ -173,16 +177,59 @@
             margin-bottom: 0.8rem;
         }
 
-        .prose {
-            font-size: 0.9rem;
-            line-height: 1.7;
-            color: #999;
+        /* One flat list. The role lives in the meta line so features, mixing and
+           production share a section instead of each needing its own heading,
+           which is how Discogs and streaming "appears on" sections handle it. */
+        .credits {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
             margin-bottom: 2.5rem;
-            max-width: 62ch;
         }
 
-        .prose a { color: #b967ff; }
-        .prose a:hover { text-decoration: underline; }
+        .credit {
+            display: block;
+            padding: 1.1rem 0;
+            border-top: 1px solid #191919;
+            transition: padding-left 0.15s, border-color 0.2s;
+        }
+
+        .credit:last-child { border-bottom: 1px solid #191919; }
+        a.credit:hover { padding-left: 0.5rem; border-color: #2a2a2a; }
+
+        .credit-role {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: #555;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+        }
+
+        .credit-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .credit-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #ddd;
+            line-height: 1.35;
+        }
+
+        /* Rows with a known link get a quiet outbound marker. Rows without one
+           are plain divs, so nothing here ever renders as a dead link. */
+        a.credit .credit-title::after {
+            content: ' \2197';
+            color: #555;
+            font-weight: 400;
+        }
 
         .bottom {
             font-family: 'Space Mono', monospace;
@@ -206,43 +253,39 @@
 
     <a class="back" href="https://itsnyamusic.com/">&larr; nya</a>
 
-    <h1 class="title">Impressum</h1>
-    <div class="subtitle">itsnyamusic.com</div>
+    <h1 class="title">features &amp;<br>credits</h1>
+    <div class="subtitle">nya, also known as its_nya_music - work on other artists' records</div>
 
-    <div class="section-label">Anbieter</div>
-    <div class="prose">
-        itsnyamusic - Nya Jahn<br>
-        c/o Online-Impressum #9899<br>
-        Europaring 90<br>
-        53757 St. Augustin<br>
-        Deutschland
-    </div>
+    <div class="section-label">Credits</div>
+    <div class="credits">
+        <a class="credit" href="https://open.spotify.com/track/4bWwd4RkDRGHyk8LHRCRDa" target="_blank" rel="noopener">
+            <div class="credit-role">
+                <div class="credit-dot" style="background: #1ed760;"></div>
+                <span>Mix - 2026</span>
+            </div>
+            <div class="credit-title">YoungKiwi - “Kiba”</div>
+        </a>
 
-    <div class="section-label">Kontakt</div>
-    <div class="prose">
-        <a href="mailto:contact@itsnyamusic.com">contact@itsnyamusic.com</a>
-    </div>
-
-    <div class="section-label">Zust&auml;ndige Aufsichtsbeh&ouml;rde</div>
-    <div class="prose">
-        Landesanstalt f&uuml;r Medien Nordrhein-Westfalen<br>
-        Sitz: Deutschland
-    </div>
-
-    <div class="section-label">Verbraucherstreitbeilegung</div>
-    <div class="prose">
-        Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
-        Verbraucherschlichtungsstelle teilzunehmen.
+        <!-- No verified link for this one yet. Kept as a div so it cannot render
+             as a dead link. Swap to <a class="credit" href="..." target="_blank"
+             rel="noopener"> once the track URL is confirmed. -->
+        <div class="credit">
+            <div class="credit-role">
+                <div class="credit-dot" style="background: #b967ff;"></div>
+                <span>Feature - 2024</span>
+            </div>
+            <div class="credit-title">Mhhh7887 - “Gefühle in den Schrank”</div>
+        </div>
     </div>
 
     <div class="bottom">
         <a href="https://itsnyamusic.com/">nya</a>&nbsp;-&nbsp;
         <a href="https://itsnyamusic.com/nyaverse/">nyaverse</a>&nbsp;-&nbsp;
         <a href="https://itsnyamusic.com/press/">press</a>&nbsp;-&nbsp;
-        <a href="https://itsnyamusic.com/credits/">features &amp; credits</a>&nbsp;-&nbsp;
         <a href="https://www.wikidata.org/wiki/Q135998061" target="_blank" rel="noopener">wikidata</a>&nbsp;-&nbsp;
         <a href="https://musicbrainz.org/artist/d4983c1c-e81d-4548-85d8-056d5e23855a" target="_blank" rel="noopener">musicbrainz</a>&nbsp;-&nbsp;
         <a href="https://itsnyamusic.com/datenschutz/">datenschutz</a>&nbsp;-&nbsp;
+        <a href="https://itsnyamusic.com/impressum/">impressum</a>&nbsp;-&nbsp;
         germany
     </div>
 
