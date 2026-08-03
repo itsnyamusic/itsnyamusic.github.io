@@ -52,6 +52,22 @@ python build-press.py            # rebuild
 python build-press.py --check    # verify without writing, exits 1 if stale
 ```
 
+**`credits/` is sorted newest first.** Every row in the list carries a
+`data-date`, an ISO date at whatever precision the source actually gives:
+a full date where the release has one, a bare year where the platform only
+shows a year. Those sort against each other as plain strings, so nothing has
+to be invented to fill a gap. Add a row wherever its date puts it, then:
+
+```
+python check-credits-order.py          # verify, exits 1 if out of order
+python check-credits-order.py --fix    # reorder in place
+```
+
+Rows with the same `data-date` keep the order they are written in, so where two
+releases only resolve to the same year, whichever you put first stays first.
+Unlike `press/`, this page is hand-edited; the script only ever moves whole
+rows, it does not generate them.
+
 **`links/` must keep redirecting.** Wikidata, MusicBrainz, Discogs and several
 artist-profile bios still point at `/links/`. The redirect carries that
 authority to the homepage. It intentionally has no `noindex`, so the signals

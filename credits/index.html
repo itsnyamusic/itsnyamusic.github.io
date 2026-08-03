@@ -257,8 +257,15 @@
     <div class="subtitle">nya, also known as its_nya_music - work on other artists' records</div>
 
     <div class="section-label">Credits</div>
+
+    <!-- Sorted newest first, always. Each row carries data-date, an ISO date at
+         whatever precision the source actually gives: a full date where the
+         release carries one, a bare year where the platform only shows a year.
+         Those sort correctly against each other as plain strings, so a new row
+         goes wherever its data-date lands, not at the end. Equal dates keep
+         their existing order. `python check-credits-order.py` verifies it. -->
     <div class="credits">
-        <a class="credit" href="https://open.spotify.com/track/4bWwd4RkDRGHyk8LHRCRDa" target="_blank" rel="noopener">
+        <a class="credit" data-date="2026" href="https://open.spotify.com/track/4bWwd4RkDRGHyk8LHRCRDa" target="_blank" rel="noopener">
             <div class="credit-role">
                 <div class="credit-dot" style="background: #1ed760;"></div>
                 <span>Mix - 2026</span>
@@ -266,12 +273,44 @@
             <div class="credit-title">YoungKiwi - “Kiba”</div>
         </a>
 
-        <a class="credit" href="https://open.spotify.com/album/4ct24QVQP3pLZMq93mj0sV" target="_blank" rel="noopener">
+        <a class="credit" data-date="2025-10-30" href="https://soundcloud.com/flikkjunge/toxicbitch-ft-nya" target="_blank" rel="noopener">
+            <div class="credit-role">
+                <div class="credit-dot" style="background: #ff5500;"></div>
+                <span>Feature - 2025</span>
+            </div>
+            <div class="credit-title">Naeyiwu - “TOXICBITCH”</div>
+        </a>
+
+        <a class="credit" data-date="2025-10-30" href="https://soundcloud.com/flikkjunge/kkam" target="_blank" rel="noopener">
+            <div class="credit-role">
+                <div class="credit-dot" style="background: #ff5500;"></div>
+                <span>Feature - 2025</span>
+            </div>
+            <div class="credit-title">Naeyiwu - “KLIMAKLEBER AUFM MOND”</div>
+        </a>
+
+        <a class="credit" data-date="2024" href="https://music.youtube.com/watch?v=KgK4AWxgT1A" target="_blank" rel="noopener">
+            <div class="credit-role">
+                <div class="credit-dot" style="background: #ff0000;"></div>
+                <span>Feature - 2024</span>
+            </div>
+            <div class="credit-title">Kay Trueluv - “off the net”</div>
+        </a>
+
+        <a class="credit" data-date="2024" href="https://open.spotify.com/album/4ct24QVQP3pLZMq93mj0sV" target="_blank" rel="noopener">
             <div class="credit-role">
                 <div class="credit-dot" style="background: #1ed760;"></div>
                 <span>Feature - 2024</span>
             </div>
             <div class="credit-title">Mhhh7887 - “Gefühle in den Schrank”</div>
+        </a>
+
+        <a class="credit" data-date="2021-12-24" href="https://soundcloud.com/naeyiwu/08-down-ft-nya" target="_blank" rel="noopener">
+            <div class="credit-role">
+                <div class="credit-dot" style="background: #ff5500;"></div>
+                <span>Feature - 2021</span>
+            </div>
+            <div class="credit-title">Naeyiwu - “Down”</div>
         </a>
     </div>
 
