@@ -93,6 +93,57 @@
         ]
     }
     </script>
+    <!-- Event data mirrors the Eventfrog listing (verified 2026-08-09). Kept here
+         because this page is the indexable one - /tickets/ is a noindex redirect
+         stub, so the show would otherwise have no crawlable markup on the domain. -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "MusicEvent",
+        "@id": "https://itsnyamusic.com/#digitalgods-show",
+        "name": "DIGITALGODS SHOW",
+        "description": "Deutschrap, Cloudrap und Hyperpop, neun Acts live hintereinander, danach Party bis 4 Uhr. NYAVERSE wird an dem Abend zum ersten Mal live gespielt.",
+        "startDate": "2026-10-10T22:00:00+02:00",
+        "doorTime": "2026-10-10T21:00:00+02:00",
+        "endDate": "2026-10-11T04:00:00+02:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "inLanguage": "de",
+        "image": "https://itsnyamusic.com/assets/digitalgods-show-1200.jpg",
+        "url": "https://itsnyamusic.com/tickets/",
+        "location": {
+            "@type": "MusicVenue",
+            "name": "Illusion Event Club",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Herner Straße",
+                "postalCode": "45699",
+                "addressLocality": "Herten",
+                "addressRegion": "Nordrhein-Westfalen",
+                "addressCountry": "DE"
+            }
+        },
+        "organizer": { "@id": "https://itsnyamusic.com/#artist" },
+        "performer": [
+            { "@id": "https://itsnyamusic.com/#artist" },
+            { "@type": "MusicGroup", "name": "MTeTu" },
+            { "@type": "MusicGroup", "name": "mortymp3" },
+            { "@type": "MusicGroup", "name": "Max Rolls" },
+            { "@type": "MusicGroup", "name": "lylyth" },
+            { "@type": "MusicGroup", "name": "Jessil" },
+            { "@type": "MusicGroup", "name": "Mhhh7887" },
+            { "@type": "MusicGroup", "name": "Naeyiwu" }
+        ],
+        "offers": {
+            "@type": "Offer",
+            "name": "Normal",
+            "price": "15.00",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://eventfrog.de/de/p/konzerte/hip-hop-rap/digitalgods-show-7492336033754838426.html"
+        }
+    }
+    </script>
     <link rel="stylesheet" href="/assets/fonts.css">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -181,6 +232,93 @@
         .bio strong {
             color: #ccc;
             font-weight: 600;
+        }
+
+        /* ---- live show / tickets banner ----
+           Sits above the link list rather than in it: the show is time-boxed
+           and the flyer already points people at /tickets, so it gets weight
+           the evergreen platform rows do not. Purple pulls from the flyer. */
+        .ticket {
+            display: block;
+            margin-bottom: 2.5rem;
+            padding: 1.4rem 1.5rem;
+            border: 1px solid #2e1b3d;
+            border-radius: 10px;
+            background:
+                radial-gradient(120% 140% at 0% 0%, rgba(185,103,255,0.16) 0%, transparent 60%),
+                radial-gradient(120% 140% at 100% 100%, rgba(255,45,123,0.12) 0%, transparent 60%),
+                #120c18;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+
+        .ticket:hover {
+            border-color: #4a2a63;
+            transform: translateY(-1px);
+        }
+
+        .ticket-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #b967ff;
+            margin-bottom: 0.65rem;
+        }
+
+        .ticket-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #b967ff;
+            flex-shrink: 0;
+            animation: tpulse 2s ease-in-out infinite;
+        }
+
+        @keyframes tpulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.25; }
+        }
+
+        .ticket-title {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: clamp(1.35rem, 6vw, 1.9rem);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-meta {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #b9a6c9;
+            margin-bottom: 0.6rem;
+        }
+
+        .ticket-lineup {
+            font-size: 0.78rem;
+            line-height: 1.6;
+            color: #7d6b8c;
+            margin-bottom: 1rem;
+        }
+
+        .ticket-cta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: #ff2d7b;
+        }
+
+        .ticket:hover .ticket-cta { text-decoration: underline; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ticket-tag::before { animation: none; }
+            .ticket:hover { transform: none; }
         }
 
         /* ---- links ---- */
@@ -302,6 +440,20 @@
         always trying something different because doing the same thing twice is boring.
     </div>
 
+    <a href="https://itsnyamusic.com/tickets/" class="ticket">
+        <div class="ticket-tag">live - tickets out now</div>
+        <div class="ticket-title">DIGITALGODS SHOW</div>
+        <div class="ticket-meta">
+            10.10.2026 - Illusion Event Club, Herten<br>
+            doors 21:00, show 22:00, party until 4
+        </div>
+        <div class="ticket-lineup">
+            supporting: MTeTu - mortymp3 - Max Rolls - lylyth - Jessil - Mhhh7887 - Naeyiwu - secret act tba<br>
+            nyaverse played live for the first time
+        </div>
+        <div class="ticket-cta">get tickets - 15 EUR, 120 presale &rarr;</div>
+    </a>
+
     <div class="links">
         <a href="https://itsnyamusic.com/nyaverse/" class="link">
             <div class="link-left">
@@ -404,6 +556,7 @@
     </div>
 
     <div class="bottom">
+        <a href="https://itsnyamusic.com/tickets/">tickets</a>&nbsp;-&nbsp;
         <a href="https://itsnyamusic.com/nyaverse/">nyaverse</a>&nbsp;-&nbsp;
         <a href="https://itsnyamusic.com/press/">press</a>&nbsp;-&nbsp;
         <a href="https://itsnyamusic.com/credits/">features &amp; credits</a>&nbsp;-&nbsp;
