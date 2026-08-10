@@ -234,93 +234,6 @@
             font-weight: 600;
         }
 
-        /* ---- live show / tickets banner ----
-           Sits above the link list rather than in it: the show is time-boxed
-           and the flyer already points people at /tickets, so it gets weight
-           the evergreen platform rows do not. Purple pulls from the flyer. */
-        .ticket {
-            display: block;
-            margin-bottom: 2.5rem;
-            padding: 1.4rem 1.5rem;
-            border: 1px solid #2e1b3d;
-            border-radius: 10px;
-            background:
-                radial-gradient(120% 140% at 0% 0%, rgba(185,103,255,0.16) 0%, transparent 60%),
-                radial-gradient(120% 140% at 100% 100%, rgba(255,45,123,0.12) 0%, transparent 60%),
-                #120c18;
-            transition: border-color 0.2s, transform 0.15s;
-        }
-
-        .ticket:hover {
-            border-color: #4a2a63;
-            transform: translateY(-1px);
-        }
-
-        .ticket-tag {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #b967ff;
-            margin-bottom: 0.65rem;
-        }
-
-        .ticket-tag::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #b967ff;
-            flex-shrink: 0;
-            animation: tpulse 2s ease-in-out infinite;
-        }
-
-        @keyframes tpulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.25; }
-        }
-
-        .ticket-title {
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            font-size: clamp(1.35rem, 6vw, 1.9rem);
-            line-height: 1.05;
-            letter-spacing: -0.02em;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-
-        .ticket-meta {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: #b9a6c9;
-            margin-bottom: 0.6rem;
-        }
-
-        .ticket-lineup {
-            font-size: 0.78rem;
-            line-height: 1.6;
-            color: #7d6b8c;
-            margin-bottom: 1rem;
-        }
-
-        .ticket-cta {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.12em;
-            color: #ff2d7b;
-        }
-
-        .ticket:hover .ticket-cta { text-decoration: underline; }
-
-        @media (prefers-reduced-motion: reduce) {
-            .ticket-tag::before { animation: none; }
-            .ticket:hover { transform: none; }
-        }
-
         /* ---- links ---- */
         .links {
             display: flex;
@@ -373,6 +286,7 @@
         }
 
         /* dot colors match actual platform branding */
+        .d-tickets { background: #7b61ff; }
         .d-nyaverse { background: #b967ff; }
         .d-shop { background: #ffb02e; }
         .d-spotify { background: #1ed760; }
@@ -440,21 +354,16 @@
         always trying something different because doing the same thing twice is boring.
     </div>
 
-    <a href="https://itsnyamusic.com/tickets/" class="ticket">
-        <div class="ticket-tag">live - tickets out now</div>
-        <div class="ticket-title">DIGITALGODS SHOW</div>
-        <div class="ticket-meta">
-            10.10.2026 - Illusion Event Club, Herten<br>
-            doors 21:00, show 22:00, party until 4
-        </div>
-        <div class="ticket-lineup">
-            supporting: MTeTu - mortymp3 - Max Rolls - lylyth - Jessil - Mhhh7887 - Naeyiwu - secret act tba<br>
-            nyaverse played live for the first time
-        </div>
-        <div class="ticket-cta">get tickets - 15 EUR, 120 presale &rarr;</div>
-    </a>
-
     <div class="links">
+        <a href="https://itsnyamusic.com/tickets/" class="link">
+            <div class="link-left">
+                <div class="link-dot d-tickets"></div>
+                <div>
+                    <div class="link-name">DIGITALGODS SHOW</div>
+                    <div class="link-sub">live 10.10.2026 - herten - tickets out now</div>
+                </div>
+            </div>
+        </a>
         <a href="https://itsnyamusic.com/nyaverse/" class="link">
             <div class="link-left">
                 <div class="link-dot d-nyaverse"></div>
