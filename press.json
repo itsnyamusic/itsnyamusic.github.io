@@ -102,6 +102,28 @@
     },
     {
       "outlet": "Amplead Music",
+      "url": "https://www.ampleadmusic.com/2026/08/99-problems.html",
+      "headline": "99 - Problems",
+      "description": "Blog review hearing a street-level hip hop atmosphere in “99 Problems” and calling the synthesizer work the thing that carries the track, with the arrangement playing out in the reviewer's head like a scene.",
+      "date": "2026-08-11",
+      "author": null,
+      "lang": "es",
+      "accent": "#facc15",
+      "group": 1
+    },
+    {
+      "outlet": "This Is The Scene",
+      "url": "https://www.thisisthescene.com/2026/08/nya-99-problems.html",
+      "headline": "Nya - 99 Problems",
+      "description": "Blog review reading “99 Problems” as a track about taking responsibility for your own problems instead of blaming anyone else, and hearing each vocal carry its own identity, the first for confidence and the second for the elegance it brings the crew.",
+      "date": "2026-08-11",
+      "author": null,
+      "lang": "es",
+      "accent": "#818cf8",
+      "group": 1
+    },
+    {
+      "outlet": "Amplead Music",
       "url": "https://www.ampleadmusic.com/2026/08/nya-denk-wieder-dich.html",
       "headline": "Nya - Denk Wieder an Dich",
       "description": "Blog review focused on the arrangement, hearing guitars and synthesizer build the atmosphere around the rapped verses of “Denk Wieder an Dich” and crediting the bass line for the emotional pull.",
