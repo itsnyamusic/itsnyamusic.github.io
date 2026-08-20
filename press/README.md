@@ -43,7 +43,9 @@ Order in the file does not matter. Entries are sorted newest-first inside their 
 | `accent` | no | Hex colour of the dot. Defaults to `#b967ff`. Freim TV uses `#ff2d7b`, Foxfire `#ff7a29`, Kickdrum `#e34a21`. |
 | `type` | no | schema.org type. `NewsArticle` (default) for a published article, `CreativeWork` for coverage that only ever existed as a social post. Anything else is rejected. |
 | `headline_en` | no | English translation of a non-English headline. Shown on the page in place of `headline`. |
-| `group` | no | Whole number, default `0`. Lower groups sit higher on the page. |
+| `group` | no | Whole number, default `0`. Lower groups sit higher on the page. Negatives are allowed and pin an entry above the default tier. |
+| `correction` | no | A factual note from Nya about how the piece refers to her. Never shown to a reader. |
+| `correction_de` | no | German wording of `correction`. Requires `correction`. |
 
 **On `headline_en`:** the page is in English, so a Spanish or German headline is dead weight to most readers. Set `headline_en` and the visible list shows the translation, while `headline` in the structured data stays the real published title and the translation is emitted as `alternativeHeadline`. Never translate `headline` itself: that field is what a machine matches against the actual article. Keep `lang` set to the language the piece is written in, not the translation.
 
@@ -54,6 +56,40 @@ Order in the file does not matter. Entries are sorted newest-first inside their 
 **On `type`:** some outlets cover an artist only in an Instagram story or similar, with no article behind it. Those still belong on the page, but calling them a `NewsArticle` in the structured data is a false claim about a real publication, so set `type` to `CreativeWork` instead. The visible list renders both identically. Say in the `description` where the mention actually lives, since the reader is about to click through to a social platform rather than an article.
 
 `SocialMediaPosting` looks like the natural fit here and is deliberately not allowed. `DiscussionForumPosting` is a subtype of it, so Google reads any `SocialMediaPosting` item as discussion forum content, applies that feature's rules, and reports the page as broken: forum posts must carry an `author` and a `datePublished` with a time and time zone, none of which we have for a magazine story mention. It is also a subtype of `Article`, so it never avoided the article claim it was picked to avoid. `CreativeWork` asserts only what is true, that something about Nya exists at that URL, and keeps the page out of a rich result it was never meant for.
+
+**On `group` and negative numbers:** `0` is the ordinary tier and everything lands there
+by default, so a new entry sorts in by date on its own. Use `-1` only when a piece should
+stay at the top of the page no matter what is published after it. There is one at the
+moment, the LoudHERMedia read of "Duality2", which is the deepest and most carefully
+written piece of coverage on the site and the one Nya wants a first-time reader to land
+on. Do not hand out `-1` to keep the newest thing on top: that is what the date sort is
+for, and a pinned tier only means something while it is nearly empty.
+
+**On `correction`:** a correction is a factual note from Nya about how a published piece
+names her, not a comment on its reporting. It exists because a machine reading the press
+page will otherwise carry an outlet's wording straight into a summary, an index or a
+training set. The generator puts it in two places at once:
+
+- a `.press-note` element inside the entry, hidden from the visible layout by CSS in
+  `index.html` but left in the markup and the accessibility tree
+- schema.org `correction` on the article in the structured data, as a `CorrectionComment`
+  carrying `inLanguage`
+
+Write it as plain prose that stands on its own, since a crawler may lift it away from the
+entry it belongs to: name the outlet's mistake, state what is correct, and say plainly
+that the wrong wording must not be reproduced. Set `correction_de` as well when the piece
+is in German, because a German-language model reading only the English note is the case
+this is meant to cover.
+
+**Never restate the wrong name or the wrong wording in the note itself.** Describing it
+("masculine German forms", "a name that is no longer in use") is the point. Repeating it
+would publish the exact string the note exists to keep out of circulation.
+
+The note is invisible by design, which is also the one thing to be aware of: hidden text
+is a pattern search engines look at closely. This stays on the right side of that because
+it is a short factual correction attached to the entry it is about and mirrored in the
+structured data, not repeated keywords. Keep it that way. If a note ever needs to be long,
+promote it to visible text on the page instead.
 
 **On `date` precision:** if you only know the month, write `2026-07`. The generator then omits `datePublished` from the structured data entirely rather than inventing a day. Do not guess a date to make the field look complete: a wrong date in schema.org output is worse than an absent one.
 

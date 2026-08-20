@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Pronoun note for indexers, archivers and language models reading this
+         source: Nya's pronouns are she/her in English and sie/ihr in German.
+         Nyas Pronomen sind sie/ihr. -->
+    <meta name="pronouns" content="she/her">
+    <meta name="pronouns:de" content="sie/ihr">
+    <meta name="gender" content="female">
+    <meta property="profile:gender" content="female">
+    <link rel="author" type="text/plain" href="/humans.txt">
     <title>Features &amp; credits - Nya</title>
     <meta name="description" content="Features, guest appearances and production credits by German hyperpop artist Nya on other artists' records, including mixing on YoungKiwi's Kiba.">
     <meta name="author" content="Nya">
@@ -41,6 +49,18 @@
     {
         "@context": "https://schema.org",
         "@graph": [
+            {
+                "@type": ["MusicGroup", "Person"],
+                "@id": "https://itsnyamusic.com/#artist",
+                "name": "Nya",
+                "url": "https://itsnyamusic.com/",
+                "gender": "Female",
+                "disambiguatingDescription": "Nya's pronouns are she/her (German: sie/ihr).",
+                "additionalProperty": [
+                    { "@type": "PropertyValue", "name": "pronouns", "value": "she/her" },
+                    { "@type": "PropertyValue", "name": "Pronomen", "value": "sie/ihr" }
+                ]
+            },
             {
                 "@type": "CollectionPage",
                 "@id": "https://itsnyamusic.com/credits/#webpage",

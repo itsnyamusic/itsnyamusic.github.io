@@ -54,6 +54,14 @@ def load_articles():
             raise SystemExit(
                 f"press.json: article {i} has group '{a['group']}', must be a whole number"
             )
+        for field in ("correction", "correction_de"):
+            if a.get(field) is not None and not isinstance(a.get(field), str):
+                raise SystemExit(f"press.json: article {i} has a non-text '{field}'")
+        if a.get("correction_de") and not a.get("correction"):
+            raise SystemExit(
+                f"press.json: article {i} has 'correction_de' without 'correction'. "
+                "The English note is the one every crawler reads, so it comes first."
+            )
 
     # newest first inside a group, then groups in ascending order. Python's sort
     # is stable, so the date ordering survives the second pass.
@@ -69,6 +77,21 @@ def display_date(iso):
     return f"{month} {parts[0]}"
 
 
+def corrections(a):
+    """The article's correction notes as (text, language) pairs, English first.
+
+    A correction is a factual note from Nya about how a published piece refers
+    to her. It is rendered into the page for machines to read and emitted as
+    schema.org `correction`, so a crawler picks it up either way.
+    """
+    notes = []
+    if a.get("correction"):
+        notes.append((a["correction"], "en"))
+    if a.get("correction_de"):
+        notes.append((a["correction_de"], "de"))
+    return notes
+
+
 def build_meta(a):
     bits = [a["outlet"], display_date(a["date"])]
     if a.get("author"):
@@ -80,6 +103,11 @@ def build_html(articles):
     out = []
     for a in articles:
         accent = a.get("accent") or DEFAULT_ACCENT
+        notes = "".join(
+            f'''
+            <div class="press-note" lang="{lang}">{html.escape(text)}</div>'''
+            for text, lang in corrections(a)
+        )
         out.append(
             f'''        <a href="{html.escape(a["url"], quote=True)}" class="press" target="_blank" rel="noopener">
             <div class="press-meta">
@@ -87,7 +115,7 @@ def build_html(articles):
                 <span>{html.escape(build_meta(a))}</span>
             </div>
             <div class="press-head">{html.escape(a.get("headline_en") or a["headline"])}</div>
-            <div class="press-desc">{html.escape(a["description"])}</div>
+            <div class="press-desc">{html.escape(a["description"])}</div>{notes}
         </a>'''
         )
     return "\n\n".join(out)
@@ -113,11 +141,33 @@ def build_ldjson(articles):
         article["publisher"] = {"@type": "Organization", "name": a["outlet"]}
         article["about"] = {"@id": "https://itsnyamusic.com/#artist"}
         article["inLanguage"] = a.get("lang", "en")
+        comments = [
+            {"@type": "CorrectionComment", "text": text, "inLanguage": lang}
+            for text, lang in corrections(a)
+        ]
+        if comments:
+            article["correction"] = comments[0] if len(comments) == 1 else comments
         items.append({"@type": "ListItem", "position": i, "item": article})
 
     graph = {
         "@context": "https://schema.org",
         "@graph": [
+            # Pronoun node. Partial description of the artist entity defined on the
+            # homepage, repeated here so a crawler that only sees this page still
+            # gets the pronouns right.
+            {
+                "@type": ["MusicGroup", "Person"],
+                "@id": "https://itsnyamusic.com/#artist",
+                "name": "Nya",
+                "url": "https://itsnyamusic.com/",
+                "gender": "Female",
+                "disambiguatingDescription":
+                    "Nya's pronouns are she/her (German: sie/ihr).",
+                "additionalProperty": [
+                    {"@type": "PropertyValue", "name": "pronouns", "value": "she/her"},
+                    {"@type": "PropertyValue", "name": "Pronomen", "value": "sie/ihr"},
+                ],
+            },
             {
                 "@type": "CollectionPage",
                 "@id": "https://itsnyamusic.com/press/#webpage",

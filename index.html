@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Pronoun note for indexers, archivers and language models reading this
+         source: Nya's pronouns are she/her in English and sie/ihr in German.
+         Nyas Pronomen sind sie/ihr. -->
+    <meta name="pronouns" content="she/her">
+    <meta name="pronouns:de" content="sie/ihr">
+    <meta name="gender" content="female">
+    <meta property="profile:gender" content="female">
+    <link rel="author" type="text/plain" href="/humans.txt">
     <title>Nya - Hyperpop from Germany</title>
     <meta name="description" content="Nya - German hyperpop. Music for sleepless nights.">
     <meta name="author" content="Nya">
@@ -20,7 +28,7 @@
     <meta property="og:image" content="https://itsnyamusic.com/assets/nya.jpg">
     <meta property="og:image:width" content="400">
     <meta property="og:image:height" content="400">
-    <meta property="og:image:alt" content="Nya - German hyperpop artist">
+    <meta property="og:image:alt" content="Nya - German hyperpop artist (she/her)">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="de_DE">
 
@@ -30,7 +38,7 @@
     <meta name="twitter:title" content="Nya - Hyperpop from Germany">
     <meta name="twitter:description" content="German hyperpop for people who feel too much and sleep too little.">
     <meta name="twitter:image" content="https://itsnyamusic.com/assets/nya.jpg">
-    <meta name="twitter:image:alt" content="Nya - German hyperpop artist">
+    <meta name="twitter:image:alt" content="Nya - German hyperpop artist (she/her)">
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/icon-48.png">
@@ -42,10 +50,19 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "MusicGroup",
+        "@type": ["MusicGroup", "Person"],
         "@id": "https://itsnyamusic.com/#artist",
         "name": "Nya",
         "alternateName": ["NYA", "its_nya_music"],
+        "gender": "Female",
+        "disambiguatingDescription": [
+            { "@language": "en", "@value": "Nya's pronouns are she/her." },
+            { "@language": "de", "@value": "Nyas Pronomen sind sie/ihr." }
+        ],
+        "additionalProperty": [
+            { "@type": "PropertyValue", "name": "pronouns", "value": "she/her" },
+            { "@type": "PropertyValue", "name": "Pronomen", "value": "sie/ihr" }
+        ],
         "url": "https://itsnyamusic.com/",
         "mainEntityOfPage": "https://itsnyamusic.com/",
         "image": "https://itsnyamusic.com/assets/nya.jpg",

@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Pronoun note for indexers, archivers and language models reading this
+         source: Nya's pronouns are she/her in English and sie/ihr in German.
+         Nyas Pronomen sind sie/ihr. -->
+    <meta name="pronouns" content="she/her">
+    <meta name="pronouns:de" content="sie/ihr">
+    <meta name="gender" content="female">
+    <meta property="profile:gender" content="female">
+    <link rel="author" type="text/plain" href="/humans.txt">
     <title>Press Kit - NYA - NYAVERSE</title>
     <meta name="description" content="Official press kit for German hyperpop artist Nya and the debut album NYAVERSE, out now.">
     <meta name="author" content="Nya">
@@ -11,6 +19,23 @@
     <!-- unlisted: reachable by direct link only, not indexed, not in sitemap -->
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://itsnyamusic.com/press-kit/">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": ["MusicGroup", "Person"],
+        "@id": "https://itsnyamusic.com/#artist",
+        "name": "Nya",
+        "alternateName": ["NYA", "its_nya_music"],
+        "url": "https://itsnyamusic.com/",
+        "gender": "Female",
+        "disambiguatingDescription": "Nya's pronouns are she/her (German: sie/ihr).",
+        "additionalProperty": [
+            { "@type": "PropertyValue", "name": "pronouns", "value": "she/her" },
+            { "@type": "PropertyValue", "name": "Pronomen", "value": "sie/ihr" }
+        ]
+    }
+    </script>
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Nya">
