@@ -5,7 +5,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://itsnyamusic.com/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/assets/nya.jpg</image:loc>
     </image:image>
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/nyaverse/</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/assets/nyaverse-cover-1200.jpg</image:loc>
     </image:image>
@@ -23,13 +23,13 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/nyaverse/lyrics/</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://itsnyamusic.com/press/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -41,7 +41,7 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/promo/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-09-18</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/promo/assets/nya.jpg</image:loc>
     </image:image>
