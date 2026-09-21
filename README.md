@@ -63,18 +63,21 @@ python build-releases.py            # rebuild
 python build-releases.py --check    # verify without writing, exits 1 if stale
 ```
 
-The list is everything on Nya's own Spotify discography, and Spotify is the
-source for it. A song where she is only a guest goes on `credits/` instead; a
-joint release where she is a main artist, like Bad Dreams with Kairox, goes
-here with a `with` field. Rows link to Spotify unless the release has its own
-page on this site, in which case `page` is set and the row links there. That is
-how NYAVERSE works. A new release page belongs under `releases/<name>/`.
+The list is everything on Nya's own Spotify discography, which is the source
+for it, plus the few releases that only exist on SoundCloud. A song where she
+is only a guest goes on `credits/` instead; a joint release where she is a main
+artist, like Bad Dreams with Kairox, goes here with a `with` field.
+
+Each row links to the release's own page on this site if it has one (`page`,
+which is how NYAVERSE works), otherwise to Spotify, otherwise to SoundCloud
+(`soundcloud`, for releases that are not on Spotify). The dot shows which. A
+new release page belongs under `releases/<name>/`.
 
 Guests go in a release's `features` (track number, title, guest names). They
 are structured data only, the visible list stays titles and dates. Every name
 used in `with` or `features` has to be in the `artists` list at the top of the
 file with its Spotify profile, which is published as `sameAs` so a crawler can
-tell that Naeyiwu or Vain apart from anyone else with the same name. The
+tell that Naeyiwu or VAIN apart from anyone else with the same name. The
 generator refuses to build if a name is missing from that list, which is what
 catches typos.
 

@@ -25,9 +25,10 @@ ARTIST_ID = "https://itsnyamusic.com/#artist"
 PAGE_URL = "https://itsnyamusic.com/releases/"
 
 # The dot says where the row goes, same as on /credits/: purple for a page on
-# this site, Spotify green for everything that links out to Spotify.
+# this site, then the colour of the platform the row links out to.
 PAGE_ACCENT = "#b967ff"
 SPOTIFY_ACCENT = "#1ed760"
+SOUNDCLOUD_ACCENT = "#ff5500"
 
 RELEASE_TYPES = {
     "Album": "https://schema.org/AlbumRelease",
@@ -36,6 +37,7 @@ RELEASE_TYPES = {
 }
 SPOTIFY_RE = re.compile(r"https://open\.spotify\.com/album/[A-Za-z0-9]{22}")
 SPOTIFY_ARTIST_RE = re.compile(r"https://open\.spotify\.com/artist/[A-Za-z0-9]{22}")
+SOUNDCLOUD_RE = re.compile(r"https://soundcloud\.com/its_nya_music/(sets/)?[a-z0-9_-]+")
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
@@ -75,7 +77,7 @@ def load_releases():
     seen = set()
     for i, r in enumerate(releases):
         name = r.get("title") or f"release {i}"
-        for field in ("title", "type", "date", "tracks", "spotify"):
+        for field in ("title", "type", "date", "tracks"):
             if not r.get(field):
                 raise SystemExit(f"releases.json: '{name}' is missing required field '{field}'")
         if r["type"] not in RELEASE_TYPES:
@@ -87,16 +89,21 @@ def load_releases():
             raise SystemExit(f"releases.json: '{name}' has date '{r['date']}', must be YYYY-MM-DD")
         if not isinstance(r["tracks"], int) or r["tracks"] < 1:
             raise SystemExit(f"releases.json: '{name}' has tracks '{r['tracks']}', must be a whole number above 0")
-        if not SPOTIFY_RE.fullmatch(r["spotify"]):
+        if not r.get("spotify") and not r.get("soundcloud"):
+            raise SystemExit(f"releases.json: '{name}' needs a spotify or a soundcloud link")
+        if r.get("spotify") and not SPOTIFY_RE.fullmatch(r["spotify"]):
             raise SystemExit(f"releases.json: '{name}' has spotify '{r['spotify']}', must be a Spotify album URL")
+        if r.get("soundcloud") and not SOUNDCLOUD_RE.fullmatch(r["soundcloud"]):
+            raise SystemExit(f"releases.json: '{name}' has soundcloud '{r['soundcloud']}', must be a SoundCloud URL on its_nya_music")
         if r.get("page") and not r["page"].startswith("https://itsnyamusic.com/"):
             raise SystemExit(f"releases.json: '{name}' has page '{r['page']}', must be a page on itsnyamusic.com")
         if "with" in r:
             check_names(r["with"], artists, f"'{name}' with")
         check_features(r, artists, name)
-        if r["spotify"] in seen:
-            raise SystemExit(f"releases.json: '{name}' repeats a Spotify URL already listed")
-        seen.add(r["spotify"])
+        for url in platform_links(r):
+            if url in seen:
+                raise SystemExit(f"releases.json: '{name}' repeats a link already listed ({url})")
+            seen.add(url)
 
     # newest first; Python's sort is stable, so same-day releases keep file order
     return sorted(releases, key=lambda r: r["date"], reverse=True), artists
@@ -114,13 +121,26 @@ def build_meta(r):
     return f"{kind} - {display_date(r['date'])}"
 
 
+def platform_links(r):
+    """The release's streaming links, Spotify first because it is canonical."""
+    return [r[k] for k in ("spotify", "soundcloud") if r.get(k)]
+
+
+def row_link(r):
+    """Where a row points and which dot it gets: its own page on this site
+    first, then Spotify, then SoundCloud for releases that are not on Spotify."""
+    if r.get("page"):
+        return r["page"], PAGE_ACCENT
+    if r.get("spotify"):
+        return r["spotify"], SPOTIFY_ACCENT
+    return r["soundcloud"], SOUNDCLOUD_ACCENT
+
+
 def build_html(releases):
     out = []
     for r in releases:
-        if r.get("page"):
-            href, accent, target = r["page"], PAGE_ACCENT, ""
-        else:
-            href, accent, target = r["spotify"], SPOTIFY_ACCENT, ' target="_blank" rel="noopener"'
+        href, accent = row_link(r)
+        target = "" if r.get("page") else ' target="_blank" rel="noopener"'
         out.append(
             f'''        <a href="{html.escape(href, quote=True)}" class="release"{target}>
             <div class="release-meta">
@@ -134,7 +154,7 @@ def build_html(releases):
 
 
 def other_artist(name, artists):
-    # The Spotify profile is what tells a crawler which Naeyiwu or Vain this is.
+    # The Spotify profile is what tells a crawler which Naeyiwu or VAIN this is.
     return {"@type": "MusicGroup", "name": name, "sameAs": artists[name]}
 
 
@@ -160,7 +180,7 @@ def build_album(r, artists):
     if r.get("page"):
         album["@id"] = r["page"] + "#album"
     album["name"] = r["title"]
-    album["url"] = r.get("page") or r["spotify"]
+    album["url"] = row_link(r)[0]
     album["datePublished"] = r["date"]
     album["albumProductionType"] = "https://schema.org/StudioAlbum"
     album["albumReleaseType"] = RELEASE_TYPES[r["type"]]
@@ -169,8 +189,9 @@ def build_album(r, artists):
     album["byArtist"] = main if len(main) > 1 else main[0]
     if r.get("features"):
         album["track"] = build_tracks(r, artists)
-    if r.get("page"):
-        album["sameAs"] = r["spotify"]
+    same = [u for u in platform_links(r) if u != album["url"]]
+    if same:
+        album["sameAs"] = same if len(same) > 1 else same[0]
     return album
 
 

@@ -1,13 +1,14 @@
 {
   "_comment": "Single source of truth for Nya's own releases on /releases/. Edit this file, then run: python build-releases.py",
-  "_scope": "Everything on Nya's Spotify discography (albums, EPs, singles). Songs where Nya is only a guest do not belong here, they go on /credits/. A joint single where she is a main artist, like Bad Dreams with Kairox, does belong here.",
+  "_scope": "Nya's own releases: everything on her Spotify discography, plus releases that only exist on SoundCloud. Songs where Nya is only a guest do not belong here, they go on /credits/. A joint single where she is a main artist, like Bad Dreams with Kairox, does belong here.",
   "_fields": {
-    "title": "required - release title as Spotify shows it. NYAVERSE keeps the capitals the rest of the site uses",
+    "title": "required - release title as Spotify (or SoundCloud) shows it. NYAVERSE keeps the capitals the rest of the site uses",
     "type": "required - Album, EP or Single",
     "date": "required - YYYY-MM-DD release date",
     "tracks": "required - number of tracks",
-    "spotify": "required - Spotify album URL, the canonical source for every release",
-    "page": "optional - URL of the release's own page on this site. When set, the row links there instead of Spotify",
+    "spotify": "required unless soundcloud is set - Spotify album URL, the canonical source",
+    "soundcloud": "optional - SoundCloud URL on its_nya_music, for a release that is not on Spotify",
+    "page": "optional - URL of the release's own page on this site. A row links to page first, then Spotify, then SoundCloud",
     "with": "optional - other main artists on a joint release, each listed under artists",
     "features": "optional - guests on the release, as [{track, title, artists}]: track number, track title, guest names. Each guest must be listed under artists. Structured data only, never shown on the page",
     "_note": "optional - internal note, never published"
@@ -18,7 +19,7 @@
     "lame girl kya": "https://open.spotify.com/artist/495hQDJgOyvI62fYS4O4aw",
     "Mhhh7887": "https://open.spotify.com/artist/18nXUP1JS7KV0F8y1msVlu",
     "Naeyiwu": "https://open.spotify.com/artist/7jD2lt6LiRp6byp3rG0Sps",
-    "Vain": "https://open.spotify.com/artist/2E5p6QErSBDIU3iyNxIUv0",
+    "VAIN": "https://open.spotify.com/artist/2E5p6QErSBDIU3iyNxIUv0",
     "YoungKiwi": "https://open.spotify.com/artist/2MToofEJZJ2Lppozscdv24"
   },
   "releases": [
@@ -51,7 +52,7 @@
         {
           "track": 12,
           "title": "99 Problems",
-          "artists": ["Mhhh7887", "Vain"]
+          "artists": ["Mhhh7887", "VAIN"]
         }
       ]
     },
@@ -157,6 +158,13 @@
       "spotify": "https://open.spotify.com/album/0iBK1c7ys3eHVKrlsPMU67"
     },
     {
+      "title": "Stray",
+      "type": "EP",
+      "date": "2021-07-30",
+      "tracks": 3,
+      "soundcloud": "https://soundcloud.com/its_nya_music/sets/stray"
+    },
+    {
       "title": "Lime",
       "type": "Single",
       "date": "2021-02-13",
@@ -169,6 +177,14 @@
       "date": "2021-01-13",
       "tracks": 5,
       "spotify": "https://open.spotify.com/album/5fg8QmOGeChoZItstga9dc"
+    },
+    {
+      "title": "Sickness",
+      "type": "Single",
+      "date": "2020-11-16",
+      "tracks": 1,
+      "soundcloud": "https://soundcloud.com/its_nya_music/sickness",
+      "_note": "SoundCloud upload date. The song came out again two months later as track 4 of Duality."
     }
   ]
 }
