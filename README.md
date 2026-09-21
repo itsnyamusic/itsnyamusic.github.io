@@ -70,6 +70,14 @@ here with a `with` field. Rows link to Spotify unless the release has its own
 page on this site, in which case `page` is set and the row links there. That is
 how NYAVERSE works. A new release page belongs under `releases/<name>/`.
 
+Guests go in a release's `features` (track number, title, guest names). They
+are structured data only, the visible list stays titles and dates. Every name
+used in `with` or `features` has to be in the `artists` list at the top of the
+file with its Spotify profile, which is published as `sameAs` so a crawler can
+tell that Naeyiwu or Vain apart from anyone else with the same name. The
+generator refuses to build if a name is missing from that list, which is what
+catches typos.
+
 **`credits/` is sorted newest first.** Every row in the list carries a
 `data-date`, an ISO date at whatever precision the source actually gives:
 a full date where the release has one, a bare year where the platform only

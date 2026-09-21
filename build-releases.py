@@ -35,13 +35,42 @@ RELEASE_TYPES = {
     "Single": "https://schema.org/SingleRelease",
 }
 SPOTIFY_RE = re.compile(r"https://open\.spotify\.com/album/[A-Za-z0-9]{22}")
+SPOTIFY_ARTIST_RE = re.compile(r"https://open\.spotify\.com/artist/[A-Za-z0-9]{22}")
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
+
+
+def check_names(names, artists, where):
+    """A list of artist names, each of which has a Spotify profile in `artists`."""
+    if not isinstance(names, list) or not names or not all(isinstance(n, str) and n for n in names):
+        raise SystemExit(f"releases.json: {where} must be a list of artist names")
+    for n in names:
+        if n not in artists:
+            raise SystemExit(f"releases.json: {where} names '{n}', who is not listed under artists")
+
+
+def check_features(r, artists, name):
+    tracks = set()
+    for f in r.get("features", []):
+        track = f.get("track")
+        if not isinstance(track, int) or not 1 <= track <= r["tracks"]:
+            raise SystemExit(f"releases.json: '{name}' has a feature on track '{track}', must be 1 to {r['tracks']}")
+        if track in tracks:
+            raise SystemExit(f"releases.json: '{name}' lists track {track} twice under features")
+        tracks.add(track)
+        if not f.get("title"):
+            raise SystemExit(f"releases.json: '{name}' track {track} feature is missing its title")
+        check_names(f.get("artists"), artists, f"'{name}' track {track} artists")
 
 
 def load_releases():
     data = json.loads(SOURCE.read_text(encoding="utf-8"))
     releases = data["releases"]
+    artists = data.get("artists", {})
+
+    for n, url in artists.items():
+        if not SPOTIFY_ARTIST_RE.fullmatch(url):
+            raise SystemExit(f"releases.json: artist '{n}' has '{url}', must be a Spotify artist URL")
 
     seen = set()
     for i, r in enumerate(releases):
@@ -62,15 +91,15 @@ def load_releases():
             raise SystemExit(f"releases.json: '{name}' has spotify '{r['spotify']}', must be a Spotify album URL")
         if r.get("page") and not r["page"].startswith("https://itsnyamusic.com/"):
             raise SystemExit(f"releases.json: '{name}' has page '{r['page']}', must be a page on itsnyamusic.com")
-        others = r.get("with", [])
-        if not isinstance(others, list) or not all(isinstance(o, str) and o for o in others):
-            raise SystemExit(f"releases.json: '{name}' has 'with' that is not a list of names")
+        if "with" in r:
+            check_names(r["with"], artists, f"'{name}' with")
+        check_features(r, artists, name)
         if r["spotify"] in seen:
             raise SystemExit(f"releases.json: '{name}' repeats a Spotify URL already listed")
         seen.add(r["spotify"])
 
     # newest first; Python's sort is stable, so same-day releases keep file order
-    return sorted(releases, key=lambda r: r["date"], reverse=True)
+    return sorted(releases, key=lambda r: r["date"], reverse=True), artists
 
 
 def display_date(iso):
@@ -104,7 +133,27 @@ def build_html(releases):
     return "\n\n".join(out)
 
 
-def build_album(r):
+def other_artist(name, artists):
+    # The Spotify profile is what tells a crawler which Naeyiwu or Vain this is.
+    return {"@type": "MusicGroup", "name": name, "sameAs": artists[name]}
+
+
+def build_tracks(r, artists):
+    """The tracks with guests on them, Nya first and the guests after, which
+    is how the album page marks up the same tracks. Only these are listed;
+    numTracks still carries the full count."""
+    return [
+        {
+            "@type": "MusicRecording",
+            "name": f["title"],
+            "position": f["track"],
+            "byArtist": [{"@id": ARTIST_ID}] + [other_artist(n, artists) for n in f["artists"]],
+        }
+        for f in sorted(r.get("features", []), key=lambda f: f["track"])
+    ]
+
+
+def build_album(r, artists):
     album = {"@type": "MusicAlbum"}
     # A release with its own page is fully described there, under this @id.
     # The entry here is a partial view of the same entity, not a second one.
@@ -116,17 +165,18 @@ def build_album(r):
     album["albumProductionType"] = "https://schema.org/StudioAlbum"
     album["albumReleaseType"] = RELEASE_TYPES[r["type"]]
     album["numTracks"] = r["tracks"]
-    artists = [{"@type": "MusicGroup", "name": o} for o in r.get("with", [])]
-    artists.append({"@id": ARTIST_ID})
-    album["byArtist"] = artists if len(artists) > 1 else artists[0]
+    main = [other_artist(n, artists) for n in r.get("with", [])] + [{"@id": ARTIST_ID}]
+    album["byArtist"] = main if len(main) > 1 else main[0]
+    if r.get("features"):
+        album["track"] = build_tracks(r, artists)
     if r.get("page"):
         album["sameAs"] = r["spotify"]
     return album
 
 
-def build_ldjson(releases):
+def build_ldjson(releases, artists):
     items = [
-        {"@type": "ListItem", "position": i, "item": build_album(r)}
+        {"@type": "ListItem", "position": i, "item": build_album(r, artists)}
         for i, r in enumerate(releases, start=1)
     ]
     graph = {
@@ -193,9 +243,9 @@ def replace_region(text, name, payload, path):
 
 def main():
     check_only = "--check" in sys.argv
-    releases = load_releases()
+    releases, artists = load_releases()
     list_html = build_html(releases)
-    ldjson = build_ldjson(releases)
+    ldjson = build_ldjson(releases, artists)
 
     stale = False
     for path in TARGETS:
@@ -215,7 +265,9 @@ def main():
 
     print(f"\n{len(releases)} release(s), in page order:")
     for r in releases:
-        print(f"  {display_date(r['date']):>17}  {build_meta(r).split(' - ')[0]:<20}  {r['title']}")
+        guests = sorted({n for f in r.get("features", []) for n in f["artists"]})
+        feat = f"  (feat. {', '.join(guests)})" if guests else ""
+        print(f"  {display_date(r['date']):>17}  {build_meta(r).split(' - ')[0]:<20}  {r['title']}{feat}")
 
     if check_only and stale:
         print("\nPages are out of date. Run: python build-releases.py")

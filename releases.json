@@ -8,8 +8,18 @@
     "tracks": "required - number of tracks",
     "spotify": "required - Spotify album URL, the canonical source for every release",
     "page": "optional - URL of the release's own page on this site. When set, the row links there instead of Spotify",
-    "with": "optional - list of other main artists on a joint release",
+    "with": "optional - other main artists on a joint release, each listed under artists",
+    "features": "optional - guests on the release, as [{track, title, artists}]: track number, track title, guest names. Each guest must be listed under artists. Structured data only, never shown on the page",
     "_note": "optional - internal note, never published"
+  },
+  "_artists": "Every artist named in a with or features field, with their Spotify profile. Emitted as sameAs, so crawlers can tell them apart from other artists of the same name",
+  "artists": {
+    "Kairox": "https://open.spotify.com/artist/4gSGiISDSSYbAhuOk0UUA9",
+    "lame girl kya": "https://open.spotify.com/artist/495hQDJgOyvI62fYS4O4aw",
+    "Mhhh7887": "https://open.spotify.com/artist/18nXUP1JS7KV0F8y1msVlu",
+    "Naeyiwu": "https://open.spotify.com/artist/7jD2lt6LiRp6byp3rG0Sps",
+    "Vain": "https://open.spotify.com/artist/2E5p6QErSBDIU3iyNxIUv0",
+    "YoungKiwi": "https://open.spotify.com/artist/2MToofEJZJ2Lppozscdv24"
   },
   "releases": [
     {
@@ -26,7 +36,24 @@
       "date": "2026-07-24",
       "tracks": 13,
       "spotify": "https://open.spotify.com/album/1qV3DAGU4CLRWUkC8nc4CR",
-      "page": "https://itsnyamusic.com/releases/nyaverse/"
+      "page": "https://itsnyamusic.com/releases/nyaverse/",
+      "features": [
+        {
+          "track": 4,
+          "title": "Tinder",
+          "artists": ["Naeyiwu"]
+        },
+        {
+          "track": 9,
+          "title": "Olympia",
+          "artists": ["Naeyiwu"]
+        },
+        {
+          "track": 12,
+          "title": "99 Problems",
+          "artists": ["Mhhh7887", "Vain"]
+        }
+      ]
     },
     {
       "title": "Denk Wieder an Dich",
@@ -63,7 +90,29 @@
       "type": "EP",
       "date": "2024-07-05",
       "tracks": 5,
-      "spotify": "https://open.spotify.com/album/3Z077seqNC4AyhAh41RPD0"
+      "spotify": "https://open.spotify.com/album/3Z077seqNC4AyhAh41RPD0",
+      "features": [
+        {
+          "track": 1,
+          "title": "Salitos",
+          "artists": ["YoungKiwi"]
+        },
+        {
+          "track": 3,
+          "title": "Achterbahn",
+          "artists": ["Naeyiwu"]
+        },
+        {
+          "track": 4,
+          "title": "3 Flaschen Wein",
+          "artists": ["Mhhh7887"]
+        },
+        {
+          "track": 5,
+          "title": "Letzte Kippe",
+          "artists": ["lame girl kya"]
+        }
+      ]
     },
     {
       "title": "One Night",
