@@ -1,0 +1,125 @@
+{
+  "_comment": "Single source of truth for Nya's own releases on /releases/. Edit this file, then run: python build-releases.py",
+  "_scope": "Everything on Nya's Spotify discography (albums, EPs, singles). Songs where Nya is only a guest do not belong here, they go on /credits/. A joint single where she is a main artist, like Bad Dreams with Kairox, does belong here.",
+  "_fields": {
+    "title": "required - release title as Spotify shows it. NYAVERSE keeps the capitals the rest of the site uses",
+    "type": "required - Album, EP or Single",
+    "date": "required - YYYY-MM-DD release date",
+    "tracks": "required - number of tracks",
+    "spotify": "required - Spotify album URL, the canonical source for every release",
+    "page": "optional - URL of the release's own page on this site. When set, the row links there instead of Spotify",
+    "with": "optional - list of other main artists on a joint release",
+    "_note": "optional - internal note, never published"
+  },
+  "releases": [
+    {
+      "title": "Bad Dreams",
+      "type": "Single",
+      "date": "2026-08-28",
+      "tracks": 1,
+      "with": ["Kairox"],
+      "spotify": "https://open.spotify.com/album/0BfND6QHwzQs0Pn9c1Hlha"
+    },
+    {
+      "title": "NYAVERSE",
+      "type": "Album",
+      "date": "2026-07-24",
+      "tracks": 13,
+      "spotify": "https://open.spotify.com/album/1qV3DAGU4CLRWUkC8nc4CR",
+      "page": "https://itsnyamusic.com/releases/nyaverse/"
+    },
+    {
+      "title": "Denk Wieder an Dich",
+      "type": "Single",
+      "date": "2026-05-22",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/1ucS7vHFCCIhwYC1ERi5im"
+    },
+    {
+      "title": "Messer",
+      "type": "Single",
+      "date": "2026-04-12",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/3RlB007IdOAFLCsgT5ZhBu"
+    },
+    {
+      "title": "Bedwars",
+      "type": "Single",
+      "date": "2025-09-28",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/3zOjrjrSmwskC9oD2M12N3",
+      "_note": "Nya's date. Spotify and Apple show 2025-09-29, the distributor's date."
+    },
+    {
+      "title": "Sweet Monster Energy",
+      "type": "Single",
+      "date": "2025-02-08",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/3lcFLdE1ci5g7l3VPPqHhQ",
+      "_note": "Nya's date. Spotify and Apple show 2025-02-22, the distributor's date."
+    },
+    {
+      "title": "Summer Vibes",
+      "type": "EP",
+      "date": "2024-07-05",
+      "tracks": 5,
+      "spotify": "https://open.spotify.com/album/3Z077seqNC4AyhAh41RPD0"
+    },
+    {
+      "title": "One Night",
+      "type": "Single",
+      "date": "2022-11-14",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/3jjdkSWhVQmIVcn2C9brkM"
+    },
+    {
+      "title": "Eyes",
+      "type": "Single",
+      "date": "2022-08-26",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/6gDmXviKbhUvDuJsNMtoOQ"
+    },
+    {
+      "title": "Red Green Blue",
+      "type": "Single",
+      "date": "2022-06-28",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/2UZH2aevdKy6igsBfsmYVt"
+    },
+    {
+      "title": "Didn't Do Shit",
+      "type": "Single",
+      "date": "2022-05-13",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/13X4fMYPhTpfPpcObaXPuC"
+    },
+    {
+      "title": "White Wine",
+      "type": "Single",
+      "date": "2022-02-05",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/35fHhoMBq7ciAU37d9QegF"
+    },
+    {
+      "title": "Bad Habit",
+      "type": "Single",
+      "date": "2021-11-28",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/0iBK1c7ys3eHVKrlsPMU67"
+    },
+    {
+      "title": "Lime",
+      "type": "Single",
+      "date": "2021-02-13",
+      "tracks": 1,
+      "spotify": "https://open.spotify.com/album/1zvw2EmhNZJ0jCyg2DgRCw"
+    },
+    {
+      "title": "Duality",
+      "type": "EP",
+      "date": "2021-01-13",
+      "tracks": 5,
+      "spotify": "https://open.spotify.com/album/5fg8QmOGeChoZItstga9dc"
+    }
+  ]
+}

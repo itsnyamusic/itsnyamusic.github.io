@@ -29,8 +29,9 @@ LoudHERMedia's "Nya Confronts the Fears That Follow Transformation on “Duality
 ## Main pages
 
 - [Official website](https://itsnyamusic.com/): the artist homepage, with all official profiles and streaming links
-- [NYAVERSE album page](https://itsnyamusic.com/nyaverse/): debut album details, cover and full tracklist
-- [NYAVERSE lyrics](https://itsnyamusic.com/nyaverse/lyrics/): full lyrics for all 13 tracks, in German and English, published by the artist
+- [Releases](https://itsnyamusic.com/releases/): Nya's full discography, newest first: the album NYAVERSE, the EPs Summer Vibes and Duality, and every single, each linked to Spotify or to its own page on this site
+- [NYAVERSE album page](https://itsnyamusic.com/releases/nyaverse/): debut album details, cover and full tracklist
+- [NYAVERSE lyrics](https://itsnyamusic.com/releases/nyaverse/lyrics/): full lyrics for all 13 tracks, in German and English, published by the artist
 - [Promo site](https://itsnyamusic.com/promo/): bio, discography and videos
 - [Press](https://itsnyamusic.com/press/): press coverage of Nya, headlined by LoudHERMedia's read of “Duality2” and a full interview in the Hertener Allgemeine newspaper, with reviews and features in HipHopEargasm, Foxfire Magazine, Freim TV and La Caverna, plus picks from Kickdrum Magazin, 7 Tage - 7 Songs and curator amara.bside
 - [Features & credits](https://itsnyamusic.com/credits/): Nya's work on other artists' records, covering guest features and production/mixing credits
@@ -44,7 +45,7 @@ LoudHERMedia's "Nya Confronts the Fears That Follow Transformation on “Duality
 - Latest release: Bad Dreams, a single with Kairox (August 28, 2026)
 - Debut album: NYAVERSE, out now (released July 24, 2026), self-released, 13 tracks in German and English
 - Guest features on NYAVERSE: Naeyiwu, Mhhh7887, Vain
-- Earlier releases: the EPs Duality (2021, 5 tracks), It's Hyperpop (2023, 3 tracks) and Summer Vibes (2024, 5 tracks), plus singles including Messer (2026), Denk Wieder an Dich (2026), BEDWARS (2025), Sweet Monster Energy (2025)
+- Earlier releases: the EPs Duality (2021, 5 tracks), It's Hyperpop (2023, 3 tracks) and Summer Vibes (2024, 5 tracks), plus singles including Messer (2026), Denk Wieder an Dich (2026), BEDWARS (2025), Sweet Monster Energy (2025). Full discography at https://itsnyamusic.com/releases/
 - Summer Vibes (EP, released 2024-07-05, 5 tracks): Salitos (feat. YoungKiwi), Anschluss, Achterbahn (feat. Naeyiwu), 3 Flaschen Wein (feat. Mhhh7887), Letzte Kippe (feat. lame girl kya)
 - Work on other artists' records: feature and mixing on YoungKiwi's "Bürolicht" (2026, with Naeyiwu), mixing on YoungKiwi's "Kiba" (2026), guest features on cxkey's "Selbstverliebt" (2026, from the EP SUMMER BREAK: Awake Forever (SB2)) and "TAUCH NICHT AUF" (2026), Naeyiwu's "KLIMAKLEBER AUFM MOND" (2024), Kay Trueluv's "off the net" (2024), Mhhh7887's "Gefühle in den Schrank" (2024), Naeyiwu's "TOXICBITCH" (2023) and Naeyiwu's "Down" (2021, from the album FLYEST ALIVE, SoundCloud). Full list at https://itsnyamusic.com/credits/
 

@@ -10,8 +10,10 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | Path | What it is |
 |---|---|
 | `index.html` | the homepage and link hub, the canonical artist page |
-| `nyaverse/` | NYAVERSE album page |
-| `nyaverse/lyrics/` | full lyrics, all 13 tracks |
+| `releases/` | full discography, **generated, see below** |
+| `releases/nyaverse/` | NYAVERSE album page |
+| `releases/nyaverse/lyrics/` | full lyrics, all 13 tracks |
+| `nyaverse/` | redirect to `releases/nyaverse/`, kept because the album's old address is all over the web |
 | `press/` | press coverage, **generated, see below** |
 | `press-kit/` | press kit, deliberately `noindex, nofollow` |
 | `promo/` | longer bio, discography and videos |
@@ -52,6 +54,22 @@ python build-press.py            # rebuild
 python build-press.py --check    # verify without writing, exits 1 if stale
 ```
 
+**`releases/` is generated too**, the same way. The rows and the structured
+data both come from `releases.json`, so they cannot drift apart. Edit the JSON,
+then run the generator and commit both:
+
+```
+python build-releases.py            # rebuild
+python build-releases.py --check    # verify without writing, exits 1 if stale
+```
+
+The list is everything on Nya's own Spotify discography, and Spotify is the
+source for it. A song where she is only a guest goes on `credits/` instead; a
+joint release where she is a main artist, like Bad Dreams with Kairox, goes
+here with a `with` field. Rows link to Spotify unless the release has its own
+page on this site, in which case `page` is set and the row links there. That is
+how NYAVERSE works. A new release page belongs under `releases/<name>/`.
+
 **`credits/` is sorted newest first.** Every row in the list carries a
 `data-date`, an ISO date at whatever precision the source actually gives:
 a full date where the release has one, a bare year where the platform only
@@ -74,9 +92,17 @@ authority to the homepage. It intentionally has no `noindex`, so the signals
 consolidate instead of being dropped. Same for the images kept at
 `links/assets/`, which older shared link previews still request.
 
+**`nyaverse/` must keep redirecting,** and so must `nyaverse/lyrics/`. The
+album page lived at `/nyaverse/` until 2026-09-21 and that address is in bios,
+shared posts and on Wikidata. Like `links/`, both stubs have no
+`noindex`, so their search history carries over to the new address. The lyrics
+stub passes the `#track` anchor through, so links to a single song still land
+on it.
+
 **Keep the sitemap honest.** `sitemap.xml` lists only canonical, indexable
 pages. `press-kit/`, `datenschutz/` and `impressum/` are excluded on purpose
-because they are `noindex`, and `links/` is excluded because it is a redirect.
+because they are `noindex`, and `links/` and `nyaverse/` are excluded because
+they are redirects.
 
 **The legal pages are `noindex, follow`, never blocked in `robots.txt`.**
 § 5 DDG wants the Impressum "leicht erkennbar, unmittelbar erreichbar und
