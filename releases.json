@@ -17,6 +17,7 @@
   "artists": {
     "Kairox": "https://open.spotify.com/artist/4gSGiISDSSYbAhuOk0UUA9",
     "lame girl kya": "https://open.spotify.com/artist/495hQDJgOyvI62fYS4O4aw",
+    "Lame Girl Kya": "https://open.spotify.com/artist/5o0ABEj7xKIESYR4xCRhjz",
     "Mhhh7887": "https://open.spotify.com/artist/18nXUP1JS7KV0F8y1msVlu",
     "Naeyiwu": "https://open.spotify.com/artist/7jD2lt6LiRp6byp3rG0Sps",
     "VAIN": "https://open.spotify.com/artist/2E5p6QErSBDIU3iyNxIUv0",
@@ -128,6 +129,46 @@
       "date": "2022-08-26",
       "tracks": 1,
       "spotify": "https://open.spotify.com/album/6gDmXviKbhUvDuJsNMtoOQ"
+    },
+    {
+      "title": "Daily Dose of Internet",
+      "type": "EP",
+      "date": "2022-07-15",
+      "tracks": 6,
+      "spotify": "https://open.spotify.com/album/5XzK2ayCsKuxSCj2KD1PbH",
+      "features": [
+        {
+          "track": 1,
+          "title": "Michaelsoft Binbows",
+          "artists": ["Naeyiwu"]
+        },
+        {
+          "track": 2,
+          "title": "Daily Dose of Internet",
+          "artists": ["Naeyiwu"]
+        },
+        {
+          "track": 3,
+          "title": "White Wine",
+          "artists": ["Naeyiwu"]
+        },
+        {
+          "track": 4,
+          "title": "Movie Maker",
+          "artists": ["Naeyiwu", "Lame Girl Kya"]
+        },
+        {
+          "track": 5,
+          "title": "Vroom Vroom",
+          "artists": ["Naeyiwu"]
+        },
+        {
+          "track": 6,
+          "title": "Mental Swagdown",
+          "artists": ["Naeyiwu"]
+        }
+      ],
+      "_note": "Spotify shows the title as 'Daily Dose of Internet-EP', the type field carries the EP. Lame Girl Kya on Movie Maker is a different Spotify profile from 'lame girl kya' on Summer Vibes."
     },
     {
       "title": "Red Green Blue",
