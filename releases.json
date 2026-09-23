@@ -17,7 +17,7 @@
   "artists": {
     "Kairox": "https://open.spotify.com/artist/4gSGiISDSSYbAhuOk0UUA9",
     "lame girl kya": "https://open.spotify.com/artist/495hQDJgOyvI62fYS4O4aw",
-    "Lame Girl Kya": "https://open.spotify.com/artist/5o0ABEj7xKIESYR4xCRhjz",
+    "Kay Trueluv": "https://open.spotify.com/artist/1ha35XF26P2d4WEyBkBjyp",
     "Mhhh7887": "https://open.spotify.com/artist/18nXUP1JS7KV0F8y1msVlu",
     "Naeyiwu": "https://open.spotify.com/artist/7jD2lt6LiRp6byp3rG0Sps",
     "VAIN": "https://open.spotify.com/artist/2E5p6QErSBDIU3iyNxIUv0",
@@ -141,10 +141,10 @@
         {
           "track": 4,
           "title": "Movie Maker",
-          "artists": ["Lame Girl Kya"]
+          "artists": ["Kay Trueluv"]
         }
       ],
-      "_note": "Joint release, Nya and Naeyiwu are both main artists (Nya, 2026-09-22). Spotify shows the title as 'Daily Dose of Internet-EP', the type field carries the EP. Lame Girl Kya on Movie Maker is a different Spotify profile from 'lame girl kya' on Summer Vibes."
+      "_note": "Joint release, Nya and Naeyiwu are both main artists (Nya, 2026-09-22). Spotify shows the title as 'Daily Dose of Internet-EP', the type field carries the EP. Movie Maker is credited to Kay Trueluv as on Spotify (Nya, 2026-09-23)."
     },
     {
       "title": "Red Green Blue",
