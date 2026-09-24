@@ -54,13 +54,4 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
-    <loc>https://itsnyamusic.com/promo/</loc>
-    <lastmod>2026-09-21</lastmod>
-    <image:image>
-      <image:loc>https://itsnyamusic.com/promo/assets/nya.jpg</image:loc>
-    </image:image>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
 </urlset>

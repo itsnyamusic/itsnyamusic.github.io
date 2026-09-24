@@ -17,7 +17,6 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `nyaverse/` | redirect to `releases/nyaverse/`, kept because the album's old address is all over the web |
 | `press/` | press coverage, **generated, see below** |
 | `press-kit/` | press kit, deliberately `noindex, nofollow` |
-| `promo/` | longer bio, discography and videos |
 | `datenschutz/` | privacy policy |
 | `impressum/` | legal notice (§ 5 DDG) |
 | `links/` | redirect to the homepage, kept because a lot of external records still point at it |
@@ -36,11 +35,12 @@ Do not add a CDN, a Google Font, an analytics snippet or a tracker, and do not
 add `preconnect`/`dns-prefetch` to a third party either, since those open a
 connection on their own.
 
-The one piece of third-party content, the video on `promo/`, is click-to-load:
-the page ships a placeholder button and only inserts the YouTube iframe once
-the visitor presses it. **Do not swap it back for a bare `<iframe>`.** That is
-what `datenschutz/` promises, and a plain embed would contact Google before
-anyone consented. If you add another video, copy the existing pattern.
+There is no third-party content on any page. If a video is ever added, make it
+click-to-load: ship a placeholder button and only insert the iframe (from
+`youtube-nocookie.com`) once the visitor presses it, never a bare `<iframe>`,
+and add a matching "Videos" section to `datenschutz/` naming Google Ireland
+Limited as the recipient. `datenschutz/` currently promises no third-party
+connections at all.
 
 To check, search the built pages for anything the browser fetches by itself
 (`iframe`/`img`/`script`/`link rel=preconnect|stylesheet`/`url()`) pointing at
@@ -131,3 +131,5 @@ and keep both pages returning 200 to everyone.
 The site used to be three repos: `links` served the hub at `/links/`, `promo`
 served `/promo/`, and this repo held little more than a redirect. They were
 merged here on 2026-07-28 and both old repos are archived with Pages disabled.
+`/promo/` itself was removed on 2026-09-24 as redundant with the homepage,
+/releases/ and /press-kit/; nothing links to it any more.
