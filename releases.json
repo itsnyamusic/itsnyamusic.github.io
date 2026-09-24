@@ -15,6 +15,7 @@
   },
   "_artists": "Every artist named in a with or features field, with their Spotify profile. Emitted as sameAs, so crawlers can tell them apart from other artists of the same name",
   "artists": {
+    "FEBO": "https://open.spotify.com/artist/2Nz9iUhTuhRi8ZpuEmufjt",
     "Kairox": "https://open.spotify.com/artist/4gSGiISDSSYbAhuOk0UUA9",
     "lame girl kya": "https://open.spotify.com/artist/495hQDJgOyvI62fYS4O4aw",
     "Kay Trueluv": "https://open.spotify.com/artist/1ha35XF26P2d4WEyBkBjyp",
@@ -24,6 +25,15 @@
     "YoungKiwi": "https://open.spotify.com/artist/2MToofEJZJ2Lppozscdv24"
   },
   "releases": [
+    {
+      "title": "Olympia (Remix)",
+      "type": "Single",
+      "date": "2026-09-23",
+      "tracks": 1,
+      "with": ["FEBO"],
+      "spotify": "https://open.spotify.com/album/6HTM7ljT3gI7jTuSktH8ZH",
+      "_note": "Remix of Olympia from NYAVERSE. Spotify lists Nya and FEBO as the artists (checked 2026-09-24)."
+    },
     {
       "title": "Bad Dreams",
       "type": "Single",
