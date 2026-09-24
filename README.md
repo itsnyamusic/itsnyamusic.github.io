@@ -13,7 +13,7 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `releases/` | full discography, **generated, see below** |
 | `releases/nyaverse/` | NYAVERSE album page |
 | `releases/nyaverse/lyrics/` | full lyrics, all 13 tracks |
-| `releases/olympia-remix/` | Olympia (Remix) single page, with FEBO |
+| `releases/olympia-remix/` | Olympia (Remix) single page, feat. FEBO |
 | `nyaverse/` | redirect to `releases/nyaverse/`, kept because the album's old address is all over the web |
 | `press/` | press coverage, **generated, see below** |
 | `press-kit/` | press kit, deliberately `noindex, nofollow` |

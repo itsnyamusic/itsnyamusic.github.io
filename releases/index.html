@@ -99,14 +99,24 @@
                                 "albumProductionType": "https://schema.org/StudioAlbum",
                                 "albumReleaseType": "https://schema.org/SingleRelease",
                                 "numTracks": 1,
-                                "byArtist": [
+                                "byArtist": {
+                                    "@id": "https://itsnyamusic.com/#artist"
+                                },
+                                "track": [
                                     {
-                                        "@type": "MusicGroup",
-                                        "name": "FEBO",
-                                        "sameAs": "https://open.spotify.com/artist/2Nz9iUhTuhRi8ZpuEmufjt"
-                                    },
-                                    {
-                                        "@id": "https://itsnyamusic.com/#artist"
+                                        "@type": "MusicRecording",
+                                        "name": "Olympia (Remix)",
+                                        "position": 1,
+                                        "byArtist": [
+                                            {
+                                                "@id": "https://itsnyamusic.com/#artist"
+                                            },
+                                            {
+                                                "@type": "MusicGroup",
+                                                "name": "FEBO",
+                                                "sameAs": "https://open.spotify.com/artist/2Nz9iUhTuhRi8ZpuEmufjt"
+                                            }
+                                        ]
                                     }
                                 ],
                                 "sameAs": "https://open.spotify.com/album/6HTM7ljT3gI7jTuSktH8ZH"
@@ -760,7 +770,7 @@
         <a href="https://itsnyamusic.com/releases/olympia-remix/" class="release">
             <div class="release-meta">
                 <div class="release-dot" style="background: #b967ff;"></div>
-                <span>Single with FEBO - 23 September 2026</span>
+                <span>Single - 23 September 2026</span>
             </div>
             <div class="release-title">Olympia (Remix)</div>
         </a>
