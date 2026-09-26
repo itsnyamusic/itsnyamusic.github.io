@@ -173,7 +173,7 @@ def build_ldjson(articles):
                 "@id": "https://itsnyamusic.com/press/#webpage",
                 "url": "https://itsnyamusic.com/press/",
                 "name": "Press",
-                "description": "Press coverage of German hyperpop and cyber-rap artist Nya during the NYAVERSE album era.",
+                "description": "Press coverage of German hyperpop and cyber-rap artist Nya.",
                 "inLanguage": "en",
                 "about": {"@id": "https://itsnyamusic.com/#artist"},
                 "breadcrumb": {"@id": "https://itsnyamusic.com/press/#breadcrumb"},
