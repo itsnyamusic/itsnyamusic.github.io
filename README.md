@@ -82,6 +82,11 @@ tell that Naeyiwu or VAIN apart from anyone else with the same name. The
 generator refuses to build if a name is missing from that list, which is what
 catches typos.
 
+Non-performing credits, like who mixed a track, go in `credits` (track
+number, title, role, names). They are structured data only too, published as a
+schema.org `Role` on the track's `contributor`, since schema.org has no
+mixing-engineer property of its own. Names there need no Spotify profile.
+
 **`credits/` is sorted newest first.** Every row in the list carries a
 `data-date`, an ISO date at whatever precision the source actually gives:
 a full date where the release has one, a bare year where the platform only

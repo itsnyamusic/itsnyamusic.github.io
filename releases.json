@@ -11,6 +11,7 @@
     "page": "optional - URL of the release's own page on this site. A row links to page first, then Spotify, then SoundCloud",
     "with": "optional - other main artists on a joint release, each listed under artists",
     "features": "optional - guests on the release, as [{track, title, artists}]: track number, track title, guest names. Each guest must be listed under artists. Structured data only, never shown on the page",
+    "credits": "optional - non-performing credits, as [{track, title, role, names}]: track number, track title, role (e.g. mixing engineer), names. Emitted as a schema.org Role on the track's contributor. Structured data only, never shown on the page",
     "_note": "optional - internal note, never published"
   },
   "_artists": "Every artist named in a with or features field, with their Spotify profile. Emitted as sameAs, so crawlers can tell them apart from other artists of the same name",
@@ -43,7 +44,11 @@
       "date": "2026-08-28",
       "tracks": 1,
       "with": ["Kairox"],
-      "spotify": "https://open.spotify.com/album/0BfND6QHwzQs0Pn9c1Hlha"
+      "spotify": "https://open.spotify.com/album/0BfND6QHwzQs0Pn9c1Hlha",
+      "credits": [
+        {"track": 1, "title": "Bad Dreams", "role": "mixing engineer", "names": ["Cali808"]}
+      ],
+      "_note": "Mixed by Cali808 (Nya, 2026-09-29)."
     },
     {
       "title": "NYAVERSE",

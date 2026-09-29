@@ -65,6 +65,19 @@ def check_features(r, artists, name):
         check_names(f.get("artists"), artists, f"'{name}' track {track} artists")
 
 
+def check_credits(r, name):
+    for c in r.get("credits", []):
+        track = c.get("track")
+        if not isinstance(track, int) or not 1 <= track <= r["tracks"]:
+            raise SystemExit(f"releases.json: '{name}' has a credit on track '{track}', must be 1 to {r['tracks']}")
+        for field in ("title", "role"):
+            if not c.get(field):
+                raise SystemExit(f"releases.json: '{name}' track {track} credit is missing its {field}")
+        names = c.get("names")
+        if not isinstance(names, list) or not names or not all(isinstance(n, str) and n for n in names):
+            raise SystemExit(f"releases.json: '{name}' track {track} credit names must be a list of names")
+
+
 def load_releases():
     data = json.loads(SOURCE.read_text(encoding="utf-8"))
     releases = data["releases"]
@@ -100,6 +113,7 @@ def load_releases():
         if "with" in r:
             check_names(r["with"], artists, f"'{name}' with")
         check_features(r, artists, name)
+        check_credits(r, name)
         for url in platform_links(r):
             if url in seen:
                 raise SystemExit(f"releases.json: '{name}' repeats a link already listed ({url})")
@@ -159,18 +173,34 @@ def other_artist(name, artists):
 
 
 def build_tracks(r, artists):
-    """The tracks with guests on them, Nya first and the guests after, which
-    is how the album page marks up the same tracks. Only these are listed;
-    numTracks still carries the full count."""
-    return [
-        {
-            "@type": "MusicRecording",
-            "name": f["title"],
-            "position": f["track"],
-            "byArtist": [{"@id": ARTIST_ID}] + [other_artist(n, artists) for n in f["artists"]],
-        }
-        for f in sorted(r.get("features", []), key=lambda f: f["track"])
-    ]
+    """The tracks with guests or credits on them. A track with guests is Nya
+    first and the guests after, which is how the album page marks up the same
+    tracks; a track with only credits carries the release's own artists. Only
+    these tracks are listed; numTracks still carries the full count."""
+    features = {f["track"]: f for f in r.get("features", [])}
+    credits = {}
+    for c in r.get("credits", []):
+        credits.setdefault(c["track"], []).append(c)
+    tracks = []
+    for n in sorted(set(features) | set(credits)):
+        title = features[n]["title"] if n in features else credits[n][0]["title"]
+        if n in features:
+            by = [{"@id": ARTIST_ID}] + [other_artist(a, artists) for a in features[n]["artists"]]
+        else:
+            by = [other_artist(a, artists) for a in r.get("with", [])] + [{"@id": ARTIST_ID}]
+        track = {"@type": "MusicRecording", "name": title, "position": n,
+                 "byArtist": by if len(by) > 1 else by[0]}
+        roles = [
+            # schema.org has no mixing-engineer property; a Role on contributor
+            # is its documented way to say what someone did on a work.
+            {"@type": "Role", "roleName": c["role"],
+             "contributor": {"@type": "Person", "name": person}}
+            for c in credits.get(n, []) for person in c["names"]
+        ]
+        if roles:
+            track["contributor"] = roles if len(roles) > 1 else roles[0]
+        tracks.append(track)
+    return tracks
 
 
 def build_album(r, artists):
@@ -187,7 +217,7 @@ def build_album(r, artists):
     album["numTracks"] = r["tracks"]
     main = [other_artist(n, artists) for n in r.get("with", [])] + [{"@id": ARTIST_ID}]
     album["byArtist"] = main if len(main) > 1 else main[0]
-    if r.get("features"):
+    if r.get("features") or r.get("credits"):
         album["track"] = build_tracks(r, artists)
     same = [u for u in platform_links(r) if u != album["url"]]
     if same:
