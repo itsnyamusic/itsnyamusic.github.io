@@ -25,10 +25,10 @@
     <meta property="og:title" content="Houseflip - Nya">
     <meta property="og:description" content="The new single by Nya. Out October 16, 2026.">
     <meta property="og:url" content="https://itsnyamusic.com/releases/houseflip/">
-    <meta property="og:image" content="https://itsnyamusic.com/assets/nya.jpg">
-    <meta property="og:image:width" content="400">
-    <meta property="og:image:height" content="400">
-    <meta property="og:image:alt" content="Nya - German hyperpop and cyber-rap artist (she/her)">
+    <meta property="og:image" content="https://itsnyamusic.com/assets/houseflip-cover-1200.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="1200">
+    <meta property="og:image:alt" content="Houseflip cover: glossy liquid shapes in violet, magenta and yellow over a dark red ground">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="de_DE">
     <meta property="music:musician" content="https://itsnyamusic.com/">
@@ -39,8 +39,8 @@
     <meta name="twitter:creator" content="@its_nya_music">
     <meta name="twitter:title" content="Houseflip - Nya">
     <meta name="twitter:description" content="The new single by Nya. Out October 16, 2026.">
-    <meta name="twitter:image" content="https://itsnyamusic.com/assets/nya.jpg">
-    <meta name="twitter:image:alt" content="Nya">
+    <meta name="twitter:image" content="https://itsnyamusic.com/assets/houseflip-cover-1200.jpg">
+    <meta name="twitter:image:alt" content="Houseflip cover">
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="48x48" href="/assets/icons/icon-48.png">
@@ -82,6 +82,13 @@
                 "name": "Houseflip",
                 "url": "https://itsnyamusic.com/releases/houseflip/",
                 "mainEntityOfPage": "https://itsnyamusic.com/releases/houseflip/",
+                "image": {
+                    "@type": "ImageObject",
+                    "url": "https://itsnyamusic.com/assets/houseflip-cover-1200.jpg",
+                    "width": 1200,
+                    "height": 1200,
+                    "caption": "Houseflip cover"
+                },
                 "datePublished": "2026-10-16",
                 "albumProductionType": "https://schema.org/StudioAlbum",
                 "albumReleaseType": "https://schema.org/SingleRelease",
@@ -140,6 +147,7 @@
                 "about": {
                     "@id": "https://itsnyamusic.com/releases/houseflip/#album"
                 },
+                "primaryImageOfPage": "https://itsnyamusic.com/assets/houseflip-cover-1200.jpg",
                 "breadcrumb": {
                     "@id": "https://itsnyamusic.com/releases/houseflip/#breadcrumb"
                 }
@@ -245,6 +253,17 @@
         .back:hover { color: #b967ff; }
 
 
+        .cover {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(185,103,255,0.15);
+        }
+
         .title {
             font-family: 'Space Mono', monospace;
             font-size: clamp(2.6rem, 11vw, 4.4rem);
@@ -340,6 +359,12 @@
 <div class="wrap">
 
     <a class="back" href="https://itsnyamusic.com/releases/">&larr; releases</a>
+
+    <img class="cover" src="https://itsnyamusic.com/assets/houseflip-cover-640.jpg"
+         srcset="https://itsnyamusic.com/assets/houseflip-cover-640.jpg 640w, https://itsnyamusic.com/assets/houseflip-cover-1200.jpg 1200w"
+         sizes="(max-width: 620px) 100vw, 620px"
+         width="640" height="640"
+         alt="Houseflip cover: glossy liquid shapes in violet, magenta and yellow over a dark red ground">
 
     <h1 class="title">Houseflip</h1>
     <div class="subtitle">nya - single - out 16.10.2026</div>

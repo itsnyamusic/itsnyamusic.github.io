@@ -30,6 +30,9 @@
   <url>
     <loc>https://itsnyamusic.com/releases/houseflip/</loc>
     <lastmod>2026-09-30</lastmod>
+    <image:image>
+      <image:loc>https://itsnyamusic.com/assets/houseflip-cover-1200.jpg</image:loc>
+    </image:image>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
