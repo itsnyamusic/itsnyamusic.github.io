@@ -13,6 +13,7 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `releases/` | full discography, **generated, see below** |
 | `releases/nyaverse/` | NYAVERSE album page |
 | `releases/nyaverse/lyrics/` | full lyrics, all 13 tracks |
+| `releases/houseflip/` | Houseflip single page, announced before release |
 | `releases/olympia-remix/` | Olympia (Remix) single page, feat. FEBO |
 | `nyaverse/` | redirect to `releases/nyaverse/`, kept because the album's old address is all over the web |
 | `press/` | press coverage, **generated, see below** |
@@ -73,6 +74,11 @@ Each row links to the release's own page on this site if it has one (`page`,
 which is how NYAVERSE works), otherwise to Spotify, otherwise to SoundCloud
 (`soundcloud`, for releases that are not on Spotify). The dot shows which. A
 new release page belongs under `releases/<name>/`.
+
+A release can go up before it is out: give it a `page` and no streaming
+link, and its row reads "out <date>". Once the date has passed, the generator
+refuses to build until the Spotify or SoundCloud link is added, so an
+announcement cannot quietly go stale.
 
 Guests go in a release's `features` (track number, title, guest names). They
 are structured data only, the visible list stays titles and dates. Every name

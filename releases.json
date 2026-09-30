@@ -6,9 +6,11 @@
     "type": "required - Album, EP or Single",
     "date": "required - YYYY-MM-DD release date",
     "tracks": "required - number of tracks",
-    "spotify": "required unless soundcloud is set - Spotify album URL, the canonical source",
+    "spotify": "required unless soundcloud is set - Spotify album URL, the canonical source. A release that is not out yet may have neither, as long as it has a page; the build refuses once its date has passed",
     "soundcloud": "optional - SoundCloud URL on its_nya_music, for a release that is not on Spotify",
     "page": "optional - URL of the release's own page on this site. A row links to page first, then Spotify, then SoundCloud",
+    "isrc": "optional - ISRC of a one-track release, without dashes. Emitted as isrcCode on the track",
+    "upc": "optional - UPC/EAN barcode of the release. Emitted as an identifier on the album",
     "with": "optional - other main artists on a joint release, each listed under artists",
     "features": "optional - guests on the release, as [{track, title, artists}]: track number, track title, guest names. Each guest must be listed under artists. Structured data only, never shown on the page",
     "credits": "optional - non-performing credits, as [{track, title, role, names}]: track number, track title, role (e.g. mixing engineer), names. Emitted as a schema.org Role on the track's contributor. Structured data only, never shown on the page",
@@ -26,6 +28,16 @@
     "YoungKiwi": "https://open.spotify.com/artist/2MToofEJZJ2Lppozscdv24"
   },
   "releases": [
+    {
+      "title": "Houseflip",
+      "type": "Single",
+      "date": "2026-10-16",
+      "tracks": 1,
+      "page": "https://itsnyamusic.com/releases/houseflip/",
+      "isrc": "QT66A2647927",
+      "upc": "859747640815",
+      "_note": "Announced before release (added 2026-09-30). Presave not ready yet. On release day add the spotify link, the build refuses until then. German, 2:52, label name DIGITALGODS at TuneCore."
+    },
     {
       "title": "Olympia (Remix)",
       "type": "Single",

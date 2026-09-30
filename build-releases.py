@@ -9,12 +9,17 @@ Everything between the RELEASES-LD and RELEASES-LIST markers in
 releases/index.html is generated. Nothing else in the page is touched, so
 design changes are safe to make by hand. Run this after every edit to
 releases.json. Same layout and same rules as build-press.py.
+
+A release that is not out yet has a page but no streaming link, and its row
+says "out <date>". After that date the build refuses until the Spotify or
+SoundCloud link is added, so an announcement cannot go stale unnoticed.
 """
 
 import html
 import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -37,6 +42,8 @@ RELEASE_TYPES = {
 }
 SPOTIFY_RE = re.compile(r"https://open\.spotify\.com/album/[A-Za-z0-9]{22}")
 SPOTIFY_ARTIST_RE = re.compile(r"https://open\.spotify\.com/artist/[A-Za-z0-9]{22}")
+ISRC_RE = re.compile(r"[A-Z]{2}[A-Z0-9]{3}\d{7}")
+UPC_RE = re.compile(r"\d{12,13}")
 SOUNDCLOUD_RE = re.compile(r"https://soundcloud\.com/its_nya_music/(sets/)?[a-z0-9_-]+")
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
@@ -103,7 +110,19 @@ def load_releases():
         if not isinstance(r["tracks"], int) or r["tracks"] < 1:
             raise SystemExit(f"releases.json: '{name}' has tracks '{r['tracks']}', must be a whole number above 0")
         if not r.get("spotify") and not r.get("soundcloud"):
-            raise SystemExit(f"releases.json: '{name}' needs a spotify or a soundcloud link")
+            # An announced release has no streaming link yet, only its own page.
+            # Once its date has passed the build refuses, so the row cannot keep
+            # saying "out" on a release that is already out.
+            if not r.get("page"):
+                raise SystemExit(f"releases.json: '{name}' needs a spotify or a soundcloud link, or a page if it is not out yet")
+            if not is_upcoming(r):
+                raise SystemExit(f"releases.json: '{name}' came out on {r['date']}, add its spotify or soundcloud link")
+        if r.get("isrc") and not ISRC_RE.fullmatch(r["isrc"]):
+            raise SystemExit(f"releases.json: '{name}' has isrc '{r['isrc']}', must be a 12-character ISRC without dashes")
+        if r.get("isrc") and r["tracks"] != 1:
+            raise SystemExit(f"releases.json: '{name}' has an isrc, which only fits a one-track release")
+        if r.get("upc") and not UPC_RE.fullmatch(r["upc"]):
+            raise SystemExit(f"releases.json: '{name}' has upc '{r['upc']}', must be 12 or 13 digits")
         if r.get("spotify") and not SPOTIFY_RE.fullmatch(r["spotify"]):
             raise SystemExit(f"releases.json: '{name}' has spotify '{r['spotify']}', must be a Spotify album URL")
         if r.get("soundcloud") and not SOUNDCLOUD_RE.fullmatch(r["soundcloud"]):
@@ -123,6 +142,10 @@ def load_releases():
     return sorted(releases, key=lambda r: r["date"], reverse=True), artists
 
 
+def is_upcoming(r):
+    return r["date"] > date.today().isoformat()
+
+
 def display_date(iso):
     year, month, day = iso.split("-")
     return f"{int(day)} {MONTHS[int(month) - 1]} {year}"
@@ -132,6 +155,8 @@ def build_meta(r):
     kind = r["type"]
     if r.get("with"):
         kind += " with " + " & ".join(r["with"])
+    if is_upcoming(r):
+        return f"{kind} - out {display_date(r['date'])}"
     return f"{kind} - {display_date(r['date'])}"
 
 
@@ -181,15 +206,25 @@ def build_tracks(r, artists):
     credits = {}
     for c in r.get("credits", []):
         credits.setdefault(c["track"], []).append(c)
+    numbers = set(features) | set(credits)
+    if r.get("isrc"):
+        numbers.add(1)
     tracks = []
-    for n in sorted(set(features) | set(credits)):
-        title = features[n]["title"] if n in features else credits[n][0]["title"]
+    for n in sorted(numbers):
+        if n in features:
+            title = features[n]["title"]
+        elif n in credits:
+            title = credits[n][0]["title"]
+        else:
+            title = r["title"]
         if n in features:
             by = [{"@id": ARTIST_ID}] + [other_artist(a, artists) for a in features[n]["artists"]]
         else:
             by = [other_artist(a, artists) for a in r.get("with", [])] + [{"@id": ARTIST_ID}]
         track = {"@type": "MusicRecording", "name": title, "position": n,
                  "byArtist": by if len(by) > 1 else by[0]}
+        if r.get("isrc"):
+            track["isrcCode"] = r["isrc"]
         roles = [
             # schema.org has no mixing-engineer property; a Role on contributor
             # is its documented way to say what someone did on a work.
@@ -217,7 +252,9 @@ def build_album(r, artists):
     album["numTracks"] = r["tracks"]
     main = [other_artist(n, artists) for n in r.get("with", [])] + [{"@id": ARTIST_ID}]
     album["byArtist"] = main if len(main) > 1 else main[0]
-    if r.get("features") or r.get("credits"):
+    if r.get("upc"):
+        album["identifier"] = {"@type": "PropertyValue", "propertyID": "UPC", "value": r["upc"]}
+    if r.get("features") or r.get("credits") or r.get("isrc"):
         album["track"] = build_tracks(r, artists)
     same = [u for u in platform_links(r) if u != album["url"]]
     if same:
