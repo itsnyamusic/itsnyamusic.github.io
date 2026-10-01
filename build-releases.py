@@ -197,6 +197,14 @@ def other_artist(name, artists):
     return {"@type": "MusicGroup", "name": name, "sameAs": artists[name]}
 
 
+def credited_person(name, artists):
+    # A credited name that is also a listed artist gets their Spotify profile.
+    person = {"@type": "Person", "name": name}
+    if name in artists:
+        person["sameAs"] = artists[name]
+    return person
+
+
 def build_tracks(r, artists):
     """The tracks with guests or credits on them. A track with guests is Nya
     first and the guests after, which is how the album page marks up the same
@@ -229,7 +237,7 @@ def build_tracks(r, artists):
             # schema.org has no mixing-engineer property; a Role on contributor
             # is its documented way to say what someone did on a work.
             {"@type": "Role", "roleName": c["role"],
-             "contributor": {"@type": "Person", "name": person}}
+             "contributor": credited_person(person, artists)}
             for c in credits.get(n, []) for person in c["names"]
         ]
         if roles:

@@ -36,7 +36,10 @@
       "page": "https://itsnyamusic.com/releases/houseflip/",
       "isrc": "QT66A2647927",
       "upc": "859747640815",
-      "_note": "Announced before release (added 2026-09-30). Presave not ready yet. On release day add the spotify link, the build refuses until then. German, 2:52, label name DIGITALGODS at TuneCore."
+      "credits": [
+        {"track": 1, "title": "Houseflip", "role": "mixing engineer", "names": ["yxucansleep"]}
+      ],
+      "_note": "Mixed by yxucansleep (Nya, 2026-10-01). Announced before release (added 2026-09-30). Presave not ready yet. On release day add the spotify link, the build refuses until then. German, 2:52, label name DIGITALGODS at TuneCore."
     },
     {
       "title": "Olympia (Remix)",
@@ -85,7 +88,11 @@
           "title": "99 Problems",
           "artists": ["Mhhh7887", "VAIN"]
         }
-      ]
+      ],
+      "credits": [
+        {"track": 12, "title": "99 Problems", "role": "mixing engineer", "names": ["Mhhh7887"]}
+      ],
+      "_note": "99 Problems mixed by Mhhh7887 (Nya, 2026-10-01)."
     },
     {
       "title": "Denk Wieder an Dich",
