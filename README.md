@@ -16,6 +16,8 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `releases/houseflip/` | Houseflip single page, announced before release |
 | `releases/olympia-remix/` | Olympia (Remix) single page, feat. FEBO |
 | `nyaverse/` | redirect to `releases/nyaverse/`, kept because the album's old address is all over the web |
+| `digitalgodsshow/` | DIGITALGODS SHOW (10.10.2026): recap, running order, Nya's setlist; holds the show's `MusicEvent` (`/#digitalgods-show`) |
+| `tickets/` | redirect to the homepage; it was the short link printed on the show flyer, so keep it |
 | `press/` | press coverage, **generated, see below** |
 | `press-kit/` | press kit, deliberately `noindex, nofollow` |
 | `datenschutz/` | privacy policy |
