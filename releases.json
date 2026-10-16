@@ -34,13 +34,14 @@
       "type": "Single",
       "date": "2026-10-16",
       "tracks": 1,
+      "spotify": "https://open.spotify.com/album/3CZfY2H8fBXWemQXlZsv72",
       "page": "https://itsnyamusic.com/releases/houseflip/",
       "isrc": "QT66A2647927",
       "upc": "859747640815",
       "credits": [
         {"track": 1, "title": "Houseflip", "role": "mixing engineer", "names": ["yxucansleep"]}
       ],
-      "_note": "Mixed by yxucansleep (Nya, 2026-10-01). Announced before release (added 2026-09-30). Presave not ready yet. On release day add the spotify link, the build refuses until then. German, 2:52, label name DIGITALGODS at TuneCore."
+      "_note": "Mixed by yxucansleep (Nya, 2026-10-01). Announced before release (added 2026-09-30), out 2026-10-16. German, 2:51 (171.182 s on Spotify and Deezer), label name DIGITALGODS at TuneCore."
     },
     {
       "title": "Olympia (Remix)",
