@@ -41,10 +41,11 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
-    <!-- Page-level markup only. Deliberately no ItemList of MusicRecording here:
-         a credit is a claim about someone else's record, and self-asserting that
-         from this domain is a weak signal. MusicBrainz and Discogs are where those
-         relationships belong. Revisit once the list is longer. -->
+    <!-- A credit is a claim about someone else's record, and self-asserting that
+         from this domain is a weak signal on its own. So a credit only gets a
+         MusicRecording node here once MusicBrainz and Wikidata carry it, and the
+         node's sameAs points at those records, which is where the relationship
+         is actually established. The page's "mentions" lists those nodes. -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -71,8 +72,53 @@
                 "about": {
                     "@id": "https://itsnyamusic.com/#artist"
                 },
+                "mentions": [
+                    { "@id": "https://itsnyamusic.com/credits/#angel" }
+                ],
                 "breadcrumb": {
                     "@id": "https://itsnyamusic.com/credits/#breadcrumb"
+                }
+            },
+            {
+                "@type": "MusicRecording",
+                "@id": "https://itsnyamusic.com/credits/#angel",
+                "name": "Angel",
+                "duration": "PT1M36S",
+                "datePublished": "2026-10-16",
+                "url": "https://open.spotify.com/track/21SpXXtEnVLELd5UJlvK4P",
+                "isrcCode": "QTA2X2647543",
+                "sameAs": [
+                    "https://www.wikidata.org/wiki/Q141747372",
+                    "https://musicbrainz.org/recording/d4f60e86-bd97-4ea9-b726-9fb59a7ad945"
+                ],
+                "byArtist": [
+                    {
+                        "@type": "MusicGroup",
+                        "@id": "https://itsnyamusic.com/credits/#brainfio689",
+                        "name": "BRAINFIO689",
+                        "sameAs": [
+                            "https://open.spotify.com/artist/4SvhMujWISrBoFpCo7N0gU",
+                            "https://musicbrainz.org/artist/f98c90d1-bbfb-4db2-a532-3cf1c500d4ef"
+                        ]
+                    },
+                    {
+                        "@id": "https://itsnyamusic.com/#artist"
+                    }
+                ],
+                "inAlbum": {
+                    "@type": "MusicAlbum",
+                    "name": "Pass auf dich auf",
+                    "albumReleaseType": "https://schema.org/EPRelease",
+                    "datePublished": "2026-10-16",
+                    "url": "https://open.spotify.com/album/6sDGIVDRoCI5KuxhmtBtyk",
+                    "sameAs": [
+                        "https://www.wikidata.org/wiki/Q141747371",
+                        "https://musicbrainz.org/release-group/f5007dc0-9002-4df7-aaf3-e2cf06f7c8dd",
+                        "https://musicbrainz.org/release/2130c019-88be-42cc-89b3-5007e8265ce1"
+                    ],
+                    "byArtist": {
+                        "@id": "https://itsnyamusic.com/credits/#brainfio689"
+                    }
                 }
             },
             {

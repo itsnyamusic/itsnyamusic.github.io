@@ -111,6 +111,10 @@ releases only resolve to the same year, whichever you put first stays first.
 Unlike `press/`, this page is hand-edited; the script only ever moves whole
 rows, it does not generate them.
 
+A credit that is on MusicBrainz and Wikidata also gets a `MusicRecording` node
+in the page's structured data, with `sameAs` pointing at those records and an
+entry in the page's `mentions`. "Angel" is the first; copy its shape.
+
 **`links/` must keep redirecting.** Wikidata, MusicBrainz, Discogs and several
 artist-profile bios still point at `/links/`. The redirect carries that
 authority to the homepage. It intentionally has no `noindex`, so the signals
