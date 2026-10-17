@@ -13,7 +13,8 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `releases/` | full discography, **generated, see below** |
 | `releases/nyaverse/` | NYAVERSE album page |
 | `releases/nyaverse/lyrics/` | full lyrics, all 13 tracks |
-| `releases/houseflip/` | Houseflip single page, announced before release |
+| `releases/digitalgods-cypher/` | DIGITALGODS CYPHER single page, feat. MTeTu, lylyth, Jessil, Naeyiwu, announced before release |
+| `releases/houseflip/` | Houseflip single page |
 | `releases/olympia-remix/` | Olympia (Remix) single page, feat. FEBO |
 | `nyaverse/` | redirect to `releases/nyaverse/`, kept because the album's old address is all over the web |
 | `digitalgodsshow/` | DIGITALGODS SHOW (10.10.2026): recap, running order, Nya's setlist; holds the show's `MusicEvent` (`/#digitalgods-show`) |

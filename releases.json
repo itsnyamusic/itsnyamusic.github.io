@@ -23,12 +23,31 @@
     "lame girl kya": "https://open.spotify.com/artist/495hQDJgOyvI62fYS4O4aw",
     "Kay Trueluv": "https://open.spotify.com/artist/1ha35XF26P2d4WEyBkBjyp",
     "Mhhh7887": "https://open.spotify.com/artist/18nXUP1JS7KV0F8y1msVlu",
+    "Jessil": "https://open.spotify.com/artist/39nL8SkBv6EXU3Yjwb1RrS",
+    "lylyth": "https://open.spotify.com/artist/5i9EU60CRK0p2vyaHSjZKB",
+    "MTeTu": "https://open.spotify.com/artist/3r9Zm8K0U7oYvuZzauCZNT",
     "Naeyiwu": "https://open.spotify.com/artist/7jD2lt6LiRp6byp3rG0Sps",
     "VAIN": "https://open.spotify.com/artist/2E5p6QErSBDIU3iyNxIUv0",
     "YoungKiwi": "https://open.spotify.com/artist/2MToofEJZJ2Lppozscdv24",
     "yxucansleep": "https://open.spotify.com/artist/2UtcoH0GAwCgLy7aEeqFQB"
   },
   "releases": [
+    {
+      "title": "DIGITALGODS CYPHER",
+      "type": "Single",
+      "date": "2026-10-23",
+      "tracks": 1,
+      "page": "https://itsnyamusic.com/releases/digitalgods-cypher/",
+      "isrc": "QT66B2649725",
+      "upc": "859748775462",
+      "features": [
+        {"track": 1, "title": "DIGITALGODS CYPHER", "artists": ["MTeTu", "lylyth", "Jessil", "Naeyiwu"]}
+      ],
+      "credits": [
+        {"track": 1, "title": "DIGITALGODS CYPHER", "role": "mixing engineer", "names": ["Mhhh7887"]}
+      ],
+      "_note": "Announced before release (added 2026-10-17), out 2026-10-23. Nya feat. MTeTu, lylyth, Jessil, Naeyiwu; mixed by Mhhh7887 (Nya, 2026-10-17). German, TuneCore genre Hip Hop/Rap + Electronic, sub genre Trap / Wave, label name DIGITALGODS at TuneCore (grouping only, never published as a label). Length not known yet."
+    },
     {
       "title": "Houseflip",
       "type": "Single",
