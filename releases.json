@@ -29,9 +29,23 @@
     "Naeyiwu": "https://open.spotify.com/artist/7jD2lt6LiRp6byp3rG0Sps",
     "VAIN": "https://open.spotify.com/artist/2E5p6QErSBDIU3iyNxIUv0",
     "YoungKiwi": "https://open.spotify.com/artist/2MToofEJZJ2Lppozscdv24",
-    "yxucansleep": "https://open.spotify.com/artist/2UtcoH0GAwCgLy7aEeqFQB"
+    "yxucansleep": "https://open.spotify.com/artist/2UtcoH0GAwCgLy7aEeqFQB",
+    "Exces Grace": "https://open.spotify.com/artist/3uL5yFUXeXZMxZKtv7fxFH"
   },
   "releases": [
+    {
+      "title": "Leider (Remix)",
+      "type": "Single",
+      "date": "2026-10-30",
+      "tracks": 1,
+      "page": "https://itsnyamusic.com/releases/leider-remix/",
+      "isrc": "QT66B2663197",
+      "upc": "859748916131",
+      "features": [
+        {"track": 1, "title": "Leider (Remix)", "artists": ["Exces Grace"]}
+      ],
+      "_note": "Announced before release (added 2026-10-23), out 2026-10-30. Remix of Leider (track 2 on NYAVERSE), like Olympia (Remix): Exces Grace is a FEATURE on the remix only and is NOT on the original Leider (Nya, 2026-10-23). German, TuneCore primary genre Hip Hop/Rap, label name DIGITALGODS at TuneCore (grouping only, never published as a label). TuneCore's release summary shows the title as just \"Leider\". Length not known yet."
+    },
     {
       "title": "DIGITALGODS CYPHER",
       "type": "Single",

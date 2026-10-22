@@ -13,6 +13,7 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `releases/` | full discography, **generated, see below** |
 | `releases/nyaverse/` | NYAVERSE album page |
 | `releases/nyaverse/lyrics/` | full lyrics, all 13 tracks |
+| `releases/leider-remix/` | Leider (Remix) single page, feat. Exces Grace, a remix of Leider from NYAVERSE, announced before release |
 | `releases/digitalgods-cypher/` | DIGITALGODS CYPHER single page, feat. MTeTu, lylyth, Jessil, Naeyiwu |
 | `releases/houseflip/` | Houseflip single page |
 | `releases/olympia-remix/` | Olympia (Remix) single page, feat. FEBO |
