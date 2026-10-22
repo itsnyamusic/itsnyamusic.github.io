@@ -345,27 +345,23 @@
         .d-nyaverse { background: #b967ff; }
         .d-genius { background: #ffff64; }
 
-        .lyrics { margin-bottom: 2.5rem; }
 
-        .part {
+        .facts { margin-bottom: 2.5rem; }
+
+        .fact {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.9rem 0;
+            border-top: 1px solid #191919;
             font-family: 'Space Mono', monospace;
-            font-size: 0.62rem;
-            color: #b967ff;
-            opacity: 0.65;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            margin: 1.5rem 0 0.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.04em;
         }
 
-        .part:first-child { margin-top: 0; }
-
-        .lyrics p {
-            white-space: pre-line;
-            font-size: 0.97rem;
-            line-height: 1.75;
-            color: #b4b4b4;
-            margin-bottom: 0.9rem;
-        }
+        .fact:last-child { border-bottom: 1px solid #191919; }
+        .fact dt { color: #555; }
+        .fact dd { color: #ddd; text-align: right; }
 
         .bottom {
             font-family: 'Space Mono', monospace;
