@@ -14,7 +14,7 @@
     <title>DIGITALGODS CYPHER - Nya feat. MTeTu, lylyth, Jessil, Naeyiwu - out now</title>
     <meta name="description" content="DIGITALGODS CYPHER, the new single by Nya featuring MTeTu, lylyth, Jessil and Naeyiwu. Out now, released October 23, 2026.">
     <meta name="author" content="Nya">
-    <meta name="theme-color" content="#b967ff">
+    <meta name="theme-color" content="#ffd34c">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="bingbot" content="index, follow">
@@ -263,6 +263,10 @@
     </script>
     <link rel="stylesheet" href="/assets/fonts.css">
     <style>
+        /* ACCENT:START */
+        :root { --accent: #ffd34c; --accent-rgb: 255, 211, 76; }
+        /* ACCENT:END */
+
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -284,7 +288,7 @@
             left: -15%;
             width: 70vw;
             height: 70vh;
-            background: radial-gradient(ellipse at center, rgba(185,103,255,0.09) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(var(--accent-rgb), 0.09) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
@@ -332,7 +336,7 @@
             transition: color 0.15s;
         }
 
-        .back:hover { color: #b967ff; }
+        .back:hover { color: var(--accent); }
 
 
         .cover {
@@ -343,7 +347,7 @@
             border-radius: 6px;
             display: block;
             margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(185,103,255,0.15);
+            box-shadow: 0 20px 60px rgba(var(--accent-rgb), 0.15);
         }
 
         .title {
@@ -351,7 +355,7 @@
             font-size: clamp(2.6rem, 11vw, 4.4rem);
             font-weight: 700;
             line-height: 0.95;
-            color: #b967ff;
+            color: var(--accent);
             letter-spacing: -0.02em;
             margin-bottom: 0.8rem;
         }
@@ -374,7 +378,7 @@
         .prose p { margin-bottom: 1rem; }
         .prose strong { color: #ccc; font-weight: 600; }
         .prose a { color: #ccc; border-bottom: 1px solid #333; transition: color 0.15s, border-color 0.15s; }
-        .prose a:hover { color: #b967ff; border-color: #b967ff; }
+        .prose a:hover { color: var(--accent); border-color: var(--accent); }
 
         .section-label {
             font-family: 'Space Mono', monospace;
@@ -401,7 +405,6 @@
         .link-left { display: flex; align-items: center; gap: 0.75rem; }
         .link-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .link-name { font-weight: 600; font-size: 1.05rem; color: #ddd; }
-        .link-sub { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: #555; letter-spacing: 0.02em; }
 
         .d-spotify { background: #1ed760; }
         .d-apple { background: #fc3c4c; }
@@ -439,7 +442,7 @@
         }
 
         .bottom a { color: #555; transition: color 0.15s; }
-        .bottom a:hover { color: #b967ff; }
+        .bottom a:hover { color: var(--accent); }
 
         @media (max-width: 480px) {
             .wrap { padding: 2rem 1.5rem 3rem; }
@@ -468,7 +471,6 @@
                 <div class="link-dot d-spotify"></div>
                 <div>
                     <div class="link-name">Spotify</div>
-                    <div class="link-sub">stream now</div>
                 </div>
             </div>
         </a>
@@ -477,7 +479,6 @@
                 <div class="link-dot d-apple"></div>
                 <div>
                     <div class="link-name">Apple Music</div>
-                    <div class="link-sub">stream now</div>
                 </div>
             </div>
         </a>
@@ -486,7 +487,6 @@
                 <div class="link-dot d-tidal"></div>
                 <div>
                     <div class="link-name">Tidal</div>
-                    <div class="link-sub">stream now</div>
                 </div>
             </div>
         </a>
@@ -495,7 +495,6 @@
                 <div class="link-dot d-deezer"></div>
                 <div>
                     <div class="link-name">Deezer</div>
-                    <div class="link-sub">stream now</div>
                 </div>
             </div>
         </a>
@@ -504,7 +503,6 @@
                 <div class="link-dot d-soundcloud"></div>
                 <div>
                     <div class="link-name">SoundCloud</div>
-                    <div class="link-sub">stream now</div>
                 </div>
             </div>
         </a>
@@ -513,7 +511,6 @@
                 <div class="link-dot d-youtube"></div>
                 <div>
                     <div class="link-name">YouTube</div>
-                    <div class="link-sub">listen now</div>
                 </div>
             </div>
         </a>
@@ -526,7 +523,6 @@
                 <div class="link-dot d-genius"></div>
                 <div>
                     <div class="link-name">Genius</div>
-                    <div class="link-sub">lyrics</div>
                 </div>
             </div>
         </a>

@@ -13,14 +13,26 @@ releases.json. Same layout and same rules as build-press.py.
 A release that is not out yet has a page but no streaming link, and its row
 says "out <date>". After that date the build refuses until the Spotify or
 SoundCloud link is added, so an announcement cannot go stale unnoticed.
+
+Each release that has its own page also gets that page's accent colour from
+its cover (the og:image): the build picks the cover's most vivid colour,
+writes it between the ACCENT:START and ACCENT:END comments in the page's
+<style> and into its theme-color meta. A page without that block, or with
+the old purple still hard-coded in its CSS, stops the build. Needs Pillow.
 """
 
+import colorsys
 import html
 import json
 import re
 import sys
 from datetime import date
 from pathlib import Path
+
+try:
+    from PIL import Image
+except ImportError:
+    raise SystemExit("build-releases.py needs Pillow for the cover accent colours: pip install pillow")
 
 ROOT = Path(__file__).parent
 SOURCE = ROOT / "releases.json"
@@ -47,6 +59,14 @@ UPC_RE = re.compile(r"\d{12,13}")
 SOUNDCLOUD_RE = re.compile(r"https://soundcloud\.com/its_nya_music/(sets/)?[a-z0-9_-]+")
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
+
+SITE = "https://itsnyamusic.com/"
+ACCENT_RE = re.compile(r"(/\* ACCENT:START \*/\n).*?(\n[ \t]*/\* ACCENT:END \*/)", re.DOTALL)
+# The site purple that release pages used before they took their colour from
+# the cover. Only the NYAVERSE link dots may still use it.
+OLD_ACCENT = re.compile(r"#b967ff|185,\s*103,\s*255", re.IGNORECASE)
+DOT_RULE_RE = re.compile(r"\.d-(nyaverse|lyrics)\b")
+PAGE_BG = (10, 10, 10)
 
 
 def check_names(names, artists, where):
@@ -175,18 +195,105 @@ def row_link(r):
     return r["soundcloud"], SOUNDCLOUD_ACCENT
 
 
-def build_html(releases):
+def page_path(r):
+    if not r["page"].startswith(SITE + "releases/"):
+        raise SystemExit(f"releases.json: '{r['title']}' has page '{r['page']}', release pages live under {SITE}releases/")
+    return ROOT / r["page"][len(SITE):] / "index.html"
+
+
+def page_cover(text, path):
+    m = re.search(r'<meta property="og:image" content="https://itsnyamusic\.com/([^"]+)">', text)
+    if not m:
+        raise SystemExit(f"{path}: no og:image on this site, which is where the accent colour comes from")
+    cover = ROOT / m.group(1)
+    if not cover.exists():
+        raise SystemExit(f"{path}: og:image {m.group(1)} is not in the repo")
+    return cover
+
+
+def thumbnail(cover):
+    """The small version of a cover for the list, when there is one."""
+    small = cover.with_name(cover.name.replace("-1200.", "-640."))
+    return small if small.exists() else cover
+
+
+def contrast(rgb, bg=PAGE_BG):
+    def lum(c):
+        r, g, b = ((v / 255) / 12.92 if v / 255 <= 0.03928 else ((v / 255 + 0.055) / 1.055) ** 2.4 for v in c)
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b
+    hi, lo = sorted((lum(rgb), lum(bg)), reverse=True)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def cover_accent(cover):
+    """The cover's most vivid colour, pushed to neon and kept readable on the
+    near-black page: the hue that carries the most saturated, bright pixels,
+    averaged, then raised to full brightness at contrast 6:1 or better."""
+    im = Image.open(cover).convert("RGB").resize((96, 96))
+    bins = [0.0] * 36
+    pixels = []
+    for r, g, b in im.getdata():
+        h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+        if s >= 0.35 and v >= 0.35:
+            k = int(h * 36) % 36
+            bins[k] += s * v
+            pixels.append((k, s * v, (r, g, b)))
+    if not pixels:
+        return (0xb9, 0x67, 0xff)
+    best = max(range(36), key=lambda k: bins[k] + 0.5 * (bins[(k - 1) % 36] + bins[(k + 1) % 36]))
+    near = {(best - 1) % 36, best, (best + 1) % 36}
+    chosen = [(w, c) for k, w, c in pixels if k in near]
+    total = sum(w for w, _ in chosen)
+    r, g, b = (sum(w * c[i] for w, c in chosen) / total for i in range(3))
+    h, s, _ = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+    s = max(s, 0.7)
+    rgb = tuple(round(c * 255) for c in colorsys.hsv_to_rgb(h, s, 1.0))
+    while contrast(rgb) < 6 and s > 0.2:
+        s -= 0.05
+        rgb = tuple(round(c * 255) for c in colorsys.hsv_to_rgb(h, s, 1.0))
+    return rgb
+
+
+def hex_colour(rgb):
+    return "#%02x%02x%02x" % rgb
+
+
+def apply_accent(text, rgb, path):
+    if not ACCENT_RE.search(text):
+        raise SystemExit(f"{path}: no ACCENT:START/ACCENT:END block in its <style>. "
+                         "Copy it from another release page, see the README.")
+    style = ACCENT_RE.sub("", text[text.index("<style>"):text.index("</style>")])
+    for line in style.splitlines():
+        if OLD_ACCENT.search(line) and not DOT_RULE_RE.search(line):
+            raise SystemExit(f"{path}: the old purple is hard-coded in its CSS ({line.strip()}). "
+                             "Use var(--accent) or rgba(var(--accent-rgb), <alpha>) so the cover colour applies.")
+    block = f"        :root {{ --accent: {hex_colour(rgb)}; --accent-rgb: {rgb[0]}, {rgb[1]}, {rgb[2]}; }}"
+    text = ACCENT_RE.sub(lambda m: m.group(1) + block + m.group(2), text)
+    text, n = re.subn(r'<meta name="theme-color" content="[^"]*">',
+                      f'<meta name="theme-color" content="{hex_colour(rgb)}">', text)
+    if n != 1:
+        raise SystemExit(f"{path}: expected exactly one theme-color meta, found {n}")
+    return text
+
+
+def build_html(releases, pages):
+    """`pages` maps a release title to its page's (thumbnail URL, accent hex)."""
     out = []
     for r in releases:
-        href, accent = row_link(r)
+        href, dot = row_link(r)
         target = "" if r.get("page") else ' target="_blank" rel="noopener"'
+        thumb, accent = pages.get(r["title"], (None, PAGE_ACCENT))
+        tag = (f'\n                <span class="release-tag" style="color: {accent}; border-color: {accent};">upcoming</span>'
+               if is_upcoming(r) else "")
+        cover = (f'\n            <img class="release-cover" src="{thumb}" width="56" height="56" alt="" loading="lazy">'
+                 if thumb else "")
         out.append(
             f'''        <a href="{html.escape(href, quote=True)}" class="release"{target}>
             <div class="release-meta">
-                <div class="release-dot" style="background: {accent};"></div>
-                <span>{html.escape(build_meta(r))}</span>
+                <div class="release-dot" style="background: {dot};"></div>
+                <span>{html.escape(build_meta(r))}</span>{tag}
             </div>
-            <div class="release-title">{html.escape(r["title"])}</div>
+            <div class="release-title">{html.escape(r["title"])}</div>{cover}
         </a>'''
         )
     return "\n\n".join(out)
@@ -340,15 +447,31 @@ def replace_region(text, name, payload, path):
 def main():
     check_only = "--check" in sys.argv
     releases, artists = load_releases()
-    list_html = build_html(releases)
-    ldjson = build_ldjson(releases, artists)
 
-    stale = False
+    # Release pages first: each takes its accent colour from its own cover.
+    updates = {}
+    pages = {}
+    for r in releases:
+        if not r.get("page"):
+            continue
+        path = page_path(r)
+        if not path.exists():
+            raise SystemExit(f"releases.json: '{r['title']}' has page {r['page']}, but {path.relative_to(ROOT)} does not exist")
+        original = path.read_text(encoding="utf-8")
+        cover = page_cover(original, path)
+        rgb = cover_accent(cover)
+        updates[path] = (original, apply_accent(original, rgb, path))
+        pages[r["title"]] = (SITE + thumbnail(cover).relative_to(ROOT).as_posix(), hex_colour(rgb))
+
+    list_html = build_html(releases, pages)
+    ldjson = build_ldjson(releases, artists)
     for path in TARGETS:
         original = path.read_text(encoding="utf-8")
         updated = replace_region(original, "RELEASES-LD", ldjson, path)
-        updated = replace_region(updated, "RELEASES-LIST", list_html, path)
+        updates[path] = (original, replace_region(updated, "RELEASES-LIST", list_html, path))
 
+    stale = False
+    for path, (original, updated) in updates.items():
         if original == updated:
             print(f"  up to date   {path.relative_to(ROOT)}")
             continue
@@ -364,6 +487,10 @@ def main():
         guests = sorted({n for f in r.get("features", []) for n in f["artists"]})
         feat = f"  (feat. {', '.join(guests)})" if guests else ""
         print(f"  {display_date(r['date']):>17}  {build_meta(r).split(' - ')[0]:<20}  {r['title']}{feat}")
+
+    print("\nAccent colours, from each page's cover:")
+    for title, (_, accent) in pages.items():
+        print(f"  {accent}  {title}")
 
     if check_only and stale:
         print("\nPages are out of date. Run: python build-releases.py")

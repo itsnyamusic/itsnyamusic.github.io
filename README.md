@@ -80,6 +80,21 @@ which is how NYAVERSE works), otherwise to Spotify, otherwise to SoundCloud
 (`soundcloud`, for releases that are not on Spotify). The dot shows which. A
 new release page belongs under `releases/<name>/`.
 
+**Release pages take their colour from their cover, automatically.** The
+same `build-releases.py` run reads each release page's `og:image`, picks the
+cover's most vivid colour (pushed to neon, kept at 6:1 contrast or better on
+the black background) and writes it into the page: between the
+`/* ACCENT:START */` and `/* ACCENT:END */` comments at the top of its
+`<style>`, as `--accent` and `--accent-rgb`, and into its `theme-color` meta.
+The page's CSS only ever uses `var(--accent)` and `rgba(var(--accent-rgb), a)`.
+To make a new release page, copy an existing one: the block comes with it,
+and the build fills in the new colour. The build stops if a page has no
+block or still has the old purple (`#b967ff`) hard-coded, so a page cannot
+quietly miss out. The NYAVERSE link dots keep the NYAVERSE purple on purpose.
+The same run also puts each cover as a small thumbnail on its `/releases/`
+row, and tags upcoming releases in their colour. It needs Pillow
+(`pip install pillow`).
+
 A release can go up before it is out: give it a `page` and no streaming
 link, and its row reads "out <date>". Once the date has passed, the generator
 refuses to build until the Spotify or SoundCloud link is added, so an

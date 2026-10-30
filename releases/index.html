@@ -951,11 +951,39 @@
             margin-bottom: 2.5rem;
         }
 
+        /* Text on the left for every row, so the list keeps one left edge;
+           a release with its own page shows its cover on the right. */
         .release {
-            display: block;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            column-gap: 1rem;
+            align-items: center;
             padding: 1.1rem 0;
             border-top: 1px solid #191919;
             transition: padding-left 0.15s, border-color 0.2s;
+        }
+
+        .release-meta, .release-title { grid-column: 1; }
+
+        .release-cover {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            border-radius: 4px;
+            opacity: 0.9;
+            transition: opacity 0.15s;
+        }
+
+        .release:hover .release-cover { opacity: 1; }
+
+        .release-tag {
+            border: 1px solid;
+            border-radius: 999px;
+            padding: 0.05rem 0.5rem;
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
         }
 
         .release:last-child { border-bottom: 1px solid #191919; }
@@ -1030,8 +1058,10 @@
             <div class="release-meta">
                 <div class="release-dot" style="background: #b967ff;"></div>
                 <span>Single - out 13 November 2026</span>
+                <span class="release-tag" style="color: #4dff58; border-color: #4dff58;">upcoming</span>
             </div>
             <div class="release-title">Cyber-Rap</div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/cyber-rap-cover-640.jpg" width="56" height="56" alt="" loading="lazy">
         </a>
 
         <a href="https://itsnyamusic.com/releases/leider-remix/" class="release">
@@ -1040,6 +1070,7 @@
                 <span>Single - 30 October 2026</span>
             </div>
             <div class="release-title">Leider (Remix)</div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/leider-remix-cover-640.jpg" width="56" height="56" alt="" loading="lazy">
         </a>
 
         <a href="https://itsnyamusic.com/releases/digitalgods-cypher/" class="release">
@@ -1048,6 +1079,7 @@
                 <span>Single - 23 October 2026</span>
             </div>
             <div class="release-title">DIGITALGODS CYPHER</div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/digitalgods-cypher-cover-640.jpg" width="56" height="56" alt="" loading="lazy">
         </a>
 
         <a href="https://itsnyamusic.com/releases/houseflip/" class="release">
@@ -1056,6 +1088,7 @@
                 <span>Single - 16 October 2026</span>
             </div>
             <div class="release-title">Houseflip</div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/houseflip-cover-640.jpg" width="56" height="56" alt="" loading="lazy">
         </a>
 
         <a href="https://itsnyamusic.com/releases/olympia-remix/" class="release">
@@ -1064,6 +1097,7 @@
                 <span>Single - 23 September 2026</span>
             </div>
             <div class="release-title">Olympia (Remix)</div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/olympia-remix-cover-640.jpg" width="56" height="56" alt="" loading="lazy">
         </a>
 
         <a href="https://open.spotify.com/album/0BfND6QHwzQs0Pn9c1Hlha" class="release" target="_blank" rel="noopener">
@@ -1080,6 +1114,7 @@
                 <span>Album - 24 July 2026</span>
             </div>
             <div class="release-title">NYAVERSE</div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/nyaverse-cover-640.jpg" width="56" height="56" alt="" loading="lazy">
         </a>
 
         <a href="https://open.spotify.com/album/1ucS7vHFCCIhwYC1ERi5im" class="release" target="_blank" rel="noopener">
