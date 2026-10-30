@@ -297,6 +297,9 @@ def hex_colour(rgb):
 
 
 def apply_accent(text, rgb, path):
+    if '<link rel="stylesheet" href="/assets/site.css">' not in text:
+        raise SystemExit(f"{path}: does not load /assets/site.css, the shared stylesheet every page uses. "
+                         "Copy the link from another release page.")
     if not ACCENT_RE.search(text):
         raise SystemExit(f"{path}: no ACCENT:START/ACCENT:END block in its <style>. "
                          "Copy it from another release page, see the README.")

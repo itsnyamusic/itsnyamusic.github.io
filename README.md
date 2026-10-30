@@ -26,7 +26,7 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 | `datenschutz/` | privacy policy |
 | `impressum/` | legal notice (§ 5 DDG) |
 | `links/` | redirect to the homepage, kept because a lot of external records still point at it |
-| `assets/` | shared images, icons, fonts, `fonts.css` |
+| `assets/` | shared images, icons, fonts, `fonts.css`, `site.css` |
 
 ## Rules worth knowing before editing
 
@@ -34,6 +34,13 @@ Custom domain via `CNAME`. HTTPS is enforced. There is nothing to install.
 the artist as `https://itsnyamusic.com/#artist`, defined on the homepage. If you
 add a page, reference that id, do not define a second artist entity. Two rival
 entities is the thing this site is specifically built to avoid.
+
+**Every page loads `assets/site.css` right after `fonts.css`.** It holds the
+site-wide touches (square "pixel" dots on rows, the pink/cyan glitch on a
+row title on hover), in one place so every page gets them the same way.
+Its selectors start with `html` so they win over a page's own `<style>`.
+A new page copied from an existing one brings the link along;
+`build-releases.py` refuses a release page without it.
 
 **No external requests, on any page, ever.** Loading any page must not contact
 a third party. Fonts are self-hosted and declared once in `assets/fonts.css`.

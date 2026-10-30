@@ -1,0 +1,26 @@
+/* Site-wide touches, loaded on every page right after fonts.css. One file so
+   every page gets them the same way; selectors start with `html` so they win
+   over the per-page <style> blocks without editing them. */
+
+/* Pixel dots: the colour markers on rows are tiny squares, not circles. */
+html .link-dot,
+html .release-dot,
+html .credit-dot,
+html .press-dot {
+    border-radius: 1px;
+}
+
+/* Glitch hover: a hairline pink/cyan split on a row's title. Static, no motion. */
+html .link .link-name,
+html .release .release-title,
+html .credit .credit-title,
+html .press .press-head {
+    transition: text-shadow 0.15s;
+}
+
+html .link:hover .link-name,
+html .release:hover .release-title,
+html .credit:hover .credit-title,
+html .press:hover .press-head {
+    text-shadow: -1px 0 rgba(255, 45, 123, 0.6), 1px 0 rgba(0, 229, 255, 0.5);
+}
