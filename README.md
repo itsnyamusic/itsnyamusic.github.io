@@ -37,7 +37,8 @@ entities is the thing this site is specifically built to avoid.
 
 **Every page loads `assets/site.css` right after `fonts.css`.** It holds the
 site-wide touches (square "pixel" dots on rows, the pink/cyan glitch on a
-row title on hover), in one place so every page gets them the same way.
+row title on hover instead of a slide, lowercase labels, one background glow
+and lighter grain), in one place so every page gets them the same way.
 Its selectors start with `html` so they win over a page's own `<style>`.
 A new page copied from an existing one brings the link along;
 `build-releases.py` refuses a release page without it.

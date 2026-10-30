@@ -10,6 +10,28 @@ html .press-dot {
     border-radius: 1px;
 }
 
+/* Labels in lowercase, in the site's own voice, instead of tiny spaced-out caps. */
+html .section-label,
+html .release-meta,
+html .credit-role,
+html .press-meta,
+html .eyebrow {
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+/* A calmer background: one corner glow instead of two, and lighter grain. */
+html body::after { display: none; }
+html .grain { opacity: 0.18; }
+
+/* Rows stay put on hover; the title glitch below is the hover. */
+html .link:hover,
+html .release:hover,
+html .credit:hover,
+html .press:hover {
+    padding-left: 0;
+}
+
 /* Glitch hover: a hairline pink/cyan split on a row's title. Static, no motion. */
 html .link .link-name,
 html .release .release-title,
