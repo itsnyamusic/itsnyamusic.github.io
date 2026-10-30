@@ -5,7 +5,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://itsnyamusic.com/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/assets/nya.jpg</image:loc>
     </image:image>
@@ -20,7 +20,7 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/releases/nyaverse/</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/assets/nyaverse-cover-1200.jpg</image:loc>
     </image:image>
@@ -47,7 +47,7 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/releases/digitalgods-cypher/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/assets/digitalgods-cypher-cover-1200.jpg</image:loc>
     </image:image>
@@ -56,7 +56,7 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/releases/houseflip/</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/assets/houseflip-cover-1200.jpg</image:loc>
     </image:image>
@@ -65,7 +65,7 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/releases/olympia-remix/</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <image:image>
       <image:loc>https://itsnyamusic.com/assets/olympia-remix-cover-1200.jpg</image:loc>
     </image:image>
@@ -89,7 +89,7 @@
   </url>
   <url>
     <loc>https://itsnyamusic.com/press/</loc>
-    <lastmod>2026-10-20</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
