@@ -245,6 +245,25 @@
       "spotify": "https://open.spotify.com/album/2UZH2aevdKy6igsBfsmYVt"
     },
     {
+      "title": "NIE WIEDER ZU ZWEIT",
+      "type": "Single",
+      "date": "2022-06-11",
+      "tracks": 1,
+      "youtube": "https://www.youtube.com/watch?v=phnyWCjRRHI",
+      "_note": "Released as a music video on Nya's YouTube channel only (Nya, 2026-10-31). Date is the YouTube publish date. 2:07."
+    },
+    {
+      "title": "MOONLIGHT",
+      "type": "Single",
+      "date": "2022-05-26",
+      "tracks": 1,
+      "youtube": "https://www.youtube.com/watch?v=U8OWlkO5O3E",
+      "credits": [
+        {"track": 1, "title": "MOONLIGHT", "role": "producer", "names": ["ERLAX"]}
+      ],
+      "_note": "Released as a music video on Nya's YouTube channel only (Nya, 2026-10-31). Date is the YouTube publish date, same as on MusicBrainz (release 93aa17ce). Producer ERLAX per the video title. 1:38."
+    },
+    {
       "title": "Didn't Do Shit",
       "type": "Single",
       "date": "2022-05-13",

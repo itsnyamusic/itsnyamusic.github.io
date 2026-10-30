@@ -11,8 +11,10 @@ design changes are safe to make by hand. Run this after every edit to
 releases.json. Same layout and same rules as build-press.py.
 
 A release that is not out yet has a page but no streaming link, and its row
-says "out <date>". After that date the build refuses until the Spotify or
-SoundCloud link is added, so an announcement cannot go stale unnoticed.
+says "out <date>". After that date the build refuses until a Spotify,
+SoundCloud or YouTube link is added, so an announcement cannot go stale
+unnoticed. A release that only exists as a music video on YouTube takes
+`youtube` instead of a streaming link.
 
 Each release that has its own page also gets that page's accent colour from
 its cover (the og:image): the build picks the cover's most vivid colour,
@@ -49,6 +51,7 @@ PAGE_URL = "https://itsnyamusic.com/releases/"
 PAGE_ACCENT = "#b967ff"
 SPOTIFY_ACCENT = "#1ed760"
 SOUNDCLOUD_ACCENT = "#ff5500"
+YOUTUBE_ACCENT = "#ff0033"
 
 RELEASE_TYPES = {
     "Album": "https://schema.org/AlbumRelease",
@@ -60,6 +63,7 @@ SPOTIFY_ARTIST_RE = re.compile(r"https://open\.spotify\.com/artist/[A-Za-z0-9]{2
 ISRC_RE = re.compile(r"[A-Z]{2}[A-Z0-9]{3}\d{7}")
 UPC_RE = re.compile(r"\d{12,13}")
 SOUNDCLOUD_RE = re.compile(r"https://soundcloud\.com/its_nya_music/(sets/)?[a-z0-9_-]+")
+YOUTUBE_RE = re.compile(r"https://www\.youtube\.com/watch\?v=([A-Za-z0-9_-]{11})")
 MONTHS = ["January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December"]
 
@@ -132,14 +136,14 @@ def load_releases():
             raise SystemExit(f"releases.json: '{name}' has date '{r['date']}', must be YYYY-MM-DD")
         if not isinstance(r["tracks"], int) or r["tracks"] < 1:
             raise SystemExit(f"releases.json: '{name}' has tracks '{r['tracks']}', must be a whole number above 0")
-        if not r.get("spotify") and not r.get("soundcloud"):
+        if not platform_links(r):
             # An announced release has no streaming link yet, only its own page.
             # Once its date has passed the build refuses, so the row cannot keep
             # saying "out" on a release that is already out.
             if not r.get("page"):
-                raise SystemExit(f"releases.json: '{name}' needs a spotify or a soundcloud link, or a page if it is not out yet")
+                raise SystemExit(f"releases.json: '{name}' needs a spotify, soundcloud or youtube link, or a page if it is not out yet")
             if not is_upcoming(r):
-                raise SystemExit(f"releases.json: '{name}' came out on {r['date']}, add its spotify or soundcloud link")
+                raise SystemExit(f"releases.json: '{name}' came out on {r['date']}, add its spotify, soundcloud or youtube link")
         if r.get("isrc") and not ISRC_RE.fullmatch(r["isrc"]):
             raise SystemExit(f"releases.json: '{name}' has isrc '{r['isrc']}', must be a 12-character ISRC without dashes")
         if r.get("isrc") and r["tracks"] != 1:
@@ -150,6 +154,8 @@ def load_releases():
             raise SystemExit(f"releases.json: '{name}' has spotify '{r['spotify']}', must be a Spotify album URL")
         if r.get("soundcloud") and not SOUNDCLOUD_RE.fullmatch(r["soundcloud"]):
             raise SystemExit(f"releases.json: '{name}' has soundcloud '{r['soundcloud']}', must be a SoundCloud URL on its_nya_music")
+        if r.get("youtube") and not YOUTUBE_RE.fullmatch(r["youtube"]):
+            raise SystemExit(f"releases.json: '{name}' has youtube '{r['youtube']}', must be https://www.youtube.com/watch?v=<id>")
         if r.get("page") and not r["page"].startswith("https://itsnyamusic.com/"):
             raise SystemExit(f"releases.json: '{name}' has page '{r['page']}', must be a page on itsnyamusic.com")
         if "with" in r:
@@ -185,17 +191,20 @@ def build_meta(r):
 
 def platform_links(r):
     """The release's streaming links, Spotify first because it is canonical."""
-    return [r[k] for k in ("spotify", "soundcloud") if r.get(k)]
+    return [r[k] for k in ("spotify", "soundcloud", "youtube") if r.get(k)]
 
 
 def row_link(r):
     """Where a row points and which dot it gets: its own page on this site
-    first, then Spotify, then SoundCloud for releases that are not on Spotify."""
+    first, then Spotify, then SoundCloud for releases that are not on Spotify,
+    then YouTube for releases that only exist as a music video."""
     if r.get("page"):
         return r["page"], PAGE_ACCENT
     if r.get("spotify"):
         return r["spotify"], SPOTIFY_ACCENT
-    return r["soundcloud"], SOUNDCLOUD_ACCENT
+    if r.get("soundcloud"):
+        return r["soundcloud"], SOUNDCLOUD_ACCENT
+    return r["youtube"], YOUTUBE_ACCENT
 
 
 def page_path(r):
@@ -232,19 +241,25 @@ def stored_cover(r, fetch):
     """The list cover of a release without its own page. The site makes no
     requests to other servers, so the cover is fetched once from the
     platform's oEmbed (Spotify, or SoundCloud for SoundCloud-only releases)
-    and kept in the repo under assets/release-covers/."""
+    and kept in the repo under assets/release-covers/. A YouTube-only release
+    has no cover, so it gets the centre of the video's full-size thumbnail."""
     path = COVER_DIR / f"{cover_slug(r['title'])}.jpg"
     if path.exists():
         return path
     if not fetch:
         raise SystemExit(f"{path.relative_to(ROOT)} is missing. Run: python build-releases.py (it fetches the cover)")
-    source = r.get("spotify") or r["soundcloud"]
-    api = ("https://open.spotify.com/oembed?url=" if "spotify" in source
-           else "https://soundcloud.com/oembed?format=json&url=") + urllib.parse.quote(source, safe="")
+    source = r.get("spotify") or r.get("soundcloud") or r["youtube"]
     headers = {"User-Agent": "itsnyamusic.com build-releases.py"}
     try:
-        with urllib.request.urlopen(urllib.request.Request(api, headers=headers), timeout=30) as resp:
-            art = json.load(resp)["thumbnail_url"]
+        if source == r.get("youtube"):
+            # maxresdefault is the full 16:9 frame; the oEmbed thumbnail is 4:3
+            # with black bars, which a square crop would keep.
+            art = f"https://i.ytimg.com/vi/{YOUTUBE_RE.fullmatch(source).group(1)}/maxresdefault.jpg"
+        else:
+            api = ("https://open.spotify.com/oembed?url=" if "spotify" in source
+                   else "https://soundcloud.com/oembed?format=json&url=") + urllib.parse.quote(source, safe="")
+            with urllib.request.urlopen(urllib.request.Request(api, headers=headers), timeout=30) as resp:
+                art = json.load(resp)["thumbnail_url"]
         with urllib.request.urlopen(urllib.request.Request(art, headers=headers), timeout=30) as resp:
             image = Image.open(io.BytesIO(resp.read())).convert("RGB")
     except Exception as e:

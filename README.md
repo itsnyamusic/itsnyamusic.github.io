@@ -85,7 +85,8 @@ artist, like Bad Dreams with Kairox, goes here with a `with` field.
 
 Each row links to the release's own page on this site if it has one (`page`,
 which is how NYAVERSE works), otherwise to Spotify, otherwise to SoundCloud
-(`soundcloud`, for releases that are not on Spotify). The dot shows which. A
+(`soundcloud`, for releases that are not on Spotify), otherwise to YouTube
+(`youtube`, for releases that only exist as a music video). The dot shows which. A
 new release page belongs under `releases/<name>/`.
 
 **Release pages take their colour from their cover, automatically.** The
