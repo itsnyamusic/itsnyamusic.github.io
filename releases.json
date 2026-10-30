@@ -34,6 +34,19 @@
   },
   "releases": [
     {
+      "title": "Cyber-Rap",
+      "type": "Single",
+      "date": "2026-11-13",
+      "tracks": 1,
+      "page": "https://itsnyamusic.com/releases/cyber-rap/",
+      "credits": [
+        {"track": 1, "title": "Cyber-Rap", "role": "producer", "names": ["Shvde"]},
+        {"track": 1, "title": "Cyber-Rap", "role": "mixing engineer", "names": ["Cali808"]},
+        {"track": 1, "title": "Cyber-Rap", "role": "background vocals (adlibs)", "names": ["Naeyiwu"]}
+      ],
+      "_note": "Announced before release (added 2026-10-30), out 2026-11-13. Prod. Shvde, mixed by Cali808, adlibs/background vocals by Naeyiwu (a credit, not a feature) (Nya, 2026-10-30). German, TuneCore genre Hip Hop/Rap + Electronic, sub genre Trap / Wave, label name DIGITALGODS at TuneCore (grouping only, never published as a label). Title spelled with the hyphen, as in TuneCore. First played live at DIGITALGODS SHOW (2026-10-10). ISRC is assigned by TuneCore after approval and there is no UPC yet; length not known yet."
+    },
+    {
       "title": "Leider (Remix)",
       "type": "Single",
       "date": "2026-10-30",
