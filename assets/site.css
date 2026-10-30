@@ -10,6 +10,21 @@ html .press-dot {
     border-radius: 1px;
 }
 
+/* Platform dot colours, one source for every page. A page's own .d-* rule
+   loses to these, so a platform can never show two different colours. */
+html .d-spotify { background: #1ed760; }
+html .d-apple { background: #fc3c4c; }
+html .d-tidal { background: #e8e8e8; }
+html .d-deezer { background: #a238ff; }
+html .d-soundcloud { background: #ff5500; }
+html .d-youtube { background: #ff0033; }
+html .d-bandcamp { background: #1da0c3; }
+html .d-instagram { background: #e1306c; }
+html .d-tiktok { background: #00f2ea; }
+html .d-x { background: #777; }
+html .d-genius { background: #ffff64; }
+html .d-shop { background: #ffb02e; }
+
 /* Labels in lowercase, in the site's own voice, instead of tiny spaced-out caps. */
 html .section-label,
 html .release-meta,
