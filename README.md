@@ -91,8 +91,14 @@ To make a new release page, copy an existing one: the block comes with it,
 and the build fills in the new colour. The build stops if a page has no
 block or still has the old purple (`#b967ff`) hard-coded, so a page cannot
 quietly miss out. The NYAVERSE link dots keep the NYAVERSE purple on purpose.
-The same run also puts each cover as a small thumbnail on its `/releases/`
-row, and tags upcoming releases in their colour. It needs Pillow
+The same run also puts every release's cover as a small thumbnail on the
+left of its `/releases/` row, and tags upcoming releases in their colour. A
+release with a page uses its page's cover. For the others, the site makes no
+requests to other servers, so the build fetches the cover once from
+Spotify's oEmbed (SoundCloud's for SoundCloud-only releases), shrinks it to
+112px and saves it as `assets/release-covers/<title>.jpg`; commit those with
+the page. To replace one, delete the file and run the build again.
+`--check` fails if a cover file is missing. It needs Pillow
 (`pip install pillow`).
 
 A release can go up before it is out: give it a `page` and no streaming

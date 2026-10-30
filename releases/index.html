@@ -951,9 +951,8 @@
             margin-bottom: 2.5rem;
         }
 
-        /* Cover on the left. A release with its own page shows its cover; the
-           others get an empty tile in the same slot, so the text keeps one
-           left edge down the whole list. */
+        /* Cover on the left of every row. Covers of releases without their own
+           page are stored in assets/release-covers/, see build-releases.py. */
         .release {
             display: grid;
             grid-template-columns: 56px 1fr;
@@ -978,11 +977,6 @@
         }
 
         .release:hover .release-cover { opacity: 1; }
-
-        .release-cover-empty {
-            background: #111;
-            border: 1px solid #191919;
-        }
 
         .release-tag {
             border: 1px solid;
@@ -1107,7 +1101,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/0BfND6QHwzQs0Pn9c1Hlha" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/bad-dreams.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single with Kairox - 28 August 2026</span>
@@ -1125,7 +1119,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/1ucS7vHFCCIhwYC1ERi5im" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/denk-wieder-an-dich.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 22 May 2026</span>
@@ -1134,7 +1128,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/3RlB007IdOAFLCsgT5ZhBu" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/messer.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 12 April 2026</span>
@@ -1143,7 +1137,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/3zOjrjrSmwskC9oD2M12N3" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/bedwars.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 28 September 2025</span>
@@ -1152,7 +1146,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/3lcFLdE1ci5g7l3VPPqHhQ" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/sweet-monster-energy.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 8 February 2025</span>
@@ -1161,7 +1155,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/3Z077seqNC4AyhAh41RPD0" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/summer-vibes.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>EP - 5 July 2024</span>
@@ -1170,7 +1164,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/3jjdkSWhVQmIVcn2C9brkM" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/one-night.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 14 November 2022</span>
@@ -1179,7 +1173,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/6gDmXviKbhUvDuJsNMtoOQ" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/eyes.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 26 August 2022</span>
@@ -1188,7 +1182,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/443vpzUerfE2ijplKAbWnj" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/daily-dose-of-internet.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>EP with Naeyiwu - 14 July 2022</span>
@@ -1197,7 +1191,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/2UZH2aevdKy6igsBfsmYVt" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/red-green-blue.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 28 June 2022</span>
@@ -1206,7 +1200,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/13X4fMYPhTpfPpcObaXPuC" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/didn-t-do-shit.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 13 May 2022</span>
@@ -1215,7 +1209,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/35fHhoMBq7ciAU37d9QegF" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/white-wine.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 5 February 2022</span>
@@ -1224,7 +1218,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/0iBK1c7ys3eHVKrlsPMU67" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/bad-habit.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 28 November 2021</span>
@@ -1233,7 +1227,7 @@
         </a>
 
         <a href="https://soundcloud.com/its_nya_music/sets/stray" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/stray.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #ff5500;"></div>
                 <span>EP - 30 July 2021</span>
@@ -1242,7 +1236,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/1zvw2EmhNZJ0jCyg2DgRCw" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/lime.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>Single - 13 February 2021</span>
@@ -1251,7 +1245,7 @@
         </a>
 
         <a href="https://open.spotify.com/album/5fg8QmOGeChoZItstga9dc" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/duality.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #1ed760;"></div>
                 <span>EP - 13 January 2021</span>
@@ -1260,7 +1254,7 @@
         </a>
 
         <a href="https://soundcloud.com/its_nya_music/sickness" class="release" target="_blank" rel="noopener">
-            <div class="release-cover release-cover-empty"></div>
+            <img class="release-cover" src="https://itsnyamusic.com/assets/release-covers/sickness.jpg" width="56" height="56" alt="" loading="lazy">
             <div class="release-meta">
                 <div class="release-dot" style="background: #ff5500;"></div>
                 <span>Single - 16 November 2020</span>

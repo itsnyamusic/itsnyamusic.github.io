@@ -23,14 +23,17 @@ the old purple still hard-coded in its CSS, stops the build. Needs Pillow.
 
 import colorsys
 import html
+import io
 import json
 import re
 import sys
+import urllib.parse
+import urllib.request
 from datetime import date
 from pathlib import Path
 
 try:
-    from PIL import Image
+    from PIL import Image, ImageOps
 except ImportError:
     raise SystemExit("build-releases.py needs Pillow for the cover accent colours: pip install pillow")
 
@@ -217,6 +220,41 @@ def thumbnail(cover):
     return small if small.exists() else cover
 
 
+COVER_DIR = ROOT / "assets" / "release-covers"
+COVER_PX = 112  # 56px in the list, twice that for sharp screens
+
+
+def cover_slug(title):
+    return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+
+
+def stored_cover(r, fetch):
+    """The list cover of a release without its own page. The site makes no
+    requests to other servers, so the cover is fetched once from the
+    platform's oEmbed (Spotify, or SoundCloud for SoundCloud-only releases)
+    and kept in the repo under assets/release-covers/."""
+    path = COVER_DIR / f"{cover_slug(r['title'])}.jpg"
+    if path.exists():
+        return path
+    if not fetch:
+        raise SystemExit(f"{path.relative_to(ROOT)} is missing. Run: python build-releases.py (it fetches the cover)")
+    source = r.get("spotify") or r["soundcloud"]
+    api = ("https://open.spotify.com/oembed?url=" if "spotify" in source
+           else "https://soundcloud.com/oembed?format=json&url=") + urllib.parse.quote(source, safe="")
+    headers = {"User-Agent": "itsnyamusic.com build-releases.py"}
+    try:
+        with urllib.request.urlopen(urllib.request.Request(api, headers=headers), timeout=30) as resp:
+            art = json.load(resp)["thumbnail_url"]
+        with urllib.request.urlopen(urllib.request.Request(art, headers=headers), timeout=30) as resp:
+            image = Image.open(io.BytesIO(resp.read())).convert("RGB")
+    except Exception as e:
+        raise SystemExit(f"could not fetch the cover for '{r['title']}' from {source}: {e}")
+    COVER_DIR.mkdir(parents=True, exist_ok=True)
+    ImageOps.fit(image, (COVER_PX, COVER_PX), Image.LANCZOS).save(path, quality=85, optimize=True, progressive=True)
+    print(f"  fetched      {path.relative_to(ROOT)}")
+    return path
+
+
 def contrast(rgb, bg=PAGE_BG):
     def lum(c):
         r, g, b = ((v / 255) / 12.92 if v / 255 <= 0.03928 else ((v / 255 + 0.055) / 1.055) ** 2.4 for v in c)
@@ -285,8 +323,7 @@ def build_html(releases, pages):
         thumb, accent = pages.get(r["title"], (None, PAGE_ACCENT))
         tag = (f'\n                <span class="release-tag" style="color: {accent}; border-color: {accent};">upcoming</span>'
                if is_upcoming(r) else "")
-        cover = (f'\n            <img class="release-cover" src="{thumb}" width="56" height="56" alt="" loading="lazy">'
-                 if thumb else '\n            <div class="release-cover release-cover-empty"></div>')
+        cover = f'\n            <img class="release-cover" src="{thumb}" width="56" height="56" alt="" loading="lazy">'
         out.append(
             f'''        <a href="{html.escape(href, quote=True)}" class="release"{target}>{cover}
             <div class="release-meta">
@@ -451,8 +488,14 @@ def main():
     # Release pages first: each takes its accent colour from its own cover.
     updates = {}
     pages = {}
+    slugs = {}
     for r in releases:
+        slug = cover_slug(r["title"])
+        if slug in slugs:
+            raise SystemExit(f"releases.json: '{r['title']}' and '{slugs[slug]}' would share the cover file {slug}.jpg")
+        slugs[slug] = r["title"]
         if not r.get("page"):
+            pages[r["title"]] = (SITE + stored_cover(r, not check_only).relative_to(ROOT).as_posix(), PAGE_ACCENT)
             continue
         path = page_path(r)
         if not path.exists():
@@ -489,8 +532,9 @@ def main():
         print(f"  {display_date(r['date']):>17}  {build_meta(r).split(' - ')[0]:<20}  {r['title']}{feat}")
 
     print("\nAccent colours, from each page's cover:")
-    for title, (_, accent) in pages.items():
-        print(f"  {accent}  {title}")
+    for r in releases:
+        if r.get("page"):
+            print(f"  {pages[r['title']][1]}  {r['title']}")
 
     if check_only and stale:
         print("\nPages are out of date. Run: python build-releases.py")
