@@ -35,6 +35,10 @@ the artist as `https://itsnyamusic.com/#artist`, defined on the homepage. If you
 add a page, reference that id, do not define a second artist entity. Two rival
 entities is the thing this site is specifically built to avoid.
 
+**The homepage `dateModified` needs a full datetime.** The homepage is a
+`ProfilePage`, and Search Console flags a date with no time as invalid there.
+Write `2026-10-30T23:08:50+01:00`, never `2026-10-30`.
+
 **Every page loads `assets/site.css` right after `fonts.css`.** It holds the
 site-wide touches (square "pixel" dots on rows, the pink/cyan glitch on a
 row title on hover instead of a slide, lowercase labels, one background glow
