@@ -141,9 +141,14 @@ shows a year. Those sort against each other as plain strings, so nothing has
 to be invented to fill a gap. Add a row wherever its date puts it, then:
 
 ```
-python check-credits-order.py          # verify, exits 1 if out of order
-python check-credits-order.py --fix    # reorder in place
+python check-credits-order.py          # verify order and covers, exits 1 if off
+python check-credits-order.py --fix    # reorder in place, add missing covers
 ```
+
+`--fix` also gives each linked row its cover, like `/releases/`: fetched once from
+the row's own link, shrunk to 112px and stored as
+`assets/credit-covers/<artist-title>.jpg`. Commit those with the page. To replace
+one, delete the file and run `--fix` again. It needs Pillow.
 
 Rows with the same `data-date` keep the order they are written in, so where two
 releases only resolve to the same year, whichever you put first stays first.
