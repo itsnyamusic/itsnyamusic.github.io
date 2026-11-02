@@ -44,7 +44,7 @@ site-wide touches (the body font, square "pixel" dots on rows, the pink/cyan gli
 row title on hover instead of a slide, lowercase labels, the torn background
 bloom and lighter grain), in one place so every page gets them the same way.
 The bloom's shape is the mask `assets/glitch-bloom.svg`. Its hue comes from
-the page's `--accent-rgb` (purple if unset) at a fixed lightness and chroma,
+the page's `--accent-rgb` (purple if unset) at a fixed lightness, in shades of that hue only,
 so it holds up on any accent the release build picks.
 Its selectors start with `html` so they win over a page's own `<style>`.
 A new page copied from an existing one brings the link along;
