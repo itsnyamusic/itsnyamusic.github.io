@@ -5,9 +5,9 @@ Both typefaces are free and open source, licensed under the
 SIL Open Font License, Version 1.1, which permits self-hosting
 and embedding on a website.
 
-Inter
-  Copyright (c) 2016 The Inter Project Authors
-  https://github.com/rsms/inter
+Familjen Grotesk
+  Copyright (c) 2021 The Familjen Grotesk Project Authors
+  https://github.com/Familjen-Sthlm/Familjen-Grotesk
   SIL Open Font License 1.1
 
 Space Mono
