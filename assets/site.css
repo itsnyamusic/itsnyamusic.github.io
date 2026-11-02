@@ -41,10 +41,9 @@ html .eyebrow {
 }
 
 /* The corner bloom, torn up: glitch-bloom.svg cuts it into displaced bands and
-   pixel blocks. Everything stays in shades of the page's accent (purple if it
-   has none). Lightness is fixed in oklch and chroma capped, so yellow glows as
-   hard as blue. ::after is a paler shade of the same hue, flipped so its tears
-   fall out of sync. Static, no motion. */
+   pixel blocks. Both layers are the page's exact accent (purple if it has none),
+   only at different opacities, so no other hue can appear on any colour. ::after
+   is flipped so its tears fall out of sync. Static, no motion. */
 html body::before,
 html body::after {
     top: -20%;
@@ -59,13 +58,11 @@ html body::after {
 html body::before {
     left: -15%;
     background: rgba(var(--accent-rgb, 185, 103, 255), 0.2);
-    background: oklch(from rgb(var(--accent-rgb, 185, 103, 255)) 0.72 min(c, 0.24) h / 0.2);
 }
 
 html body::after {
     left: calc(-15% + 10px);
-    background: rgba(var(--accent-rgb, 185, 103, 255), 0.08);
-    background: oklch(from rgb(var(--accent-rgb, 185, 103, 255)) 0.86 min(c, 0.09) h / 0.09);
+    background: rgba(var(--accent-rgb, 185, 103, 255), 0.1);
     transform: scaleY(-1);
 }
 
