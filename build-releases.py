@@ -339,14 +339,13 @@ def build_html(releases, pages):
         href, dot = row_link(r)
         target = "" if r.get("page") else ' target="_blank" rel="noopener"'
         thumb, accent = pages.get(r["title"], (None, PAGE_ACCENT))
-        tag = (f'\n                <span class="release-tag" style="color: {accent}; border-color: {accent};">upcoming</span>'
-               if is_upcoming(r) else "")
+        meta_style = f' style="color: {accent};"' if is_upcoming(r) else ""
         cover = f'\n            <img class="release-cover" src="{thumb}" width="56" height="56" alt="" loading="lazy">'
         out.append(
             f'''        <a href="{html.escape(href, quote=True)}" class="release"{target}>{cover}
             <div class="release-meta">
                 <div class="release-dot" style="background: {dot};"></div>
-                <span>{html.escape(build_meta(r))}</span>{tag}
+                <span{meta_style}>{html.escape(build_meta(r))}</span>
             </div>
             <div class="release-title">{html.escape(r["title"])}</div>
         </a>'''
