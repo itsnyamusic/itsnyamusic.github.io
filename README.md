@@ -134,6 +134,10 @@ number, title, role, names). They are structured data only too, published as a
 schema.org `Role` on the track's `contributor`, since schema.org has no
 mixing-engineer property of its own. Names there need no Spotify profile.
 
+`artist_links` adds further profiles to a name in `artists` (Wikidata item,
+MusicBrainz artist, Genius artist). They go into `sameAs` after the Spotify
+profile, which is how the producer of Cyber-Rap is tied to his own records.
+
 **`credits/` is sorted newest first.** Every row in the list carries a
 `data-date`, an ISO date at whatever precision the source actually gives:
 a full date where the release has one, a bare year where the platform only

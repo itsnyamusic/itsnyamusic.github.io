@@ -60,6 +60,11 @@ RELEASE_TYPES = {
 }
 SPOTIFY_RE = re.compile(r"https://open\.spotify\.com/album/[A-Za-z0-9]{22}")
 SPOTIFY_ARTIST_RE = re.compile(r"https://open\.spotify\.com/artist/[A-Za-z0-9]{22}")
+PROFILE_RE = re.compile(
+    r"https://www\.wikidata\.org/wiki/Q\d+"
+    r"|https://musicbrainz\.org/artist/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"
+    r"|https://genius\.com/artists/[A-Za-z0-9-]+"
+)
 ISRC_RE = re.compile(r"[A-Z]{2}[A-Z0-9]{3}\d{7}")
 UPC_RE = re.compile(r"\d{12,13}")
 SOUNDCLOUD_RE = re.compile(r"https://soundcloud\.com/its_nya_music/(sets/)?[a-z0-9_-]+")
@@ -120,6 +125,18 @@ def load_releases():
     for n, url in artists.items():
         if not SPOTIFY_ARTIST_RE.fullmatch(url):
             raise SystemExit(f"releases.json: artist '{n}' has '{url}', must be a Spotify artist URL")
+
+    # Further profiles go after the Spotify one in sameAs.
+    for n, urls in data.get("artist_links", {}).items():
+        if n not in artists:
+            raise SystemExit(f"releases.json: artist_links names '{n}', who is not listed under artists")
+        for url in urls:
+            if not PROFILE_RE.fullmatch(url):
+                raise SystemExit(
+                    f"releases.json: artist_links '{n}' has '{url}', "
+                    "must be a Wikidata item, MusicBrainz artist or Genius artist URL"
+                )
+        artists[n] = [artists[n]] + urls
 
     seen = set()
     for i, r in enumerate(releases):

@@ -34,6 +34,14 @@
     "Shvde": "https://open.spotify.com/artist/33d5JZotpJdmT5wFBNjchV",
     "Cali808": "https://open.spotify.com/artist/6d8EcfaFCXdeBY2jjTmUuQ"
   },
+  "_artist_links": "Optional further profiles for an artist listed under artists: Wikidata item, MusicBrainz artist, Genius artist. Emitted in sameAs after the Spotify profile",
+  "artist_links": {
+    "Shvde": [
+      "https://www.wikidata.org/wiki/Q141971596",
+      "https://musicbrainz.org/artist/d23a46ff-d2e1-431d-a969-f196494f8bf5",
+      "https://genius.com/artists/Shvde"
+    ]
+  },
   "releases": [
     {
       "title": "Cyber-Rap",
