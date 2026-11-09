@@ -651,9 +651,44 @@ html .wrap::after {
     }
 }
 
+/* On a big window the site scales up and so does this, so it gets the
+   larger sheet there (build-spin.py writes both). */
+@media (min-width: 1800px) {
+    html .wrap::after {
+        -webkit-mask-image: url('/assets/spin-2x.webp');
+        mask-image: url('/assets/spin-2x.webp');
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html .wrap::after,
     html .links:has(+ .bottom)::after {
         animation: none;
+    }
+}
+
+
+/* ---- browsers without masks ---- */
+
+/* Everything torn or spinning on this site is a flat block of colour cut
+   into shape by a mask. A browser that cannot mask would show the blocks,
+   so there the decorations are left out and the pictures stay plain. */
+@supports not ((mask-image: none) or (-webkit-mask-image: none)) {
+    html::before,
+    html body::before,
+    html body::after,
+    html .wrap::after,
+    html .links:has(+ .bottom)::after {
+        display: none;
+    }
+}
+
+@supports not ((mask-clip: content-box) or (-webkit-mask-clip: content-box)) {
+    html .cover,
+    html .flyer,
+    html .release-cover,
+    html .credit-cover {
+        border-color: #0a0a0a;
+        background: none;
     }
 }

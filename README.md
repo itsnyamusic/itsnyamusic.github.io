@@ -94,8 +94,23 @@ render a new turntable as `spin_0000.png` onwards and run:
 python build-spin.py <frames folder> --start 12
 ```
 
-It prints the frame's `aspect-ratio`; if that changed, put it into the
-`.wrap::after` rule in `site.css`. It needs Pillow.
+It writes two sheets, `spin.webp` for everyone and the larger `spin-2x.webp`
+that only a big desktop window loads. It prints the frame's `aspect-ratio`;
+if that changed, put it into the `.wrap::after` rule in `site.css`. It needs
+Pillow.
+
+**The glitch masks come from `build-glitch.py`.** `glitch-halo.svg`,
+`glitch-halo-small.svg` and `glitch-field.svg` are drawn by it from fixed
+seeds, so they can be redrawn or changed at any time:
+
+```
+python build-glitch.py            # rewrite the three files
+python build-glitch.py --check    # verify without writing, exits 1 if stale
+```
+
+A new release does not need it. The masks have no colour of their own, each
+page lays them over its accent, so a new release page has its tears in its
+own colour the moment it exists.
 
 **No external requests, on any page, ever.** Loading any page must not contact
 a third party. Fonts are self-hosted and declared once in `assets/fonts.css`.
