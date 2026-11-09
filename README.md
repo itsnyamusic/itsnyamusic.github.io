@@ -66,7 +66,8 @@ gives the picture a transparent border, fills it with scanlines in the
 page's colour, and `assets/glitch-halo.svg` cuts that into bands sticking out
 of the picture's edge. `assets/glitch-field.svg` does the same one size up,
 bands reaching in from the edges of the screen. The small covers on rows get
-a hard ghost to each side, titles print twice, and a row's title jumps and
+a few small tears from `assets/glitch-halo-small.svg`, three variants that
+the rows take in turn. Titles print twice, and a row's title jumps and
 splits on hover. All of it is the page's accent, so a new release page gets
 it in its own colour without any work.
 
@@ -83,7 +84,9 @@ has to say the same thing, or the browser fetches the 640px file for an
 page's accent, so it takes each page's colour by itself. It is drawn by
 `.wrap::after`, so any page with a `.wrap` has it: in the bottom right corner
 on a wide screen, at the end of the page under the footer on a phone, and
-standing still for visitors who ask for reduced motion. To swap the object,
+standing still for visitors who ask for reduced motion. A page that ends in
+a list of links (the homepage) has it beside the last links on a phone
+instead, drawn by `.links::after`. To swap the object,
 render a new turntable as `spin_0000.png` onwards and run:
 
 ```

@@ -435,11 +435,15 @@ html .flyer {
     border-width: calc(var(--halo) / 2) var(--halo) calc(var(--halo) * 1.5);
     border-radius: 0;
     box-shadow: none;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(var(--accent-rgb), 0.5) 0 2px,
-        rgba(var(--accent-rgb), 0.28) 2px 4px
-    );
+    /* The dark layer sits under the picture only, so a cover that is still
+       loading is a dark square, not a block of the fringe colour. */
+    background:
+        linear-gradient(#111 0 0) content-box,
+        repeating-linear-gradient(
+            0deg,
+            rgba(var(--accent-rgb), 0.5) 0 2px,
+            rgba(var(--accent-rgb), 0.28) 2px 4px
+        ) border-box;
     -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         url('/assets/glitch-halo.svg') 0 0 / 100% 100% no-repeat border-box;
@@ -461,8 +465,10 @@ html .flyer {
     }
 }
 
-/* The small covers on rows get the same idea at their size: a ghost of the
-   page's colour knocked out to each side. */
+/* The small covers on rows get the same tear at their size, and far less
+   of it: a band or two and a loose block, not a frame. glitch-halo-small.svg
+   holds three different tears stacked on top of each other and the rows take
+   turns, so the list does not repeat one pattern all the way down. */
 html .release,
 html .credit {
     grid-template-columns: 3.5rem 1fr;
@@ -470,13 +476,35 @@ html .credit {
 
 html .release-cover,
 html .credit-cover {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: var(--corner);
+    --tear: 0.375rem;
+    width: calc(3.5rem + 2 * var(--tear));
+    height: calc(3.5rem + 2 * var(--tear));
+    max-width: none;
+    margin: calc(-1 * var(--tear));
+    border: var(--tear) solid transparent;
+    border-radius: 0;
     opacity: 1;
-    box-shadow:
-        -0.1875rem 0 0 rgba(var(--accent-rgb), 0.5),
-        0.25rem 0.125rem 0 rgba(var(--accent-rgb), 0.22);
+    background:
+        linear-gradient(#111 0 0) content-box,
+        linear-gradient(rgba(var(--accent-rgb), 0.6) 0 0) border-box;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        url('/assets/glitch-halo-small.svg') 0 0 / 100% 300% no-repeat border-box;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        url('/assets/glitch-halo-small.svg') 0 0 / 100% 300% no-repeat border-box;
+}
+
+html .release:nth-child(3n + 2) .release-cover,
+html .credit:nth-child(3n + 2) .credit-cover {
+    -webkit-mask-position: 0 0, 0 50%;
+    mask-position: 0 0, 0 50%;
+}
+
+html .release:nth-child(3n) .release-cover,
+html .credit:nth-child(3n) .credit-cover {
+    -webkit-mask-position: 0 0, 0 100%;
+    mask-position: 0 0, 0 100%;
 }
 
 
@@ -536,9 +564,8 @@ html::before {
    cannot animate them, or a visitor who asked for less motion, gets the
    first frame standing still.
 
-   On a phone it stands at the end of the page, under the footer, and never
-   behind text. Where there is room beside the column it stays in the bottom
-   right corner, opposite the bloom. */
+   It never sits behind text. Where it goes depends on the room there is,
+   see the three cases below. */
 @property --spin-col {
     syntax: '<integer>';
     inherits: false;
@@ -551,13 +578,13 @@ html::before {
     initial-value: 0;
 }
 
-html .wrap::after {
+html .wrap::after,
+html .links:has(+ .bottom)::after {
     content: '';
     display: block;
     flex: none;
     width: 7rem;
     aspect-ratio: 168 / 362;
-    margin: 3rem 0 0 auto;
     pointer-events: none;
     background: rgba(var(--accent-rgb), 0.55);
     -webkit-mask: url('/assets/spin.webp') calc(var(--spin-col) * 100% / 11) calc(var(--spin-row) * 20%) / 1200% 600%;
@@ -568,8 +595,46 @@ html .wrap::after {
 @keyframes spin-col { to { --spin-col: 12; } }
 @keyframes spin-row { to { --spin-row: 6; } }
 
+/* Phone and tablet: at the end of the page, under the footer. */
+html .wrap::after {
+    margin: 3rem 0 0 auto;
+}
+
+/* A page that ends in a list of links has room beside them, since the names
+   are short and sit on the left. There it stands next to the last links
+   instead of making the page longer. Not on the very narrowest phones, where
+   it would reach the names. */
+@media (min-width: 350px) {
+    html .links:has(+ .bottom) {
+        position: relative;
+    }
+
+    html .links:has(+ .bottom)::after {
+        position: absolute;
+        right: 0;
+        bottom: -1.25rem;
+    }
+
+    html .wrap:has(> .links + .bottom)::after {
+        display: none;
+    }
+}
+
+@media (max-width: 349.98px) {
+    html .links:has(+ .bottom)::after {
+        display: none;
+    }
+}
+
+/* Where there is room beside the column: fixed in the bottom right corner. */
 @media (min-width: 1240px) {
-    html .wrap::after {
+    html .links:has(+ .bottom)::after {
+        display: none;
+    }
+
+    html .wrap::after,
+    html .wrap:has(> .links + .bottom)::after {
+        display: block;
         position: fixed;
         left: calc(50% + 21.875rem + 3rem);
         bottom: 2.5rem;
@@ -579,5 +644,8 @@ html .wrap::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html .wrap::after { animation: none; }
+    html .wrap::after,
+    html .links:has(+ .bottom)::after {
+        animation: none;
+    }
 }
