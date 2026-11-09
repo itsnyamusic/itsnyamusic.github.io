@@ -1,10 +1,312 @@
-/* Site-wide touches, loaded on every page right after fonts.css. One file so
-   every page gets them the same way; selectors start with `html` so they win
-   over the per-page <style> blocks without editing them. */
+/* Site-wide styles, loaded on every page right after fonts.css. Each page
+   still carries its own layout in a <style> block. What is here is everything
+   that has to be the same on every page: colours, type sizes, links, rows,
+   images and the background. Selectors start with `html` so they win over the
+   per-page blocks without editing them. */
+
+
+/* ---- colours and sizes ---- */
+
+/* --accent is the page's colour. A release page gets its own from its cover
+   (build-releases.py), the homepage sets its pink, every other page gets the
+   purple here. Nothing below names a colour of its own. */
+html {
+    --accent-rgb: 185, 103, 255;
+    --accent: rgb(var(--accent-rgb));
+
+    /* Four greys and a rule, instead of a new grey per element. */
+    --ink: #e0e0e0;
+    --text: #a6a6a6;
+    --dim: #7e7e7e;
+    --faint: #565656;
+    --rule: #1c1c1c;
+
+    /* Three sizes next to the body's 1rem. Nothing on the site is set
+       smaller than --fs-label. */
+    --fs-label: 0.75rem;
+    --fs-small: 0.875rem;
+    --fs-lead: 1.0625rem;
+
+    --corner: 1px;
+
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(var(--accent-rgb), 0.18);
+}
+
+/* The greys lean a few percent towards the page's colour, so a green page
+   and a pink page do not share one dead neutral. */
+@supports (color: color-mix(in srgb, red, blue)) {
+    html {
+        --text: color-mix(in srgb, #a6a6a6, var(--accent) 8%);
+        --dim: color-mix(in srgb, #7e7e7e, var(--accent) 10%);
+        --faint: color-mix(in srgb, #565656, var(--accent) 10%);
+        --rule: color-mix(in srgb, #1c1c1c, var(--accent) 6%);
+    }
+}
+
+html ::selection {
+    background: var(--accent);
+    color: #0a0a0a;
+}
+
+html :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+
+/* ---- type ---- */
 
 /* The body font, set only here. Headings and labels keep Space Mono. */
 html body {
     font-family: 'Familjen Grotesk', sans-serif;
+}
+
+html .name,
+html .title {
+    text-wrap: balance;
+}
+
+/* Running text: one size, one line height, one colour. */
+html .prose,
+html .contact,
+html .lyrics p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+html .prose { text-wrap: pretty; }
+
+/* German legal text has long compounds; let them break on a phone. */
+html:lang(de) .prose { hyphens: auto; }
+
+html .lyrics p { line-height: 1.7; }
+
+html .bio {
+    font-size: var(--fs-lead);
+    color: var(--text);
+    text-wrap: pretty;
+}
+
+html .press-desc {
+    font-size: var(--fs-small);
+    color: var(--text);
+}
+
+html .bio strong,
+html .prose strong,
+html .song-title {
+    color: var(--ink);
+}
+
+/* Labels: everything small and in Space Mono. One size, no letter-spacing
+   (a monospace is spaced out already), and light enough to actually read. */
+html .back,
+html .subtitle,
+html .section-label,
+html .eyebrow,
+html .release-meta,
+html .credit-role,
+html .press-meta,
+html .press-more,
+html .toplink,
+html .song-feat,
+html .tracks .feat,
+html .index .feat,
+html .setlist .where,
+html .flyer-wrap figcaption,
+html .quote cite,
+html .msg {
+    font-family: 'Space Mono', monospace;
+    font-size: var(--fs-label);
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--dim);
+}
+
+html .subtitle { line-height: 1.6; }
+
+/* The words that are part of the interface, not names or dates, are written
+   small like the back link and the footer. */
+html .section-label,
+html .eyebrow,
+html .fact dt {
+    text-transform: lowercase;
+}
+
+/* Song part names keep the page's colour, at label size. */
+html .part {
+    font-size: var(--fs-label);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* Track numbers. */
+html .tracks li::before,
+html .index li::before,
+html .song-num,
+html .setlist li::marker {
+    font-size: var(--fs-label);
+}
+
+/* Credit lines under the lyrics. Size and colour only: on /credits/ the same
+   class name is the list itself. */
+html .credits {
+    font-size: var(--fs-label);
+    letter-spacing: 0;
+    color: var(--dim);
+}
+
+html .bottom {
+    font-size: var(--fs-label);
+    letter-spacing: 0;
+    color: var(--faint);
+}
+
+html .bottom a { color: var(--dim); }
+
+
+/* ---- links in text ---- */
+
+/* One link style wherever a link sits inside text: a real underline, which
+   takes the page's colour on hover. */
+html .prose a,
+html .contact a,
+html .setlist a,
+html .timetable a,
+html .fact dd a,
+html .flyer-wrap figcaption a,
+html .quote cite a,
+html .msg a {
+    color: var(--ink);
+    border-bottom: 0;
+    text-decoration: underline;
+    text-decoration-color: var(--faint);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+html .flyer-wrap figcaption a,
+html .quote cite a {
+    color: var(--text);
+}
+
+html .prose a:hover,
+html .contact a:hover,
+html .setlist a:hover,
+html .timetable a:hover,
+html .fact dd a:hover,
+html .flyer-wrap figcaption a:hover,
+html .quote cite a:hover,
+html .msg a:hover,
+html .timetable .slot-self dd a {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+}
+
+
+/* ---- rows ---- */
+
+html .link,
+html .release,
+html .credit,
+html .press,
+html .press-item,
+html .tracks li,
+html .index li,
+html .fact,
+html .slot,
+html .song,
+html .contact,
+html .credits {
+    border-color: var(--rule);
+}
+
+/* Rows you can click are one height, rows you read are another. */
+html .link,
+html .release,
+html .credit,
+html .press-list .press,
+html .press-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+html .tracks li,
+html .index li,
+html .fact,
+html .slot {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+
+html .link-name,
+html .release-title,
+html .credit-title,
+html .press-head {
+    font-size: var(--fs-lead);
+    color: var(--ink);
+}
+
+html .tracks li,
+html .index li,
+html .press-title,
+html .setlist {
+    font-size: 1rem;
+    color: var(--ink);
+}
+
+/* Label and value rows: release facts, press kit facts and the running
+   order are the same pattern, so they are the same row. The label sits in a
+   fixed column in Space Mono, the value next to it in the body font. */
+html .fact,
+html .slot {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    font-family: inherit;
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+html .fact dt,
+html .slot dt {
+    flex: 0 0 7.5rem;
+    min-width: 0;
+    padding-top: 0.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: var(--fs-label);
+    letter-spacing: 0;
+    color: var(--dim);
+}
+
+html .fact dd,
+html .slot dd {
+    font-weight: 400;
+    text-align: left;
+    color: var(--ink);
+}
+
+html .slot-break dd { color: var(--dim); }
+
+html .quote { font-size: var(--fs-small); }
+
+html .contact .handle { font-size: var(--fs-small); }
+
+@media (max-width: 480px) {
+    html .fact,
+    html .slot {
+        gap: 0.9rem;
+    }
+
+    html .fact dt,
+    html .slot dt {
+        flex-basis: 6rem;
+    }
 }
 
 /* Pixel dots: the colour markers on rows are tiny squares, not circles. */
@@ -12,7 +314,7 @@ html .link-dot,
 html .release-dot,
 html .credit-dot,
 html .press-dot {
-    border-radius: 1px;
+    border-radius: var(--corner);
 }
 
 /* Platform dot colours, one source for every page. A page's own .d-* rule
@@ -29,44 +331,6 @@ html .d-tiktok { background: #00f2ea; }
 html .d-x { background: #777; }
 html .d-genius { background: #ffff64; }
 html .d-shop { background: #ffb02e; }
-
-/* Labels in lowercase, in the site's own voice, instead of tiny spaced-out caps. */
-html .section-label,
-html .release-meta,
-html .credit-role,
-html .press-meta,
-html .eyebrow {
-    text-transform: none;
-    letter-spacing: 0.02em;
-}
-
-/* The corner bloom, torn up: glitch-bloom.svg cuts it into displaced bands and
-   pixel blocks. Both layers are the page's exact accent (purple if it has none),
-   only at different opacities, so no other hue can appear on any colour. ::after
-   is flipped so its tears fall out of sync. Static, no motion. */
-html body::before,
-html body::after {
-    top: -20%;
-    right: auto;
-    bottom: auto;
-    width: 70vw;
-    height: 70vh;
-    -webkit-mask: url('/assets/glitch-bloom.svg') center / 100% 100% no-repeat;
-    mask: url('/assets/glitch-bloom.svg') center / 100% 100% no-repeat;
-}
-
-html body::before {
-    left: -15%;
-    background: rgba(var(--accent-rgb, 185, 103, 255), 0.2);
-}
-
-html body::after {
-    left: calc(-15% + 10px);
-    background: rgba(var(--accent-rgb, 185, 103, 255), 0.1);
-    transform: scaleY(-1);
-}
-
-html .grain { opacity: 0.18; }
 
 /* Rows stay put on hover; the title glitch below is the hover. */
 html .link:hover,
@@ -89,4 +353,110 @@ html .release:hover .release-title,
 html .credit:hover .credit-title,
 html .press:hover .press-head {
     text-shadow: -1px 0 rgba(255, 45, 123, 0.6), 1px 0 rgba(0, 229, 255, 0.5);
+}
+
+
+/* ---- pictures ---- */
+
+/* Covers are square-cornered like the dots and sit flat on the page: a
+   hairline where the picture ends, no glow under it. */
+html .cover,
+html .flyer {
+    border-radius: var(--corner);
+    box-shadow: 0 0 0 1px var(--rule);
+}
+
+html .release-cover,
+html .credit-cover {
+    border-radius: var(--corner);
+    opacity: 1;
+}
+
+
+/* ---- background ---- */
+
+/* The corner bloom, torn up: glitch-bloom.svg cuts it into displaced bands and
+   pixel blocks. Both layers are the page's exact accent, only at different
+   opacities, so no other hue can appear on any colour. ::after is flipped so
+   its tears fall out of sync. Static, no motion. */
+html body::before,
+html body::after {
+    top: -20%;
+    right: auto;
+    bottom: auto;
+    width: 70vw;
+    height: 70vh;
+    -webkit-mask: url('/assets/glitch-bloom.svg') center / 100% 100% no-repeat;
+    mask: url('/assets/glitch-bloom.svg') center / 100% 100% no-repeat;
+}
+
+html body::before {
+    left: -15%;
+    background: rgba(var(--accent-rgb), 0.2);
+}
+
+html body::after {
+    left: calc(-15% + 10px);
+    background: rgba(var(--accent-rgb), 0.1);
+    transform: scaleY(-1);
+}
+
+html .grain { opacity: 0.18; }
+
+
+/* ---- the spinning wireframe ---- */
+
+/* spin.webp is one turn of the object as 72 frames, 12 across and 6 down
+   (build-spin.py). It is only a mask: what shows is the page's accent, so the
+   object is the page's colour on every page, like the bloom.
+
+   Two counters step through the sheet, one along a row and one down the
+   rows, so the mask position needs no list of 72 keyframes. A browser that
+   cannot animate them, or a visitor who asked for less motion, gets the
+   first frame standing still.
+
+   On a phone it stands at the end of the page, under the footer, and never
+   behind text. Where there is room beside the column it stays in the bottom
+   right corner, opposite the bloom. */
+@property --spin-col {
+    syntax: '<integer>';
+    inherits: false;
+    initial-value: 0;
+}
+
+@property --spin-row {
+    syntax: '<integer>';
+    inherits: false;
+    initial-value: 0;
+}
+
+html .wrap::after {
+    content: '';
+    display: block;
+    flex: none;
+    width: 112px;
+    aspect-ratio: 168 / 362;
+    margin: 3rem 0 0 auto;
+    pointer-events: none;
+    background: rgba(var(--accent-rgb), 0.55);
+    -webkit-mask: url('/assets/spin.webp') calc(var(--spin-col) * 100% / 11) calc(var(--spin-row) * 20%) / 1200% 600%;
+    mask: url('/assets/spin.webp') calc(var(--spin-col) * 100% / 11) calc(var(--spin-row) * 20%) / 1200% 600%;
+    animation: spin-col 2s steps(12) infinite, spin-row 12s steps(6) infinite;
+}
+
+@keyframes spin-col { to { --spin-col: 12; } }
+@keyframes spin-row { to { --spin-row: 6; } }
+
+@media (min-width: 1240px) {
+    html .wrap::after {
+        position: fixed;
+        left: calc(50% + 350px + 3rem);
+        bottom: 2.5rem;
+        width: 168px;
+        margin: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html .wrap::after { animation: none; }
 }

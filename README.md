@@ -39,15 +39,41 @@ entities is the thing this site is specifically built to avoid.
 `ProfilePage`, and Search Console flags a date with no time as invalid there.
 Write `2026-10-30T23:08:50+01:00`, never `2026-10-30`.
 
-**Every page loads `assets/site.css` right after `fonts.css`.** It holds the
-site-wide touches (the body font, square "pixel" dots on rows, the pink/cyan glitch on a
-row title on hover instead of a slide, lowercase labels, the torn background
-bloom and lighter grain), in one place so every page gets them the same way.
-The bloom's shape is the mask `assets/glitch-bloom.svg`. Its colour is the
-page's exact `--accent-rgb` (purple if unset) at two opacities, nothing else.
+**Every page loads `assets/site.css` right after `fonts.css`.** A page's own
+`<style>` holds its layout; `site.css` holds everything that has to be the
+same on every page, in one place so it cannot drift: the body font, the four
+greys, the type sizes, how a link in text looks, row heights, square "pixel"
+dots, flat square-cornered covers, the pink/cyan glitch on a row title on
+hover, the torn background bloom, the grain and the spinning wireframe.
 Its selectors start with `html` so they win over a page's own `<style>`.
 A new page copied from an existing one brings the link along;
 `build-releases.py` refuses a release page without it.
+
+When a page needs a colour or a size, use what `site.css` already defines
+rather than a new value: `--ink`, `--text`, `--dim`, `--faint` and `--rule`
+for greys, `--fs-label`, `--fs-small`, `1rem` and `--fs-lead` for text. No
+text is smaller than `--fs-label` and small labels carry no letter-spacing.
+Everything coloured uses `var(--accent)` or `rgba(var(--accent-rgb), a)`,
+which is the page's own colour (purple if the page sets none), so it works on
+any release page.
+
+The bloom's shape is the mask `assets/glitch-bloom.svg`. Its colour is the
+page's exact `--accent-rgb` at two opacities, nothing else.
+
+**The spinning wireframe is `assets/spin.webp`,** one turn of the object as
+72 frames in a 12 by 6 sheet. Like the bloom it is only a mask over the
+page's accent, so it takes each page's colour by itself. It is drawn by
+`.wrap::after`, so any page with a `.wrap` has it: in the bottom right corner
+on a wide screen, at the end of the page under the footer on a phone, and
+standing still for visitors who ask for reduced motion. To swap the object,
+render a new turntable as `spin_0000.png` onwards and run:
+
+```
+python build-spin.py <frames folder> --start 12
+```
+
+It prints the frame's `aspect-ratio`; if that changed, put it into the
+`.wrap::after` rule in `site.css`. It needs Pillow.
 
 **No external requests, on any page, ever.** Loading any page must not contact
 a third party. Fonts are self-hosted and declared once in `assets/fonts.css`.
