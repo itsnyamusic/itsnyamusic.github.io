@@ -29,6 +29,13 @@ html {
 
     --corner: 1px;
 
+    /* Desktop scale. Every size on the site is in rem, so this one line is
+       the zoom: 100% up to a 1280px window, growing with the window to 150%
+       on a 2560x1440 screen, where the default size left the page lost in
+       the middle. The 50% part still follows the browser's own zoom, and
+       the vh term keeps a wide but short window from getting giant type. */
+    font-size: clamp(100%, min(50% + 0.625vw, 50% + 1.25vh), 150%);
+
     color-scheme: dark;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -57,6 +64,18 @@ html :focus-visible {
 }
 
 
+/* ---- layout ---- */
+
+/* The pages set these in px. In rem they follow the desktop scale above. */
+html .wrap { max-width: 38.75rem; }
+
+html .bio { max-width: 26.25rem; }
+
+@media (min-width: 1200px) {
+    html .wrap:has(> .name) { max-width: 43.75rem; }
+}
+
+
 /* ---- type ---- */
 
 /* The body font, set only here. Headings and labels keep Space Mono. */
@@ -64,9 +83,13 @@ html body {
     font-family: 'Familjen Grotesk', sans-serif;
 }
 
+/* Titles print twice: a ghost of the page's colour, shifted sideways. */
 html .name,
 html .title {
     text-wrap: balance;
+    text-shadow:
+        -0.03em 0 0 rgba(var(--accent-rgb), 0.4),
+        0.055em 0 0 rgba(var(--accent-rgb), 0.2);
 }
 
 /* Running text: one size, one line height, one colour. */
@@ -314,6 +337,8 @@ html .link-dot,
 html .release-dot,
 html .credit-dot,
 html .press-dot {
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: var(--corner);
 }
 
@@ -340,7 +365,8 @@ html .press:hover {
     padding-left: 0;
 }
 
-/* Glitch hover: a hairline pink/cyan split on a row's title. Static, no motion. */
+/* Glitch hover: the row's title jumps sideways for a moment and settles
+   into a split in the page's colour. Keyboard focus gets the same. */
 html .link .link-name,
 html .release .release-title,
 html .credit .credit-title,
@@ -351,25 +377,106 @@ html .press .press-head {
 html .link:hover .link-name,
 html .release:hover .release-title,
 html .credit:hover .credit-title,
-html .press:hover .press-head {
-    text-shadow: -1px 0 rgba(255, 45, 123, 0.6), 1px 0 rgba(0, 229, 255, 0.5);
+html .press:hover .press-head,
+html .link:focus-visible .link-name,
+html .release:focus-visible .release-title,
+html .credit:focus-visible .credit-title,
+html .press:focus-visible .press-head {
+    text-shadow:
+        -2px 0 rgba(var(--accent-rgb), 0.95),
+        2px 0 rgba(var(--accent-rgb), 0.45);
+    animation: row-glitch 0.24s steps(1) 1;
+}
+
+@keyframes row-glitch {
+    0% {
+        transform: translateX(-4px);
+        text-shadow: 6px 0 rgba(var(--accent-rgb), 0.95), -3px 0 rgba(var(--accent-rgb), 0.45);
+    }
+    30% {
+        transform: translateX(3px);
+        text-shadow: -7px 0 rgba(var(--accent-rgb), 0.95), 2px 0 rgba(var(--accent-rgb), 0.45);
+    }
+    60% {
+        transform: translateX(-1px);
+        text-shadow: 3px 0 rgba(var(--accent-rgb), 0.95), -5px 0 rgba(var(--accent-rgb), 0.45);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html .link-name,
+    html .release-title,
+    html .credit-title,
+    html .press-head {
+        animation: none !important;
+    }
 }
 
 
 /* ---- pictures ---- */
 
-/* Covers are square-cornered like the dots and sit flat on the page: a
-   hairline where the picture ends, no glow under it. */
+/* A cover does not glow, it tears. The picture gets a transparent border,
+   wide at the bottom where a shadow would fall, and the border is filled
+   with scanlines in the page's colour. glitch-halo.svg then cuts that fill
+   into bands that stick out of the picture's edge like rows of it knocked
+   sideways, plus loose blocks. The first mask layer keeps the picture
+   itself whole. Negative margins give back the room the border takes, so
+   the picture stays exactly as wide as the column. */
 html .cover,
 html .flyer {
-    border-radius: var(--corner);
-    box-shadow: 0 0 0 1px var(--rule);
+    --halo: 2.5rem;
+    width: calc(100% + 2 * var(--halo));
+    max-width: none;
+    margin: calc(var(--halo) / -2) calc(-1 * var(--halo)) 0.25rem;
+    border: solid transparent;
+    border-width: calc(var(--halo) / 2) var(--halo) calc(var(--halo) * 1.5);
+    border-radius: 0;
+    box-shadow: none;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(var(--accent-rgb), 0.5) 0 2px,
+        rgba(var(--accent-rgb), 0.28) 2px 4px
+    );
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        url('/assets/glitch-halo.svg') 0 0 / 100% 100% no-repeat border-box;
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        url('/assets/glitch-halo.svg') 0 0 / 100% 100% no-repeat border-box;
+}
+
+/* The flyer has a caption under it, so its fringe stays short there. */
+html .flyer {
+    margin-bottom: 0;
+    border-bottom-width: calc(var(--halo) / 2);
+}
+
+@media (max-width: 480px) {
+    html .cover,
+    html .flyer {
+        --halo: 1.5rem;
+    }
+}
+
+/* The small covers on rows get the same idea at their size: a ghost of the
+   page's colour knocked out to each side. */
+html .release,
+html .credit {
+    grid-template-columns: 3.5rem 1fr;
 }
 
 html .release-cover,
 html .credit-cover {
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: var(--corner);
     opacity: 1;
+    box-shadow:
+        -0.1875rem 0 0 rgba(var(--accent-rgb), 0.5),
+        0.25rem 0.125rem 0 rgba(var(--accent-rgb), 0.22);
 }
 
 
@@ -403,6 +510,20 @@ html body::after {
 
 html .grain { opacity: 0.18; }
 
+/* The screen tears at its own edges too: bands of the page's colour reach
+   in from the right and the lower left, the cover's fringe one size up.
+   They stay put while the page scrolls past. */
+html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: rgba(var(--accent-rgb), 0.13);
+    -webkit-mask: url('/assets/glitch-field.svg') 0 0 / 100% 100% no-repeat;
+    mask: url('/assets/glitch-field.svg') 0 0 / 100% 100% no-repeat;
+}
+
 
 /* ---- the spinning wireframe ---- */
 
@@ -434,7 +555,7 @@ html .wrap::after {
     content: '';
     display: block;
     flex: none;
-    width: 112px;
+    width: 7rem;
     aspect-ratio: 168 / 362;
     margin: 3rem 0 0 auto;
     pointer-events: none;
@@ -450,9 +571,9 @@ html .wrap::after {
 @media (min-width: 1240px) {
     html .wrap::after {
         position: fixed;
-        left: calc(50% + 350px + 3rem);
+        left: calc(50% + 21.875rem + 3rem);
         bottom: 2.5rem;
-        width: 168px;
+        width: 10.5rem;
         margin: 0;
     }
 }

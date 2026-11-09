@@ -43,8 +43,8 @@ Write `2026-10-30T23:08:50+01:00`, never `2026-10-30`.
 `<style>` holds its layout; `site.css` holds everything that has to be the
 same on every page, in one place so it cannot drift: the body font, the four
 greys, the type sizes, how a link in text looks, row heights, square "pixel"
-dots, flat square-cornered covers, the pink/cyan glitch on a row title on
-hover, the torn background bloom, the grain and the spinning wireframe.
+dots, the torn fringe on covers, the glitch on a row title on hover, the
+torn background bloom, the grain and the spinning wireframe.
 Its selectors start with `html` so they win over a page's own `<style>`.
 A new page copied from an existing one brings the link along;
 `build-releases.py` refuses a release page without it.
@@ -59,6 +59,24 @@ any release page.
 
 The bloom's shape is the mask `assets/glitch-bloom.svg`. Its colour is the
 page's exact `--accent-rgb` at two opacities, nothing else.
+
+**Depth comes from tearing, not from glow.** Nothing on the site has a
+blurred shadow. A cover or flyer gets a torn fringe instead: `site.css`
+gives the picture a transparent border, fills it with scanlines in the
+page's colour, and `assets/glitch-halo.svg` cuts that into bands sticking out
+of the picture's edge. `assets/glitch-field.svg` does the same one size up,
+bands reaching in from the edges of the screen. The small covers on rows get
+a hard ghost to each side, titles print twice, and a row's title jumps and
+splits on hover. All of it is the page's accent, so a new release page gets
+it in its own colour without any work.
+
+**The site scales itself up on a big screen.** Every size is in rem, and
+`site.css` sets the root size from the window: 100% up to 1280px wide,
+growing to 150% on a 2560x1440 screen. So write sizes in rem, never px, or
+that element stays small while the rest grows. A cover's `sizes` attribute
+has to say the same thing, or the browser fetches the 640px file for an
+810px slot: copy it from an existing release page,
+`(max-width: 620px) 100vw, clamp(540px, calc(270px + 21.1vw), 810px)`.
 
 **The spinning wireframe is `assets/spin.webp`,** one turn of the object as
 72 frames in a 12 by 6 sheet. Like the bloom it is only a mask over the
