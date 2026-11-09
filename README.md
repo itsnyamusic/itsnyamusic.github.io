@@ -82,11 +82,12 @@ has to say the same thing, or the browser fetches the 640px file for an
 **The spinning wireframe is `assets/spin.webp`,** one turn of the object as
 72 frames in a 12 by 6 sheet. Like the bloom it is only a mask over the
 page's accent, so it takes each page's colour by itself. It is drawn by
-`.wrap::after`, so any page with a `.wrap` has it: in the bottom right corner
-on a wide screen, at the end of the page under the footer on a phone, and
-standing still for visitors who ask for reduced motion. A page that ends in
-a list of links (the homepage) has it beside the last links on a phone
-instead, drawn by `.links::after`. To swap the object,
+`.wrap::after`, so any page with a `.wrap` has it, always in the bottom
+right corner of the screen: in the gutter at full strength on a wide screen,
+and on a phone behind the page at the bloom's opacity, so text stays
+readable over it. It stands still for visitors who ask for reduced motion.
+A page that ends in a list of links (the homepage) has it beside the last
+links on a phone instead, at full strength, drawn by `.links::after`. To swap the object,
 render a new turntable as `spin_0000.png` onwards and run:
 
 ```

@@ -595,15 +595,22 @@ html .links:has(+ .bottom)::after {
 @keyframes spin-col { to { --spin-col: 12; } }
 @keyframes spin-row { to { --spin-row: 6; } }
 
-/* Phone and tablet: at the end of the page, under the footer. */
+/* Phone and tablet: part of the background. It stays in the bottom right
+   corner of the screen, behind the page, as faint as the corner bloom, so
+   text runs over it the way it runs over the bloom and stays readable. */
 html .wrap::after {
-    margin: 3rem 0 0 auto;
+    position: fixed;
+    right: 0.5rem;
+    bottom: 1rem;
+    z-index: -1;
+    width: 9rem;
+    background: rgba(var(--accent-rgb), 0.2);
 }
 
 /* A page that ends in a list of links has room beside them, since the names
-   are short and sit on the left. There it stands next to the last links
-   instead of making the page longer. Not on the very narrowest phones, where
-   it would reach the names. */
+   are short and sit on the left. There it stands next to the last links at
+   full strength. Not on the very narrowest phones, where it would reach the
+   names. */
 @media (min-width: 350px) {
     html .links:has(+ .bottom) {
         position: relative;
@@ -626,7 +633,8 @@ html .wrap::after {
     }
 }
 
-/* Where there is room beside the column: fixed in the bottom right corner. */
+/* Where there is room beside the column: in the gutter at full strength,
+   since nothing runs over it there. */
 @media (min-width: 1240px) {
     html .links:has(+ .bottom)::after {
         display: none;
@@ -635,11 +643,11 @@ html .wrap::after {
     html .wrap::after,
     html .wrap:has(> .links + .bottom)::after {
         display: block;
-        position: fixed;
         left: calc(50% + 21.875rem + 3rem);
+        right: auto;
         bottom: 2.5rem;
         width: 10.5rem;
-        margin: 0;
+        background: rgba(var(--accent-rgb), 0.55);
     }
 }
 
