@@ -327,6 +327,39 @@
       "author": null,
       "lang": "en",
       "accent": "#22d3ee"
+    },
+    {
+      "outlet": "Clubbin'One",
+      "url": "https://www.clubbinone.fr/",
+      "headline": "Clubbin'One plays “Houseflip”",
+      "description": "The French web radio Clubbin'One put “Houseflip” on air, three months after it first played “Denk Wieder an Dich”.",
+      "date": "2026-10-18",
+      "author": null,
+      "lang": "fr",
+      "accent": "#c084fc",
+      "type": "CreativeWork"
+    },
+    {
+      "outlet": "Orum Sounds",
+      "url": "https://www.instagram.com/stories/orumsounds/3991092754365149030/",
+      "headline": "Orum Sounds shares “Denk Wieder an Dich”",
+      "description": "The Brazilian music page Orum Sounds shared “Denk Wieder an Dich” in its Instagram story, hearing it as bass-heavy rap where Brazil and Germany connect.",
+      "date": "2026-09-21",
+      "author": null,
+      "lang": "en",
+      "accent": "#22c55e",
+      "type": "CreativeWork"
+    },
+    {
+      "outlet": "Clubbin'One",
+      "url": "https://www.clubbinone.fr/",
+      "headline": "Clubbin'One plays “Denk Wieder an Dich”",
+      "description": "The French web radio Clubbin'One put “Denk Wieder an Dich” on air, the first time a radio station played Nya.",
+      "date": "2026-07-20",
+      "author": null,
+      "lang": "fr",
+      "accent": "#c084fc",
+      "type": "CreativeWork"
     }
   ]
 }
